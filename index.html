@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ELI_WENDI · Creator Hub</title>
+<style>
+  :root {
+    --bg: #0b0a14; --panel: #141222; --panel-2: #1b1830; --line: #2a2547;
+    --blue: #4f7cff; --purple: #a35bff; --pink: #e85bff;
+    --text: #eceaf6; --muted: #8d87ab; --good: #4fe3a3; --warn: #ffc14f; --bad: #ff5b7c;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: "Segoe UI", system-ui, sans-serif; min-height: 100vh; padding: 20px 14px 80px; }
+  .wrap { max-width: 780px; margin: 0 auto; }
+  .brand { font-size: 13px; letter-spacing: 3px; text-transform: uppercase; font-weight: 700;
+    background: linear-gradient(90deg, var(--blue), var(--purple), var(--pink));
+    -webkit-background-clip: text; background-clip: text; color: transparent; }
+  h1 { font-size: 24px; font-weight: 800; margin: 4px 0 14px; }
+
+  /* Oberkategorien */
+  .toptabs { display: flex; gap: 8px; margin-bottom: 10px; }
+  .toptab { flex: 1; background: var(--panel); border: 1px solid var(--line); color: var(--muted); padding: 13px 6px; border-radius: 12px; font-size: 13.5px; font-weight: 700; cursor: pointer; text-align: center; transition: all .15s; }
+  .toptab.active { color: #fff; background: linear-gradient(135deg, var(--blue), var(--purple)); border-color: transparent; }
+  .toptab small { display: block; font-size: 10px; font-weight: 400; opacity: .8; margin-top: 2px; letter-spacing: .5px; }
+
+  /* Unter-Tabs */
+  .subtabs { display: flex; gap: 6px; margin-bottom: 18px; flex-wrap: wrap; }
+  .subtab { background: var(--panel-2); border: 1px solid var(--line); color: var(--muted); padding: 8px 14px; border-radius: 99px; font-size: 12.5px; font-weight: 600; cursor: pointer; }
+  .subtab.active { color: var(--text); border-color: var(--purple); background: var(--panel); }
+
+  .page { display: none; }
+  .top-page { display: none; }
+  .top-page.active { display: block; }
+  .page.active { display: block; }
+  .sub-section { display: none; }
+  .sub-section.active { display: block; }
+
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin-bottom: 12px; }
+  .card.today { border-color: var(--purple); box-shadow: 0 0 0 1px var(--purple); }
+  .card.highlight { border-color: var(--pink); box-shadow: 0 0 16px rgba(232,91,255,.2); }
+  .card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+  .card-title { font-weight: 700; font-size: 15px; }
+  .tag { font-size: 11px; padding: 3px 9px; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
+  .tag.stream { color: var(--blue); border-color: var(--blue); }
+  .tag.edit { color: var(--purple); border-color: var(--purple); }
+  .tag.upload { color: var(--pink); border-color: var(--pink); }
+  .tag.guide { color: var(--blue); border-color: var(--blue); text-transform: uppercase; }
+  .tag.challenge { color: var(--pink); border-color: var(--pink); text-transform: uppercase; }
+  .tag.short { color: var(--warn); border-color: var(--warn); text-transform: uppercase; }
+  .tag.stream-idea { color: var(--good); border-color: var(--good); text-transform: uppercase; }
+  .tag.reaction { color: #5be8e8; border-color: #5be8e8; text-transform: uppercase; }
+  .tag.eigene { color: var(--good); border-color: var(--good); text-transform: uppercase; }
+  .today-badge { margin-left: auto; font-size: 11px; font-weight: 700; color: var(--good); letter-spacing: 1px; }
+
+  .task { display: flex; align-items: flex-start; gap: 10px; padding: 8px 6px; border-radius: 8px; cursor: pointer; user-select: none; }
+  .task:hover { background: var(--panel-2); }
+  .task input { display: none; }
+  .box { width: 20px; height: 20px; min-width: 20px; border-radius: 6px; border: 2px solid var(--line); margin-top: 1px; position: relative; transition: all .15s; }
+  .task input:checked + .box { background: linear-gradient(135deg, var(--blue), var(--purple)); border-color: transparent; }
+  .task input:checked + .box::after { content: "✓"; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 13px; font-weight: 800; }
+  .task-text { font-size: 14px; line-height: 1.4; }
+  .task input:checked ~ .task-text { color: var(--muted); text-decoration: line-through; }
+
+  .btn { background: linear-gradient(135deg, var(--blue), var(--purple)); border: none; color: #fff; padding: 11px 18px; border-radius: 10px; font-size: 13.5px; font-weight: 700; cursor: pointer; }
+  .btn:disabled { opacity: .6; cursor: default; }
+  .btn-ghost { background: var(--panel-2); border: 1px solid var(--line); color: var(--text); padding: 9px 16px; border-radius: 10px; font-size: 13px; cursor: pointer; }
+  .btn-ghost:hover { border-color: var(--purple); }
+  .btn-ghost.danger:hover { border-color: var(--bad); color: var(--bad); }
+  .counter { font-size: 12px; color: var(--muted); margin: 10px 0 14px; }
+  input, textarea, select { font-family: inherit; }
+  .field { width: 100%; background: var(--panel-2); border: 1px solid var(--line); color: var(--text); border-radius: 8px; padding: 10px; font-size: 13.5px; margin-bottom: 8px; }
+  textarea.field { resize: vertical; min-height: 70px; }
+
+  /* Countdown */
+  .next-stream { display: inline-flex; align-items: center; gap: 10px; background: var(--panel); border: 1px solid var(--line); border-radius: 99px; padding: 9px 18px; font-size: 13.5px; font-weight: 600; }
+  .next-stream.live { border-color: var(--pink); box-shadow: 0 0 14px rgba(232,91,255,.35); }
+  .next-stream .ns-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--blue); }
+  .next-stream.live .ns-dot { background: var(--pink); animation: blinkDot 1.6s infinite; }
+  @keyframes blinkDot { 0%,100% { opacity: 1; } 50% { opacity: .3; } }
+  .next-stream small { color: var(--muted); font-weight: 400; }
+
+  /* Quick-Links */
+  .links-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+  .link-btn { display: flex; align-items: center; gap: 10px; background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; text-decoration: none; color: var(--text); font-size: 13.5px; font-weight: 600; transition: all .15s; }
+  .link-btn:hover { border-color: var(--purple); transform: translateY(-1px); }
+  .link-btn .ic { font-size: 18px; }
+  .link-btn.empty { opacity: .5; }
+
+  /* Dashboard heute */
+  .today-item { display: flex; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 14px; line-height: 1.4; }
+  .today-item:last-child { border-bottom: none; }
+  .today-item .ti-time { color: var(--purple); font-weight: 700; min-width: 52px; font-size: 13px; }
+
+  /* Modal / Popup */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.7); z-index: 100; align-items: center; justify-content: center; padding: 16px; }
+  .modal-overlay.show { display: flex; }
+  .modal { background: var(--panel); border: 1px solid var(--purple); border-radius: 16px; padding: 22px; max-width: 460px; width: 100%; max-height: 85vh; overflow-y: auto; box-shadow: 0 0 40px rgba(163,91,255,.3); }
+  .modal h3 { font-size: 18px; margin-bottom: 4px; }
+  .modal .m-sub { color: var(--muted); font-size: 13px; margin-bottom: 16px; }
+  .modal-foot { display: flex; gap: 8px; margin-top: 16px; }
+  .modal-result { margin-top: 14px; padding: 12px 14px; border-radius: 10px; font-size: 14px; font-weight: 600; text-align: center; display: none; }
+  .modal-result.ok { display: block; background: rgba(79,227,163,.12); border: 1px solid var(--good); color: var(--good); }
+  .modal-result.warn { display: block; background: rgba(255,193,79,.12); border: 1px solid var(--warn); color: var(--warn); }
+
+  /* Week nav */
+  .week-nav { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; }
+  .week-nav button { background: var(--panel-2); border: 1px solid var(--line); color: var(--text); border-radius: 8px; width: 34px; height: 34px; font-size: 16px; cursor: pointer; }
+  .week-nav button:hover { border-color: var(--purple); }
+  .week-label { flex: 1; text-align: center; font-weight: 600; font-size: 15px; }
+  .week-label small { display: block; color: var(--muted); font-weight: 400; font-size: 12px; margin-top: 2px; }
+  .bar { height: 10px; background: var(--panel-2); border-radius: 99px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 99px; width: 0%; background: linear-gradient(90deg, var(--blue), var(--purple), var(--pink)); transition: width .4s; }
+  .progress-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+  .progress-top .pct { font-size: 26px; font-weight: 800; color: var(--purple); }
+  .stats-row { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+  .stat { flex: 1; min-width: 90px; background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; padding: 10px; text-align: center; }
+  .stat b { display: block; font-size: 19px; }
+  .stat span { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+
+  h2 { font-size: 16px; margin: 24px 0 12px; }
+  .milestone { display: flex; gap: 12px; align-items: flex-start; }
+  .m-day { font-size: 12px; font-weight: 800; color: var(--purple); min-width: 56px; padding-top: 2px; letter-spacing: 1px; }
+  .milestone p { font-size: 13.5px; line-height: 1.45; }
+  .milestone p small { color: var(--muted); display: block; margin-top: 3px; }
+
+  /* Ideen */
+  .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .chip { background: var(--panel-2); border: 1px solid var(--line); color: var(--muted); padding: 7px 14px; border-radius: 99px; font-size: 12.5px; cursor: pointer; }
+  .chip.active { color: var(--text); border-color: var(--purple); background: var(--panel); }
+  .idea.done { opacity: .55; }
+  .idea-title { font-weight: 700; font-size: 15.5px; width: 100%; line-height: 1.35; }
+  .thumb-label { font-size: 11px; color: var(--purple); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-top: 8px; }
+  .thumb-text { font-size: 13.5px; color: var(--muted); line-height: 1.45; margin-top: 3px; }
+  .hint-text { font-size: 12.5px; color: var(--muted); line-height: 1.4; margin-top: 8px; font-style: italic; }
+  .status-row { display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap; }
+  .status-btn { flex: 1; min-width: 66px; background: var(--panel-2); border: 1px solid var(--line); color: var(--muted); padding: 8px 4px; border-radius: 8px; font-size: 12px; cursor: pointer; }
+  .status-btn.active { color: #fff; border-color: transparent; font-weight: 700; background: linear-gradient(135deg, var(--blue), var(--purple)); }
+  .del-btn { background: none; border: none; color: var(--muted); font-size: 12px; cursor: pointer; margin-top: 10px; text-decoration: underline; }
+  .del-btn:hover { color: var(--bad); }
+  .add-card { border-style: dashed; }
+  .tw-counter { font-size: 12px; font-weight: 700; color: var(--good); }
+  .tw-counter.over { color: var(--bad); }
+  .tw-formula { background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; margin-bottom: 8px; }
+  .tw-formula b { font-size: 13px; display: block; color: var(--purple); }
+  .tw-formula span { font-size: 12.5px; color: var(--muted); line-height: 1.45; }
+
+  details { background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; margin-top: 12px; }
+  summary { cursor: pointer; font-weight: 700; font-size: 13.5px; color: var(--purple); }
+  .obs-table { width: 100%; margin-top: 10px; font-size: 13px; border-collapse: collapse; }
+  .obs-table td { padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; line-height: 1.4; }
+  .obs-table td:first-child { color: var(--muted); white-space: nowrap; padding-right: 14px; }
+
+  /* Stats */
+  .stat-entry { background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; margin-bottom: 10px; }
+  .stat-entry .se-head { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+  .stat-entry .se-title { font-weight: 700; font-size: 14px; }
+  .stat-entry .se-date { font-size: 11.5px; color: var(--muted); }
+  .se-metrics { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+  .metric { font-size: 12.5px; padding: 5px 10px; border-radius: 8px; border: 1px solid var(--line); font-weight: 600; }
+  .metric.g { color: var(--good); border-color: var(--good); }
+  .metric.y { color: var(--warn); border-color: var(--warn); }
+  .metric.r { color: var(--bad); border-color: var(--bad); }
+  .metric.n { color: var(--muted); }
+  .se-diag { font-size: 12.5px; color: var(--muted); margin-top: 8px; line-height: 1.4; font-style: italic; }
+  .trend-line { font-size: 13px; color: var(--text); margin-bottom: 12px; background: var(--panel-2); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; }
+
+  /* Roadmap */
+  .rm-phase { position: relative; padding-left: 38px; padding-bottom: 26px; }
+  .rm-phase::before { content: ""; position: absolute; left: 11px; top: 26px; bottom: 0; width: 2px; background: var(--line); }
+  .rm-phase:last-child::before { display: none; }
+  .rm-dot { position: absolute; left: 0; top: 2px; width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--line); background: var(--panel); display: flex; align-items: center; justify-content: center; font-size: 11px; }
+  .rm-phase.done .rm-dot { background: linear-gradient(135deg, var(--blue), var(--purple)); border-color: transparent; }
+  .rm-phase.done .rm-dot::after { content: "✓"; color: #fff; font-weight: 800; }
+  .rm-phase.now .rm-dot { border-color: var(--pink); animation: pulseDot 2.2s infinite; }
+  .rm-phase.now .rm-dot::after { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--pink); }
+  @keyframes pulseDot { 0%,100% { box-shadow: 0 0 6px rgba(232,91,255,.4); } 50% { box-shadow: 0 0 18px rgba(232,91,255,.9); } }
+  .rm-title { font-weight: 800; font-size: 15.5px; }
+  .rm-when { font-size: 11.5px; color: var(--pink); letter-spacing: 1.5px; font-weight: 700; text-transform: uppercase; margin-bottom: 2px; }
+  .rm-items { margin-top: 8px; }
+  .rm-item { font-size: 13px; color: var(--muted); line-height: 1.55; padding-left: 14px; position: relative; }
+  .rm-item::before { content: "·"; position: absolute; left: 2px; color: var(--purple); font-weight: 800; }
+  .rm-goal { margin-top: 8px; font-size: 12.5px; color: var(--good); font-weight: 600; }
+
+  .amazon-link { display: block; margin: 0 0 10px 36px; font-size: 12.5px; color: var(--purple); text-decoration: underline; }
+  .save-note { font-size: 12px; color: var(--muted); margin-top: 16px; text-align: center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">ELI_WENDI</div>
+  <h1>Creator Hub</h1>
+
+  <!-- OBERKATEGORIEN -->
+  <div class="toptabs">
+    <button class="toptab active" data-top="start">🏠 Start<small>Dashboard</small></button>
+    <button class="toptab" data-top="content">🎬 Content<small>Plan · Ideen · Stats</small></button>
+    <button class="toptab" data-top="aufbau">🚀 Aufbau<small>Road · Gear · Hilfe</small></button>
+  </div>
+
+  <!-- ============ START / DASHBOARD ============ -->
+  <div class="top-page active" id="top-start">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;">
+      <div class="next-stream" id="nextStream"></div>
+      <button id="notifBtn" class="btn-ghost" style="font-size:12.5px;padding:9px 14px">🔔 Erinnerungen an</button>
+      <button id="openPrestream" class="btn" style="font-size:12.5px;padding:9px 14px">🎮 Stream-Check</button>
+    </div>
+
+    <div class="card highlight">
+      <div class="card-head"><span class="card-title">📋 Heute steht an</span><span class="today-badge" id="todayName"></span></div>
+      <div id="todayList"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="card-title">🔗 Meine Accounts & Tools</span></div>
+      <div class="links-grid" id="linksGrid"></div>
+      <details>
+        <summary>✏️ Links bearbeiten</summary>
+        <div style="margin-top:10px" id="linkEditFields"></div>
+        <button class="btn" id="saveLinks" style="margin-top:4px">Links speichern</button>
+      </details>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="card-title">📝 Quick-Notes</span></div>
+      <p class="counter">Schnelle Notizen – Clip-Timestamps, Ideen, was du nicht vergessen willst.</p>
+      <textarea id="quickNotes" class="field" style="min-height:100px" placeholder="z.B. 1:23:45 geiler Clip für Short..."></textarea>
+      <span class="counter" id="notesSaved" style="margin:0"></span>
+    </div>
+  </div>
+
+  <!-- ============ CONTENT ============ -->
+  <div class="top-page" id="top-content">
+    <div class="subtabs">
+      <button class="subtab active" data-sub="plan">📅 Wochenplan</button>
+      <button class="subtab" data-sub="ideen">💡 Ideen</button>
+      <button class="subtab" data-sub="titel">🛠️ Titel</button>
+      <button class="subtab" data-sub="stats">📊 Stats</button>
+      <button class="subtab" data-sub="upload">✅ Upload-Check</button>
+    </div>
+
+    <!-- Wochenplan -->
+    <div class="sub-section active" id="sub-plan">
+      <div class="week-nav">
+        <button id="prevWeek">‹</button>
+        <div class="week-label"><span id="weekTitle">Woche</span><small id="weekDates"></small></div>
+        <button id="nextWeek">›</button>
+      </div>
+      <div class="card">
+        <div class="progress-top"><strong>Wochenfortschritt</strong><span class="pct" id="pct">0%</span></div>
+        <div class="bar"><div class="bar-fill" id="barFill"></div></div>
+        <div class="stats-row">
+          <div class="stat"><b id="statStreams">0/3</b><span>Streams</span></div>
+          <div class="stat"><b id="statVideo">0/1</b><span>Video</span></div>
+          <div class="stat"><b id="statWeeks">0</b><span>Wochen ✓</span></div>
+        </div>
+      </div>
+      <div id="days"></div>
+      <button class="btn-ghost danger" id="resetWeek" style="margin-top:8px">Diese Woche zurücksetzen</button>
+    </div>
+
+    <!-- Ideen -->
+    <div class="sub-section" id="sub-ideen">
+      <div class="filters" id="filters">
+        <button class="chip active" data-f="alle">Alle</button>
+        <button class="chip" data-f="stream">🔴 Streams</button>
+        <button class="chip" data-f="guide">Guides</button>
+        <button class="chip" data-f="challenge">Challenges</button>
+        <button class="chip" data-f="reaction">Reactions</button>
+        <button class="chip" data-f="short">Shorts</button>
+        <button class="chip" data-f="eigene">Eigene</button>
+        <button class="chip" data-f="offen">Offen</button>
+      </div>
+      <div class="card" style="margin-bottom:10px">
+        <div class="card-head"><span class="card-title">✨ KI-Ideen generieren</span></div>
+        <p class="counter">Wähl aus was du brauchst, dann generiert die KI mit Live-Websuche.</p>
+        <div style="margin-bottom:10px">
+          <div style="font-size:12px;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:1px">Typ</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap" id="genTypeSelect">
+            <button class="chip active" data-gtype="alle">Alle Typen</button>
+            <button class="chip" data-gtype="stream">🔴 Stream</button>
+            <button class="chip" data-gtype="guide">Guide</button>
+            <button class="chip" data-gtype="challenge">Challenge</button>
+            <button class="chip" data-gtype="reaction">Reaction</button>
+            <button class="chip" data-gtype="short">Short</button>
+          </div>
+        </div>
+        <div style="margin-bottom:10px">
+          <div style="font-size:12px;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:1px">Spiel / Thema</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap" id="genGameSelect">
+            <button class="chip active" data-ggame="alle">Alle Games</button>
+            <button class="chip" data-ggame="fortnite">Fortnite</button>
+            <button class="chip" data-ggame="minecraft">Minecraft</button>
+            <button class="chip" data-ggame="valorant">Valorant</button>
+            <button class="chip" data-ggame="forza">Forza Horizon</button>
+            <button class="chip" data-ggame="community">Community</button>
+          </div>
+        </div>
+        <button class="btn" id="genIdeas" style="width:100%">✨ Ideen generieren</button>
+        <p class="counter" id="genStatus" style="display:none;margin-top:8px"></p>
+      </div>
+      <p class="counter" id="ideaCounter"></p>
+      <div id="ideas"></div>
+      <div class="card add-card">
+        <h3 style="font-size:14px;margin-bottom:10px">+ Eigene Idee</h3>
+        <input id="newTitle" class="field" placeholder="Videotitel / Stream-Idee" maxlength="120">
+        <textarea id="newThumb" class="field" placeholder="Thumbnail-Konzept (optional)" maxlength="300"></textarea>
+        <select id="newType" class="field">
+          <option value="stream">🔴 Stream</option>
+          <option value="guide">Guide</option>
+          <option value="challenge">Challenge</option>
+          <option value="reaction">Reaction</option>
+          <option value="short">Short</option>
+        </select>
+        <button class="btn" id="addBtn">Hinzufügen</button>
+      </div>
+    </div>
+
+    <!-- Titel-Werkstatt -->
+    <div class="sub-section" id="sub-titel">
+      <div class="card highlight">
+        <div class="card-head"><span class="card-title">🎬 YouTube-Paket Generator</span></div>
+        <p class="counter">Sag worum's im Video/Short geht – bekommst Titel, Beschreibung & Tags fertig zum Kopieren.</p>
+        <input id="ytTopic" class="field" placeholder="z.B. 'Sinister Strip Vault mit den Kabeln öffnen' oder 'Alle 6 Mythics testen'" maxlength="200">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+          <select id="ytFormat" class="field" style="flex:1;min-width:120px;margin-bottom:0">
+            <option value="short">Short (vertikal)</option>
+            <option value="video">Longform-Video</option>
+          </select>
+          <select id="ytLang" class="field" style="flex:1;min-width:120px;margin-bottom:0">
+            <option value="englisch">Titel Englisch</option>
+            <option value="deutsch">Titel Deutsch</option>
+          </select>
+        </div>
+        <button class="btn" id="ytGenBtn" style="width:100%">🎬 Paket generieren</button>
+        <p class="counter" id="ytGenStatus" style="display:none;margin-top:8px"></p>
+        <div id="ytGenResult" style="display:none;margin-top:12px"></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><span class="card-title">🛠️ Titel-Check</span></div>
+        <p class="counter">Eigenen Titel testen – Zähler zeigt ob du im 60-Zeichen-Limit bleibst.</p>
+        <div style="position:relative">
+          <input id="twInput" class="field" placeholder="Titel tippen..." maxlength="120" style="padding-right:64px">
+          <span class="tw-counter" id="twCounter" style="position:absolute;right:12px;top:11px">0/60</span>
+        </div>
+        <div class="tw-formula"><b>Guide-Formel</b><span>"So findest du X JEDES Match" · "ALLE [Zahl] X – Test" – Keyword nach vorne</span></div>
+        <div class="tw-formula"><b>Neugier-Formel</b><span>"Das STÄRKSTE Item der Season?" · "GRATIS Mythic?!" – Frage am Ende</span></div>
+        <div class="tw-formula"><b>Challenge-Formel</b><span>"Ich gewinne NUR mit X" · "Sieg ohne Y?!" – Einschränkung ist der Hook</span></div>
+        <div class="tw-formula"><b>Shorts (dein Format)</b><span>"NAME + absurde Situation" – z.B. SIR LANCELOT THE KNIGHT</span></div>
+        <div class="tw-formula"><b>Daumenregeln</b><span>Unter 60 Zeichen · 1–2 Wörter GROSS · kein Clickbait-Lügen</span></div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="sub-section" id="sub-stats">
+      <div class="card">
+        <div class="card-head"><span class="card-title">📺 YouTube Videos</span></div>
+        <p class="counter">Zahlen aus YouTube Studio eintragen (48h nach Upload). Der Hub bewertet automatisch.</p>
+        <div id="videoStats"></div>
+        <details>
+          <summary>+ Neues Video eintragen</summary>
+          <div style="margin-top:10px">
+            <input id="vTitle" class="field" placeholder="Videotitel (kurz)" maxlength="80">
+            <div style="display:flex;gap:8px">
+              <input id="vCtr" class="field" type="number" step="0.1" min="0" placeholder="CTR %" style="flex:1">
+              <input id="vRet" class="field" type="number" step="1" min="0" placeholder="Retention %" style="flex:1">
+            </div>
+            <div style="display:flex;gap:8px">
+              <input id="vImp" class="field" type="number" min="0" placeholder="Impressionen" style="flex:1">
+              <input id="vSubs" class="field" type="number" min="0" placeholder="Neue Abos" style="flex:1">
+            </div>
+            <button class="btn" id="addVideoStat">Speichern</button>
+          </div>
+        </details>
+      </div>
+      <div class="card">
+        <div class="card-head"><span class="card-title">🔴 Twitch Streams</span></div>
+        <p class="counter">Nach jedem Stream eintragen – wichtig ist der Trend, nicht die Einzelzahl.</p>
+        <div id="streamStats"></div>
+        <details>
+          <summary>+ Stream eintragen</summary>
+          <div style="margin-top:10px">
+            <div style="display:flex;gap:8px">
+              <input id="sViewers" class="field" type="number" step="0.1" min="0" placeholder="Ø Zuschauer" style="flex:1">
+              <input id="sFollows" class="field" type="number" min="0" placeholder="Neue Follower" style="flex:1">
+            </div>
+            <select id="sChat" class="field">
+              <option value="aktiv">Chat: aktiv 🔥</option>
+              <option value="mittel" selected>Chat: mittel</option>
+              <option value="ruhig">Chat: ruhig</option>
+            </select>
+            <button class="btn" id="addStreamStat">Speichern</button>
+          </div>
+        </details>
+      </div>
+      <div class="card">
+        <div class="card-head"><span class="card-title">📖 Deine Ampel</span></div>
+        <table class="obs-table">
+          <tr><td>CTR</td><td>🔴 unter 2% · 🟡 2–4% · 🟢 über 4%</td></tr>
+          <tr><td>Retention</td><td>🔴 unter 25% · 🟡 25–35% · 🟢 über 35%</td></tr>
+          <tr><td>Regel 1</td><td>CTR rot + Retention grün → Thumbnail/Titel nachträglich ändern</td></tr>
+          <tr><td>Regel 2</td><td>CTR grün + Retention rot → schneller zum Punkt kommen</td></tr>
+          <tr><td>Regel 3</td><td>Beides grün → sofort ähnliches Video planen!</td></tr>
+          <tr><td>Merke</td><td>Erst ab 3–4 Videos desselben Typs ist ein Muster ein Muster</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Upload-Check -->
+    <div class="sub-section" id="sub-upload">
+      <div class="card">
+        <div class="card-head" style="justify-content:space-between"><span class="card-title">🎬 Pre-Upload Checkliste</span><button class="btn-ghost" id="resetUpload" style="font-size:12px;padding:6px 12px">Reset</button></div>
+        <p class="counter">Vor jedem YouTube-Upload durchgehen.</p>
+        <div id="uploadCheck"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ AUFBAU ============ -->
+  <div class="top-page" id="top-aufbau">
+    <div class="subtabs">
+      <button class="subtab active" data-sub="road">🗺️ Roadmap</button>
+      <button class="subtab" data-sub="gear">🛒 Gear</button>
+      <button class="subtab" data-sub="help">🆘 Hilfe</button>
+    </div>
+
+    <!-- Roadmap -->
+    <div class="sub-section active" id="sub-road">
+      <div class="card"><p class="counter" style="margin:0">Dein Fahrplan bis Tag 90+ – der leuchtende Punkt zeigt wo du stehst.</p></div>
+      <div id="roadmapContainer"></div>
+    </div>
+
+    <!-- Gear -->
+    <div class="sub-section" id="sub-gear">
+      <div class="card">
+        <div class="card-head"><span class="card-title">🛒 Setup-Upgrades (nach Priorität)</span></div>
+        <p class="counter">Von oben nach unten – sortiert nach Impact. Abhaken wenn erledigt.</p>
+        <div id="hardwareCheck"></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><span class="card-title">📦 Aktuelles Setup</span></div>
+        <table class="obs-table">
+          <tr><td>PC</td><td>Ryzen 5 3600 · RTX 4060 · 16GB DDR4 (single-channel)</td></tr>
+          <tr><td>Mikro</td><td>MAONO DGM20 USB</td></tr>
+          <tr><td>Maus</td><td>Logitech G305</td></tr>
+          <tr><td>Tastatur</td><td>AJAZZ 75%</td></tr>
+          <tr><td>Monitore</td><td>AOC 280Hz + Koorui 144Hz</td></tr>
+          <tr><td>Webcam</td><td>– (noch keine)</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Hilfe -->
+    <div class="sub-section" id="sub-help">
+      <div class="card">
+        <div class="card-head"><span class="card-title">🆘 Problem? Sofort-Hilfe</span></div>
+        <p class="counter">Beschreib dein Problem – bekommst Hilfe zugeschnitten auf dein Setup.</p>
+        <textarea id="helpInput" class="field" placeholder="z.B. 'OBS hat extremen Delay' oder 'Alert erscheint nicht in OBS'..." style="min-height:80px"></textarea>
+        <button class="btn" id="helpBtn" style="width:100%">🆘 Hilfe holen</button>
+        <p class="counter" id="helpStatus" style="display:none;margin-top:8px"></p>
+        <div id="helpAnswer" style="display:none;margin-top:12px;background:var(--panel-2);border:1px solid var(--purple);border-radius:10px;padding:14px;font-size:13.5px;line-height:1.6;white-space:pre-wrap"></div>
+      </div>
+      <div class="card">
+        <div class="card-head" style="justify-content:space-between"><span class="card-title">📋 Fehler-Log</span><button class="btn-ghost" id="clearLog" style="font-size:12px;padding:6px 12px">Leeren</button></div>
+        <div id="helpLog"></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="save-note" id="saveNote">Alles wird automatisch gespeichert 💜</p>
+</div>
+
+<!-- PRE-STREAM POPUP -->
+<div class="modal-overlay" id="prestreamModal">
+  <div class="modal">
+    <h3>🎮 Pre-Stream Check</h3>
+    <p class="m-sub">Geh kurz durch bevor du live gehst – dann läuft alles glatt.</p>
+    <div id="prestreamList"></div>
+    <div class="modal-result" id="prestreamResult"></div>
+    <div class="modal-foot">
+      <button class="btn" id="prestreamDone" style="flex:1">Alles bereit – Check!</button>
+      <button class="btn-ghost" id="prestreamClose">Schließen</button>
+    </div>
+    <details style="margin-top:14px">
+      <summary>⚙️ OBS-Referenzwerte</summary>
+      <table class="obs-table">
+        <tr><td>Encoder</td><td>NVENC H.264 für beide Streams</td></tr>
+        <tr><td>Twitch</td><td>1080p60 · CBR 6.000 · Preset P5 · Keyframe 2s</td></tr>
+        <tr><td>YouTube</td><td>1080p60 · CBR 9.000 · Rest wie Twitch</td></tr>
+        <tr><td>Bei Lag</td><td>Bitrate senken (Twitch 4.500) · Preset P6/P7 · FPS-Cap 60</td></tr>
+        <tr><td>Fortnite</td><td>FPS-Cap 120–144 · Randloser Fenstermodus</td></tr>
+        <tr><td>Mikro</td><td>RNNoise → Kompressor 4:1 → Limiter −3dB</td></tr>
+        <tr><td>RAM-Tipp</td><td>Chrome zu · Overlay-Quellen "aktiv lassen" aus</td></tr>
+      </table>
+    </details>
+  </div>
+</div>
+
+<script>
+/* ===================== ELI_WENDI CREATOR HUB ===================== */
+
+// ---------- Wochenplan-Daten ----------
+const PLAN = [
+  { day: "Montag",     tag: "Shorts",  cls: "",       tasks: ["BrainrotBot oder manueller Short (~15 Min)", "1 Short auf YouTube + TikTok posten"] },
+  { day: "Dienstag",   tag: "Stream",  cls: "stream", tasks: ["Stream 18:00–21:00 (Twitch + YouTube)", "2–3 Clip-Momente notieren (Quick-Notes!)"] },
+  { day: "Mittwoch",   tag: "Schnitt", cls: "edit",   tasks: ["Bestes Di-Material schneiden (8–12 Min Video)", "1 Stream-Clip als Short exportieren"] },
+  { day: "Donnerstag", tag: "Stream",  cls: "stream", tasks: ["Stream 18:00–21:00", "Short posten (YouTube + TikTok)"] },
+  { day: "Freitag",    tag: "Frei",    cls: "",       tasks: ["Optional: Chill-Stream oder Pause (Energie checken)"] },
+  { day: "Samstag",    tag: "Stream",  cls: "stream", tasks: ["Hauptstream 14:00–18:00", "Abends: Schnitt + Clips sichern"] },
+  { day: "Sonntag",    tag: "Upload",  cls: "upload", tasks: ["Video fertig + Upload 17–18 Uhr", "3 Thumbnails testen, beste wählen", "Stats vom letzten Video eintragen", "Nächste Woche planen"] },
+];
+const STREAM_TASKS = ["Stream 18:00–21:00 (Twitch + YouTube)", "Stream 18:00–21:00", "Hauptstream 14:00–18:00"];
+const UPLOAD_TASK = "Video fertig + Upload 17–18 Uhr";
+const START = new Date(2026, 5, 15);
+
+// ---------- Ideen (überarbeitet, vielfältig, mit Reactions) ----------
+const DEFAULT_IDEAS = [
+  // STREAMS - verschiedene Games & Aktivitäten
+  { id: "st1", type: "stream", title: "Forza Horizon 6 – Roadtrip-Serie (neue Region pro Woche)", hint: "Kleine Twitch-Kategorie = du wirst gefunden. Rennspiel-Zuschauer bleiben lange. Als Serie aufziehen!" },
+  { id: "st2", type: "stream", title: "Fortnite Customs / Creative mit Zuschauern", hint: "Stärkster Community-Builder: Leute kommen um MITzuspielen. Ab ~5 aktiven Chattern." },
+  { id: "st3", type: "stream", title: "Brainrot-Werkstatt: Live einen Short bauen", hint: "Dein Alleinstellungsmerkmal! Kaum jemand zeigt die Pipeline live. Zieht Tech + Gaming Leute." },
+  { id: "st4", type: "stream", title: "Valorant: Road to [nächster Rang] mit Chat-Coaching", hint: "Klares Ziel = eingebaute Story. Chat schlägt Agenten/Strats vor = hohe Interaktion." },
+  { id: "st5", type: "stream", title: "Minecraft Langzeit-Base über mehrere Streams", hint: "Gibt Grund wiederzukommen ('wie weit ist die Base?'). Entspannter Gegenpol zu Ranked." },
+  { id: "st6", type: "stream", title: "Challenge-Abend: Chat würfelt meine Regeln", hint: "Chat votet: nur Pistolen, kein Loot, invertierte Maus... viele Clip-Momente für Shorts." },
+  { id: "st7", type: "stream", title: "Community-Abend: Browser-Games mit Chat (Gartic Phone etc.)", hint: "Perfekt für Freitag. Null Vorbereitung, baut Bindung – ideal wenn Discord aktiver wird." },
+  { id: "st8", type: "stream", title: "Just Chatting Q&A: 'Lernt mich kennen' + Stream-Pläne", hint: "Just Chatting ist die größte Kategorie. Einmal im Monat für neue Viewer = persönliche Bindung." },
+
+  // REACTIONS - NEU
+  { id: "re1", type: "reaction", title: "Ich reagiere auf den neuen Fortnite Update/Trailer", hint: "Bei jedem Patch/Event aktuell. Suchvolumen-Peak direkt nach Release – schnell sein!" },
+  { id: "re2", type: "reaction", title: "Meine ALLERERSTEN Stream-Clips – Cringe-Reaction", hint: "Selbstironie kommt gut an, zeigt Persönlichkeit. Material hast du schon. Perfekt ohne Webcam machbar." },
+  { id: "re3", type: "reaction", title: "Fortnite Waffen-Tier-List Season 3 (S bis F)", hint: "Tier-Lists werden gesucht UND laden zum Diskutieren ein. Chat darf widersprechen = Interaktion." },
+  { id: "re4", type: "reaction", title: "Reaction auf die besten Plays aus #clips-und-fails", hint: "Bindet die Discord-Community ein – ihre Clips im Stream = sie kommen wieder. Win-win." },
+  { id: "re5", type: "reaction", title: "Pro-Player Clips reagieren – 'So spielt man RICHTIG'", hint: "Lerneffekt + Entertainment. Aktiv kommentieren (kein 1:1 abspielen wegen DMCA)." },
+
+  // GUIDES - Fortnite C7S3
+  { id: "g1", type: "guide", title: "ALLE 6 MYTHICS in Season 3 – Fundorte + Test", thumb: "Alle 6 Mythic-Icons im Halbkreis, Mitte 'ALLE 6' in Lila/Pink, Shattered-Coast-Panorama.", hint: "Stärkster Guide-Kandidat. Suchvolumen jetzt am höchsten – diese Woche drehen!" },
+  { id: "g2", type: "guide", title: "2 MYTHICS in 2 Minuten – Sinister Strip Doppel-Trick", thumb: "Sinister Strip, zwei leuchtende Mythic-Icons mit Pfeilen, Text ' 2 AUF EINMAL'.", hint: "Hund retten + Gefängnis-Puzzle in einer Rotation. Konkreter Trick = hohe Retention." },
+  { id: "g3", type: "guide", title: "So findest du die Bosse JEDES Match", thumb: "Drei Boss-Silhouetten, Minimap mit Skull-Icon eingekreist, Text 'JEDES MATCH'.", hint: "Skull-Icon auf Minimap erklären. Klassischer Such-Guide." },
+  { id: "g4", type: "guide", title: "Die 5 BESTEN Landing Spots auf der Shattered Coast", thumb: "Map mit 5 nummerierten Markern in Blau/Lila, Text 'TOP 5'.", hint: "Evergreen für jede neue Map. Eigene Loot-Routen zeigen." },
+
+  // CHALLENGES
+  { id: "c1", type: "challenge", title: "Ich gewinne NUR mit Boss-Waffen", thumb: "3 Boss-Waffen im Inventar, rote Verbotsschilder über normalen Waffen, 'NUR BOSS LOOT'.", hint: "Verbindet Guide-Wissen mit Entertainment. Brücke zwischen Formaten." },
+  { id: "c2", type: "challenge", title: "Sieg NUR mit der Baba Yaga Pistole – John Wick Challenge", thumb: "Pistole groß im Anschnitt, dramatisches Lila-Licht, Hund-Icon, 'NUR PISTOLE'.", hint: "John-Wick-Bezug + Hund-Story = emotionaler Hook." },
+  { id: "c3", type: "challenge", title: "Jede Runde ein anderer Fused-POI – Shattered Coast Tour", thumb: "Zwei POI-Hälften die ineinander crashen, Blitz-Riss, 'ALLES NEU?!'.", hint: "Season-Gimmick als Serie – mehrere Folgen möglich." },
+
+  // SHORTS
+  { id: "s1", type: "short", title: "Der 2-Mythics-Trick in 30 Sekunden", thumb: "Vertikal: Mythic-Drop, Text '2 MYTHICS. 1 TRICK.'", hint: "Kurzversion von g2 – im Short aufs Hauptvideo verweisen." },
+  { id: "s2", type: "short", title: "POV: Du triffst Skeletor zum ersten Mal", thumb: "Vertikal: Boss-Begegnung, Schreck-Moment, 'POV'.", hint: "Reaction-Moment aus dem Stream schneiden – authentisch." },
+  { id: "s3", type: "short", title: "Der schnellste Weg über die Map (Boots + Sliders)", thumb: "Vertikal: Speed-Run-Optik mit Timer, 'SCHNELLSTE ROUTE'.", hint: "Movement-Clips haben hohe Wiederschau-Rate." },
+];
+
+// ---------- Checklisten ----------
+const PRESTREAM_CHECKLIST = [
+  "Chrome & unnötige Programme zu (RAM!)",
+  "Discord-/Windows-Benachrichtigungen aus, Handy lautlos",
+  "Fortnite FPS-Cap 120–144 · Randloser Fenstermodus",
+  "OBS: richtige Szene, Overlays + Chat laden korrekt",
+  "obs-multi-rtmp: Twitch UND YouTube verbunden",
+  "Mikro-Test: kurze Probeaufnahme, Filterkette aktiv",
+  "Stream-Titel + Kategorie auf Twitch gesetzt",
+  "Stream-Titel + Kategorie auf YouTube gesetzt",
+  "Getränk bereit, kurz durchatmen 😄",
+  "Go-Live-Post automatisch (Streamcord) – oder manuell raus",
+];
+const UPLOAD_CHECKLIST = [
+  "Hook in den ersten 15 Sekunden",
+  "Intro max. 5 Sekunden",
+  "Titel: Keyword vorne, unter 60 Zeichen (Titel-Werkstatt nutzen!)",
+  "3 Thumbnail-Varianten, beste gewählt",
+  "Thumbnail am Handy lesbar? (max 3–4 Wörter)",
+  "Beschreibung mit Keywords + Links",
+  "Endcard mit Verweis aufs nächste Video",
+  "Upload geplant: Sonntag 17–18 Uhr",
+  "1–2 Shorts aus dem Video geschnitten",
+  "MEE6 kündigt automatisch in Discord an",
+];
+const HARDWARE_CHECKLIST = [
+  "🔧 RAM-Slot fixen (~0€) – Garantie bei Systemtreff → Dual-Channel",
+  "📷 Webcam: Logitech C920s (~60€)",
+  "🎙️💪 Mikro + Arm Kombi: FIFINE MI4 mit Boom Arm (~60€)",
+  "💡 Ringlicht: Neewer 10\" USB LED (~25€)",
+];
+const HARDWARE_LINKS = {
+  1: "https://www.amazon.de/dp/B07MM4V7NR",
+  2: "https://www.amazon.de/FIFINE-Streaming-Dynamisch-Microphone-Stummschalttaste/dp/B0DL2WNKNG",
+  3: "https://www.amazon.de/dp/B07H4MQ83B",
+};
+
+// ---------- Account-Links (Defaults, editierbar) ----------
+const LINK_DEFS = [
+  { key: "twitch",     ic: "🔴", label: "Twitch",       def: "https://twitch.tv/eli_wendi" },
+  { key: "youtube",    ic: "📺", label: "YouTube",      def: "https://youtube.com/@ELI_WENDI" },
+  { key: "tiktok",     ic: "🎵", label: "TikTok",       def: "" },
+  { key: "discord",    ic: "💜", label: "Discord",      def: "" },
+  { key: "beacons",    ic: "🔗", label: "Beacons.ai",   def: "https://beacons.ai/eli_wendi" },
+  { key: "streamlabs", ic: "🔔", label: "Streamlabs",   def: "https://streamlabs.com/dashboard" },
+  { key: "ytstudio",   ic: "📊", label: "YT Studio",    def: "https://studio.youtube.com" },
+];
+
+// ---------- State & Storage ----------
+const KEY = "eliwendi-hub-v1";
+const store = {
+  async get(k) {
+    // Beide lesen, Claude-Speicher hat Vorrang wenn vorhanden
+    let claudeData = null, localData = null;
+    try { if (window.storage) { const r = await window.storage.get(k); if (r) claudeData = r.value; } } catch(e){}
+    try { localData = localStorage.getItem(k); } catch(e){}
+    // Neueste Version gewinnt (compare deletedDefaults length als Proxy)
+    if (claudeData && localData) {
+      try {
+        const c = JSON.parse(claudeData), l = JSON.parse(localData);
+        const cDel = (c.deletedDefaults||[]).length, lDel = (l.deletedDefaults||[]).length;
+        const cIdeas = (c.ideas||[]).length, lIdeas = (l.ideas||[]).length;
+        // Lokaler hat mehr Löschungen oder weniger Ideen → ist aktueller
+        if (lDel > cDel || lIdeas < cIdeas) return { key: k, value: localData };
+      } catch(e){}
+    }
+    if (claudeData) return { key: k, value: claudeData };
+    if (localData) return { key: k, value: localData };
+    throw new Error("not found");
+  },
+  async set(k, v) {
+    // IMMER in BEIDE schreiben
+    try { localStorage.setItem(k, v); } catch(e){}
+    try { if (window.storage) await window.storage.set(k, v); } catch(e){}
+    return { key: k, value: v };
+  }
+};
+let state = { weeks: {}, ideas: [], ideaStatuses: {}, uploadCheck: {}, hardwareCheck: {}, statsVideos: [], statsStreams: [], helpLog: [], links: {}, quickNotes: "", prestreamCheck: {}, streamCheck: {}, discordCheck: {} };
+let currentWeek = 0, ideaFilter = "alle";
+
+async function load() {
+  try { const res = await store.get(KEY); if (res && res.value) state = Object.assign(state, JSON.parse(res.value)); }
+  catch (e) { /* erster Start */ }
+  if (!state.ideas || !state.ideas.length) state.ideas = DEFAULT_IDEAS.slice();
+  else DEFAULT_IDEAS.forEach(d => { if (!state.ideas.find(i => i.id === d.id) && !(state.deletedDefaults||[]).includes(d.id)) state.ideas.push(d); });
+  currentWeek = weekIndexFor(new Date());
+  renderAll();
+}
+let saveTimer;
+function save() {
+  clearTimeout(saveTimer);
+  const note = document.getElementById("saveNote");
+  note.textContent = "Speichern…";
+  saveTimer = setTimeout(async () => {
+    try { await store.set(KEY, JSON.stringify(state)); note.textContent = "Gespeichert ✓"; }
+    catch (e) { note.textContent = "Speichern fehlgeschlagen – Verbindung prüfen."; }
+    setTimeout(() => { note.textContent = "Alles wird automatisch gespeichert 💜"; }, 2000);
+  }, 400);
+}
+function escapeHtml(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function fmtDate(ts) { return new Date(ts).toLocaleDateString("de-AT", { day: "numeric", month: "short" }); }
+
+// ---------- Navigation ----------
+document.querySelectorAll(".toptab").forEach(t => t.addEventListener("click", () => {
+  document.querySelectorAll(".toptab").forEach(x => x.classList.remove("active"));
+  document.querySelectorAll(".top-page").forEach(x => x.classList.remove("active"));
+  t.classList.add("active");
+  document.getElementById("top-" + t.dataset.top).classList.add("active");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}));
+document.querySelectorAll(".subtab").forEach(t => t.addEventListener("click", () => {
+  const parent = t.closest(".top-page");
+  parent.querySelectorAll(".subtab").forEach(x => x.classList.remove("active"));
+  parent.querySelectorAll(".sub-section").forEach(x => x.classList.remove("active"));
+  t.classList.add("active");
+  parent.querySelector("#sub-" + t.dataset.sub).classList.add("active");
+}));
+
+// ---------- Dashboard: Heute ----------
+function renderToday() {
+  const now = new Date();
+  const day = now.getDay();
+  const names = ["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"];
+  document.getElementById("todayName").textContent = names[day].toUpperCase();
+  const planIdx = day === 0 ? 6 : day - 1;
+  const today = PLAN[planIdx];
+  const list = document.getElementById("todayList");
+  list.innerHTML = "";
+  const timeHints = {
+    "Montag": "🕒 ~15 Min", "Dienstag": "🔴 18:00", "Mittwoch": "✂️ Abend",
+    "Donnerstag": "🔴 18:00", "Freitag": "😌 frei", "Samstag": "🔴 14:00", "Sonntag": "📺 17:00"
+  };
+  const head = document.createElement("div");
+  head.className = "today-item";
+  head.innerHTML = '<span class="ti-time">' + (timeHints[today.day] || "") + '</span><span><b>' + today.tag + '</b></span>';
+  list.appendChild(head);
+  today.tasks.forEach(t => {
+    const div = document.createElement("div");
+    div.className = "today-item";
+    div.innerHTML = '<span class="ti-time"></span><span>' + escapeHtml(t) + '</span>';
+    list.appendChild(div);
+  });
+}
+
+// ---------- Dashboard: Links ----------
+function getLink(key) {
+  const def = LINK_DEFS.find(l => l.key === key);
+  return (state.links && state.links[key] !== undefined && state.links[key] !== "") ? state.links[key] : (def ? def.def : "");
+}
+function renderLinks() {
+  const grid = document.getElementById("linksGrid");
+  grid.innerHTML = "";
+  LINK_DEFS.forEach(l => {
+    const url = getLink(l.key);
+    const a = document.createElement("a");
+    a.className = "link-btn" + (url ? "" : " empty");
+    if (url) { a.href = url; a.target = "_blank"; }
+    a.innerHTML = '<span class="ic">' + l.ic + '</span><span>' + l.label + (url ? "" : " (leer)") + '</span>';
+    grid.appendChild(a);
+  });
+  // Edit-Felder
+  const ed = document.getElementById("linkEditFields");
+  ed.innerHTML = "";
+  LINK_DEFS.forEach(l => {
+    const wrap = document.createElement("div");
+    wrap.innerHTML = '<label style="font-size:12px;color:var(--muted);display:block;margin-bottom:2px">' + l.ic + ' ' + l.label + '</label>';
+    const inp = document.createElement("input");
+    inp.className = "field"; inp.dataset.linkkey = l.key;
+    inp.placeholder = l.def || "Link einfügen...";
+    inp.value = (state.links && state.links[l.key]) || "";
+    wrap.appendChild(inp);
+    ed.appendChild(wrap);
+  });
+}
+document.getElementById("saveLinks").addEventListener("click", () => {
+  document.querySelectorAll("[data-linkkey]").forEach(inp => {
+    state.links[inp.dataset.linkkey] = inp.value.trim();
+  });
+  save(); renderLinks();
+  const note = document.getElementById("saveNote");
+  note.textContent = "Links gespeichert ✓";
+});
+
+// ---------- Dashboard: Quick-Notes ----------
+const notesEl = document.getElementById("quickNotes");
+let notesTimer;
+notesEl.addEventListener("input", () => {
+  clearTimeout(notesTimer);
+  document.getElementById("notesSaved").textContent = "Speichern…";
+  notesTimer = setTimeout(() => {
+    state.quickNotes = notesEl.value;
+    save();
+    document.getElementById("notesSaved").textContent = "Gespeichert ✓";
+  }, 500);
+});
+
+// ---------- Wochenplan ----------
+function weekIndexFor(date) { const d = new Date(date); d.setHours(0,0,0,0); return Math.max(0, Math.floor((d - START) / 86400000 / 7)); }
+function weekRange(idx) { const mon = new Date(START); mon.setDate(mon.getDate() + idx*7); const sun = new Date(mon); sun.setDate(sun.getDate()+6); return [mon, sun]; }
+function fmt(d) { return d.toLocaleDateString("de-AT", { day:"numeric", month:"short" }); }
+function todayDayIndex(idx) { const [mon] = weekRange(idx); const t = new Date(); t.setHours(0,0,0,0); const diff = Math.floor((t - mon)/86400000); return (diff>=0 && diff<7) ? diff : -1; }
+function weekData(idx) { if (!state.weeks[idx]) state.weeks[idx] = {}; return state.weeks[idx]; }
+function makeTask(text, checked, onChange) {
+  const label = document.createElement("label"); label.className = "task";
+  const input = document.createElement("input"); input.type = "checkbox"; input.checked = checked;
+  input.addEventListener("change", () => onChange(input.checked));
+  const box = document.createElement("span"); box.className = "box";
+  const span = document.createElement("span"); span.className = "task-text"; span.textContent = text;
+  label.append(input, box, span); return label;
+}
+function renderPlan() {
+  const [mon, sun] = weekRange(currentWeek);
+  document.getElementById("weekTitle").textContent = "Woche " + (currentWeek+1);
+  document.getElementById("weekDates").textContent = fmt(mon) + " – " + fmt(sun);
+  const wd = weekData(currentWeek), tIdx = todayDayIndex(currentWeek);
+  const container = document.getElementById("days"); container.innerHTML = "";
+  let total=0, done=0, streamsDone=0, videoDone=0;
+  PLAN.forEach((d, di) => {
+    const card = document.createElement("div");
+    card.className = "card" + (di===tIdx ? " today" : "");
+    const head = document.createElement("div"); head.className = "card-head";
+    head.innerHTML = '<span class="card-title">'+d.day+'</span><span class="tag '+d.cls+'">'+d.tag+'</span>'+(di===tIdx?'<span class="today-badge">HEUTE</span>':'');
+    card.appendChild(head);
+    d.tasks.forEach((t, ti) => {
+      total++; const k = di+"-"+ti, checked = !!wd[k];
+      if (checked) { done++; if (STREAM_TASKS.includes(t)) streamsDone++; if (t===UPLOAD_TASK) videoDone++; }
+      card.appendChild(makeTask(t, checked, v => { wd[k]=v; save(); renderPlan(); }));
+    });
+    container.appendChild(card);
+  });
+  const pct = total ? Math.round(done/total*100) : 0;
+  document.getElementById("pct").textContent = pct+"%";
+  document.getElementById("barFill").style.width = pct+"%";
+  document.getElementById("statStreams").textContent = streamsDone+"/3";
+  document.getElementById("statVideo").textContent = videoDone+"/1";
+  let fullWeeks = 0; const totalTasks = PLAN.reduce((s,d)=>s+d.tasks.length,0);
+  Object.values(state.weeks).forEach(w => { if (Object.values(w).filter(Boolean).length >= totalTasks) fullWeeks++; });
+  document.getElementById("statWeeks").textContent = fullWeeks;
+}
+document.getElementById("prevWeek").addEventListener("click", () => { if (currentWeek>0){currentWeek--;renderPlan();} });
+document.getElementById("nextWeek").addEventListener("click", () => { currentWeek++; renderPlan(); });
+document.getElementById("resetWeek").addEventListener("click", () => { if (confirm("Diese Woche zurücksetzen?")){ state.weeks[currentWeek]={}; save(); renderPlan(); } });
+
+// ---------- Ideen ----------
+function typeLabel(t) { return { guide:"Guide", challenge:"Challenge", short:"Short", stream:"Stream", reaction:"Reaction" }[t] || t; }
+function typeClass(t) { return t === "stream" ? "stream-idea" : t; }
+function renderIdeas() {
+  const container = document.getElementById("ideas"); container.innerHTML = "";
+  let shown=0, online=0; const STATUSES = ["Idee","Geplant","Gedreht","Online"];
+  state.ideas.forEach(idea => {
+    const status = state.ideaStatuses[idea.id] || "Idee";
+    if (status === "Online") online++;
+    if (ideaFilter === "offen" && status === "Online") return;
+    if (ideaFilter !== "alle" && ideaFilter !== "offen") {
+      if (ideaFilter === "eigene" ? !idea.custom : idea.type !== ideaFilter) return;
+    }
+    shown++;
+    const card = document.createElement("div");
+    card.className = "card idea" + (status==="Online" ? " done" : "");
+    const top = document.createElement("div"); top.className = "card-head";
+    const tag = document.createElement("span"); tag.className = "tag " + typeClass(idea.type);
+    tag.textContent = (idea.ai ? "✨ " : idea.custom ? "Eigene · " : "") + typeLabel(idea.type);
+    const title = document.createElement("div"); title.className = "idea-title"; title.textContent = idea.title;
+    top.append(tag, title); card.appendChild(top);
+    if (idea.thumb) {
+      const tl = document.createElement("div"); tl.className = "thumb-label"; tl.textContent = "Thumbnail-Konzept";
+      const tt = document.createElement("div"); tt.className = "thumb-text"; tt.textContent = idea.thumb;
+      card.append(tl, tt);
+    }
+    if (idea.hint) { const h = document.createElement("div"); h.className = "hint-text"; h.textContent = "💡 " + idea.hint; card.appendChild(h); }
+    const row = document.createElement("div"); row.className = "status-row";
+    STATUSES.forEach(s => {
+      const b = document.createElement("button");
+      b.className = "status-btn" + (s===status ? " active" : ""); b.textContent = s;
+      b.addEventListener("click", () => { state.ideaStatuses[idea.id]=s; save(); renderIdeas(); });
+      row.appendChild(b);
+    });
+    card.appendChild(row);
+    const del = document.createElement("button"); del.className = "del-btn"; del.textContent = "Idee löschen";
+    del.addEventListener("click", () => { if (confirm("Idee löschen?")){ state.ideas = state.ideas.filter(i=>i.id!==idea.id); delete state.ideaStatuses[idea.id]; if(!state.deletedDefaults)state.deletedDefaults=[]; if(!idea.custom)state.deletedDefaults.push(idea.id); save(); renderIdeas(); } });
+    card.appendChild(del);
+    container.appendChild(card);
+  });
+  document.getElementById("ideaCounter").textContent = shown + " Ideen · " + online + " bereits online 🎉";
+}
+document.getElementById("filters").addEventListener("click", e => {
+  const btn = e.target.closest(".chip"); if (!btn) return;
+  document.querySelectorAll(".chip").forEach(c=>c.classList.remove("active"));
+  btn.classList.add("active"); ideaFilter = btn.dataset.f; renderIdeas();
+});
+document.getElementById("addBtn").addEventListener("click", () => {
+  const title = document.getElementById("newTitle").value.trim();
+  if (!title) { alert("Bitte Titel eingeben."); return; }
+  state.ideas.push({ id:"u"+Date.now(), type:document.getElementById("newType").value, title, thumb:document.getElementById("newThumb").value.trim(), custom:true });
+  document.getElementById("newTitle").value=""; document.getElementById("newThumb").value="";
+  save(); renderIdeas();
+});
+
+// ---------- KI-Ideen-Generator mit Typ/Spiel-Auswahl ----------
+let genSelectedType = "alle", genSelectedGame = "alle";
+document.getElementById("genTypeSelect").addEventListener("click", e => {
+  const btn = e.target.closest("[data-gtype]"); if (!btn) return;
+  document.querySelectorAll("[data-gtype]").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active"); genSelectedType = btn.dataset.gtype;
+});
+document.getElementById("genGameSelect").addEventListener("click", e => {
+  const btn = e.target.closest("[data-ggame]"); if (!btn) return;
+  document.querySelectorAll("[data-ggame]").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active"); genSelectedGame = btn.dataset.ggame;
+});
+
+document.getElementById("genIdeas").addEventListener("click", async () => {
+  const btn = document.getElementById("genIdeas"), status = document.getElementById("genStatus");
+  btn.disabled = true; btn.textContent = "✨ Generiere...";
+  status.style.display = "block"; status.textContent = "Suche aktuelle Infos und baue Ideen...";
+  try {
+    const existing = state.ideas.map(i => i.title).join(" | ");
+    const typeHint = genSelectedType === "alle"
+      ? "Mische alle Typen: mindestens 1 Stream, 1 Guide, 1 Challenge, 1 Reaction, 1 Short."
+      : "Generiere NUR Ideen vom Typ: " + genSelectedType + ". Alle 6 Ideen sollen diesen Typ haben.";
+    const gameHint = genSelectedGame === "alle"
+      ? "Nutze alle Games sinnvoll (Fortnite, Minecraft, Valorant, Forza Horizon 6, Community-Formate)."
+      : genSelectedGame === "community"
+      ? "Fokus auf Community-Formate: Zuschauer-Challenges, Chat-Games, Q&A, Discord-Events."
+      : "Fokus auf " + genSelectedGame + " – nutze aktuelle News/Updates zu diesem Spiel.";
+    const prompt = "Du bist Content-Stratege für ELI_WENDI, österreichischer Gaming-Creator.\n\n"
+      + "PROFIL: Fortnite Ch7S3 (Hauptspiel), Minecraft, Valorant, Forza Horizon 6. Kein Webcam (Reactions nur mit Stimme+Gameplay). Streamt Di/Do 18-21, Sa 14-18, dual Twitch+YouTube. Shorts-Pipeline vorhanden. Shorts-Format: Charaktername in CAPS + absurde Situation. Ziel: organisch wachsen, Community aufbauen.\n\n"
+      + "AUFTRAG: Suche im Web nach AKTUELLEN Inhalten (Fortnite-Updates, Gaming-Trends, virale Formate). Generiere 6 frische Ideen.\n"
+      + typeHint + "\n" + gameHint + "\n\n"
+      + "REGELN: Titel max 70 Zeichen. Aktuelle Bezüge bevorzugen. Keine Duplikate zu: " + existing + "\n\n"
+      + "ANTWORTE NUR mit JSON-Array, ohne Markdown/Backticks:\n"
+      + "[{\"type\":\"stream|guide|challenge|reaction|short\",\"title\":\"...\",\"thumb\":\"Thumbnail-Konzept 1 Satz\",\"hint\":\"warum es funktioniert 1 Satz\"}]";
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({ model:"claude-sonnet-4-6", max_tokens:1200, messages:[{role:"user",content:prompt}], tools:[{"type":"web_search_20250305","name":"web_search"}] })
+    });
+    const data = await response.json();
+    if (data.error) throw new Error(data.error.message || "API-Fehler");
+    const text = (data.content||[]).filter(b=>b.type==="text").map(b=>b.text).join("\n");
+    const clean = text.replace(/```json|```/g,"").trim();
+    const s = clean.indexOf("["), e = clean.lastIndexOf("]");
+    if (s===-1||e===-1) throw new Error("Keine Ideen im Ergebnis");
+    const newIdeas = JSON.parse(clean.slice(s, e+1));
+    let added = 0;
+    newIdeas.forEach(n => {
+      if (!n.title || !["guide","challenge","short","stream","reaction"].includes(n.type)) return;
+      if (state.ideas.find(i => i.title.toLowerCase() === String(n.title).toLowerCase())) return;
+      state.ideas.push({ id:"ai"+Date.now()+"_"+added, type:n.type, title:String(n.title).slice(0,90), thumb:n.thumb?String(n.thumb).slice(0,300):"", hint:n.hint?String(n.hint).slice(0,300):"", custom:true, ai:true });
+      added++;
+    });
+    save(); renderIdeas();
+    status.textContent = added>0 ? "✅ "+added+" Ideen hinzugefügt (✨)." : "Keine neuen gefunden – nochmal versuchen.";
+  } catch (err) {
+    status.textContent = "❌ Fehler: " + err.message;
+  }
+  btn.disabled = false; btn.textContent = "✨ Ideen generieren";
+  setTimeout(() => { status.style.display="none"; }, 9000);
+});
+
+// ---------- Titel-Werkstatt ----------
+document.getElementById("twInput").addEventListener("input", e => {
+  const len = e.target.value.length; const c = document.getElementById("twCounter");
+  c.textContent = len + "/60"; c.className = "tw-counter" + (len>60 ? " over" : "");
+});
+
+// ---------- YouTube-Paket Generator ----------
+function copyBox(label, text) {
+  const wrap = document.createElement("div");
+  wrap.style.cssText = "background:var(--panel-2);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:10px";
+  const head = document.createElement("div");
+  head.style.cssText = "display:flex;justify-content:space-between;align-items:center;margin-bottom:6px";
+  const lbl = document.createElement("span");
+  lbl.style.cssText = "font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--purple);font-weight:700";
+  lbl.textContent = label;
+  const btn = document.createElement("button");
+  btn.className = "btn-ghost"; btn.style.cssText = "font-size:11px;padding:5px 10px"; btn.textContent = "📋 Kopieren";
+  btn.addEventListener("click", () => {
+    navigator.clipboard.writeText(text).then(() => { btn.textContent = "✓ Kopiert"; setTimeout(()=>btn.textContent="📋 Kopieren",1500); })
+      .catch(() => { btn.textContent = "manuell markieren"; });
+  });
+  head.append(lbl, btn);
+  const body = document.createElement("div");
+  body.style.cssText = "font-size:13px;line-height:1.5;white-space:pre-wrap;color:var(--text)";
+  body.textContent = text;
+  wrap.append(head, body);
+  return wrap;
+}
+
+document.getElementById("ytGenBtn").addEventListener("click", async () => {
+  const topic = document.getElementById("ytTopic").value.trim();
+  if (!topic) { alert("Bitte zuerst beschreiben worum's geht."); return; }
+  const format = document.getElementById("ytFormat").value;
+  const lang = document.getElementById("ytLang").value;
+  const btn = document.getElementById("ytGenBtn"), status = document.getElementById("ytGenStatus"), result = document.getElementById("ytGenResult");
+  btn.disabled = true; btn.textContent = "⏳ Generiere...";
+  status.style.display = "block"; status.textContent = "Baue Titel, Beschreibung & Tags...";
+  result.style.display = "none";
+  try {
+    const titleLangNote = lang === "englisch" ? "Die TITEL auf Englisch (Fortnite-Shorts performen englisch besser)." : "Die Titel auf Deutsch.";
+    const formatNote = format === "short"
+      ? "Es ist ein YouTube SHORT (vertikal, kurz). Beschreibung sehr kurz, viele Hashtags am Ende inkl. #shorts. KEINE Links in der Beschreibung (drückt Reichweite). Für TikTok zusätzlich #fyp."
+      : "Es ist ein LONGFORM-Video. Beschreibung mit 2-3 Sätzen + Links (Twitch/Discord/YouTube). Tags als kommagetrennte Liste.";
+    const prompt = "Du erstellst ein komplettes YouTube-Veröffentlichungspaket für ELI_WENDI, österreichischer Gaming-Creator (Fortnite Chapter 7 Season 3, auch Minecraft/Valorant/Forza). "
+      + titleLangNote + " " + formatNote + "\n\n"
+      + "Bewährtes Titel-Prinzip: Keyword vorne, unter 60 Zeichen, 1-2 Wörter in CAPS, Neugier/Frage/Einschränkung als Hook, kein Clickbait-Lügen. Für Shorts auch das Format 'markanter NAME in CAPS + absurde Situation' möglich.\n\n"
+      + "Thema des Videos: " + topic + "\n\n"
+      + "ANTWORTE NUR mit JSON, ohne Markdown/Backticks:\n"
+      + '{"titles":["3 Titel-Varianten"],"description":"fertige Beschreibung zum Kopieren","tags":"kommagetrennte Tags","thumbnail":"1 Satz Thumbnail-Konzept im Blau/Lila Look"}';
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({ model:"claude-sonnet-4-6", max_tokens:1000, messages:[{role:"user",content:prompt}] })
+    });
+    const data = await response.json();
+    if (data.error) throw new Error(data.error.message);
+    const text = (data.content||[]).filter(b=>b.type==="text").map(b=>b.text).join("\n");
+    const clean = text.replace(/```json|```/g,"").trim();
+    const s = clean.indexOf("{"), e = clean.lastIndexOf("}");
+    if (s===-1||e===-1) throw new Error("Kein Ergebnis");
+    const pkg = JSON.parse(clean.slice(s, e+1));
+    result.innerHTML = "";
+    if (pkg.titles && pkg.titles.length) {
+      const tl = document.createElement("div");
+      tl.style.cssText = "font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--purple);font-weight:700;margin-bottom:6px";
+      tl.textContent = "Titel-Varianten (such dir eine aus)";
+      result.appendChild(tl);
+      pkg.titles.forEach(t => result.appendChild(copyBox("Titel · " + t.length + " Zeichen", t)));
+    }
+    if (pkg.description) result.appendChild(copyBox("Beschreibung", pkg.description));
+    if (pkg.tags) result.appendChild(copyBox("Tags", pkg.tags));
+    if (pkg.thumbnail) {
+      const th = document.createElement("div");
+      th.style.cssText = "font-size:12.5px;color:var(--muted);font-style:italic;line-height:1.45;margin-top:4px";
+      th.textContent = "🖼️ Thumbnail-Idee: " + pkg.thumbnail;
+      result.appendChild(th);
+    }
+    result.style.display = "block"; status.style.display = "none";
+  } catch (err) {
+    status.textContent = "❌ Klappt nur in der Claude-Version: " + err.message;
+  }
+  btn.disabled = false; btn.textContent = "🎬 Paket generieren";
+});
+
+// ---------- Checklisten (Upload, Hardware, Pre-Stream) ----------
+function renderChecklist(items, stateObj, containerId) {
+  const c = document.getElementById(containerId); c.innerHTML = "";
+  items.forEach((t,i) => c.appendChild(makeTask(t, !!stateObj[i], v => { stateObj[i]=v; save(); })));
+}
+function renderHardware() {
+  const hc = document.getElementById("hardwareCheck"); hc.innerHTML = "";
+  HARDWARE_CHECKLIST.forEach((t,i) => {
+    hc.appendChild(makeTask(t, !!state.hardwareCheck[i], v => { state.hardwareCheck[i]=v; save(); }));
+    if (HARDWARE_LINKS[i]) {
+      const a = document.createElement("a"); a.className="amazon-link"; a.href=HARDWARE_LINKS[i]; a.target="_blank"; a.textContent="🛒 Auf Amazon ansehen";
+      hc.appendChild(a);
+    }
+  });
+}
+function renderChecks() {
+  renderChecklist(UPLOAD_CHECKLIST, state.uploadCheck, "uploadCheck");
+  renderHardware();
+}
+document.getElementById("resetUpload").addEventListener("click", () => { state.uploadCheck={}; save(); renderChecks(); });
+
+// ---------- Pre-Stream Popup ----------
+function renderPrestream() {
+  const c = document.getElementById("prestreamList"); c.innerHTML = "";
+  PRESTREAM_CHECKLIST.forEach((t,i) => c.appendChild(makeTask(t, !!state.prestreamCheck[i], v => { state.prestreamCheck[i]=v; save(); })));
+}
+document.getElementById("openPrestream").addEventListener("click", () => {
+  document.getElementById("prestreamResult").className = "modal-result";
+  document.getElementById("prestreamModal").classList.add("show");
+});
+document.getElementById("prestreamClose").addEventListener("click", () => document.getElementById("prestreamModal").classList.remove("show"));
+document.getElementById("prestreamModal").addEventListener("click", e => { if (e.target.id === "prestreamModal") e.currentTarget.classList.remove("show"); });
+document.getElementById("prestreamDone").addEventListener("click", () => {
+  const done = PRESTREAM_CHECKLIST.filter((_,i) => state.prestreamCheck[i]).length;
+  const res = document.getElementById("prestreamResult");
+  if (done === PRESTREAM_CHECKLIST.length) {
+    res.className = "modal-result ok"; res.textContent = "🚀 Alles bereit – viel Spaß beim Stream!";
+    setTimeout(() => { state.prestreamCheck = {}; save(); renderPrestream(); document.getElementById("prestreamModal").classList.remove("show"); res.className="modal-result"; }, 2000);
+  } else {
+    res.className = "modal-result warn"; res.textContent = "⚠️ Noch " + (PRESTREAM_CHECKLIST.length - done) + " Punkt(e) offen – check nochmal!";
+  }
+});
+
+// ---------- Stats ----------
+function rateCtr(v){return v<2?"r":v<=4?"y":"g";}
+function rateRet(v){return v<25?"r":v<=35?"y":"g";}
+function diagnose(ctr,ret){const c=rateCtr(ctr),r=rateRet(ret);
+  if(c==="g"&&r==="g")return"🚀 Beides stark – sofort ein ähnliches Video planen!";
+  if(c==="r"&&(r==="g"||r==="y"))return"🎨 Video gut, aber keiner klickt → Thumbnail & Titel überarbeiten (nachträglich!)";
+  if((c==="g"||c==="y")&&r==="r")return"✂️ Leute klicken, springen ab → schneller zum Punkt, Hook in die ersten 15 Sek";
+  if(c==="r"&&r==="r")return"🔄 Thema zieht nicht → anderen Videotyp aus der Ideen-Bank testen";
+  return"👍 Solide – Muster zeigt sich ab 3–4 Videos";}
+function trendArrow(values){if(values.length<2)return null;const last=values[values.length-1];const prev=values.slice(0,-1).reduce((a,b)=>a+b,0)/(values.length-1);
+  if(last>prev*1.1)return"📈 Trend nach oben ("+last+" vs Ø "+prev.toFixed(1)+")";
+  if(last<prev*0.9)return"📉 Unter deinem Schnitt ("+last+" vs Ø "+prev.toFixed(1)+") – beobachten";
+  return"➡️ Stabil ("+last+" vs Ø "+prev.toFixed(1)+")";}
+function renderStats() {
+  const vc = document.getElementById("videoStats"); vc.innerHTML = "";
+  if (!state.statsVideos.length) vc.innerHTML = '<p class="counter">Noch keine Videos eingetragen.</p>';
+  [...state.statsVideos].reverse().forEach(v => {
+    const e = document.createElement("div"); e.className="stat-entry";
+    e.innerHTML = '<div class="se-head"><span class="se-title"></span><span class="se-date">'+fmtDate(v.ts)+'</span></div>'+
+      '<div class="se-metrics"><span class="metric '+rateCtr(v.ctr)+'">CTR '+v.ctr+'%</span><span class="metric '+rateRet(v.ret)+'">Retention '+v.ret+'%</span>'+
+      (v.imp?'<span class="metric n">'+Number(v.imp).toLocaleString("de-AT")+' Impr.</span>':'')+(v.subs?'<span class="metric n">+'+v.subs+' Abos</span>':'')+
+      '</div><div class="se-diag">'+diagnose(v.ctr,v.ret)+'</div>';
+    e.querySelector(".se-title").textContent = v.title;
+    const del = document.createElement("button"); del.className="del-btn"; del.textContent="Löschen";
+    del.addEventListener("click", () => { if(confirm("Eintrag löschen?")){ state.statsVideos=state.statsVideos.filter(x=>x.ts!==v.ts); save(); renderStats(); } });
+    e.appendChild(del); vc.appendChild(e);
+  });
+  const sc = document.getElementById("streamStats"); sc.innerHTML = "";
+  if (state.statsStreams.length>=2) { const t=trendArrow(state.statsStreams.map(s=>s.viewers)); if(t){const tl=document.createElement("div");tl.className="trend-line";tl.textContent="Ø-Zuschauer: "+t;sc.appendChild(tl);} }
+  if (!state.statsStreams.length) sc.innerHTML = '<p class="counter">Noch keine Streams eingetragen.</p>';
+  [...state.statsStreams].reverse().slice(0,8).forEach(s => {
+    const e = document.createElement("div"); e.className="stat-entry";
+    e.innerHTML = '<div class="se-head"><span class="se-title">Stream</span><span class="se-date">'+fmtDate(s.ts)+'</span></div>'+
+      '<div class="se-metrics"><span class="metric n">Ø '+s.viewers+' Zuschauer</span><span class="metric n">+'+s.follows+' Follower</span>'+
+      '<span class="metric '+(s.chat==="aktiv"?"g":s.chat==="mittel"?"y":"n")+'">Chat '+s.chat+'</span></div>';
+    const del = document.createElement("button"); del.className="del-btn"; del.textContent="Löschen";
+    del.addEventListener("click", () => { if(confirm("Eintrag löschen?")){ state.statsStreams=state.statsStreams.filter(x=>x.ts!==s.ts); save(); renderStats(); } });
+    e.appendChild(del); sc.appendChild(e);
+  });
+}
+document.getElementById("addVideoStat").addEventListener("click", () => {
+  const title=document.getElementById("vTitle").value.trim();
+  const ctr=parseFloat(document.getElementById("vCtr").value), ret=parseFloat(document.getElementById("vRet").value);
+  if(!title||isNaN(ctr)||isNaN(ret)){alert("Titel, CTR und Retention nötig.");return;}
+  state.statsVideos.push({ts:Date.now(),title,ctr,ret,imp:parseInt(document.getElementById("vImp").value)||0,subs:parseInt(document.getElementById("vSubs").value)||0});
+  ["vTitle","vCtr","vRet","vImp","vSubs"].forEach(id=>document.getElementById(id).value="");
+  save(); renderStats();
+});
+document.getElementById("addStreamStat").addEventListener("click", () => {
+  const viewers=parseFloat(document.getElementById("sViewers").value);
+  if(isNaN(viewers)){alert("Ø Zuschauer nötig.");return;}
+  state.statsStreams.push({ts:Date.now(),viewers,follows:parseInt(document.getElementById("sFollows").value)||0,chat:document.getElementById("sChat").value});
+  document.getElementById("sViewers").value=""; document.getElementById("sFollows").value="";
+  save(); renderStats();
+});
+
+// ---------- Roadmap ----------
+const ROADMAP = [
+  { when:"Erledigt ✓", title:"Phase 0: Fundament", endDay:0, items:["Dual-Stream OBS + Overlays","Discord mit Bots & Mod","Twitch-Panels, Alerts (DAWN)","Erstes Video + Shorts","TikTok + Beacons","Creator Hub als Zentrale"], goal:"✅ Alles bereit für den Start" },
+  { when:"Woche 1–2 · ab 15. Juni", title:"Phase 1: Season-Hype nutzen", endDay:14, items:["3 Streams/Woche nach Plan","Guide-Videos zuerst (Mythics, Sinister Strip)","3–5 Shorts/Woche auf YT + TikTok","Nach jedem Video: Stats eintragen"], goal:"Ziel: Mess-Routine + erste Guides online" },
+  { when:"Woche 3–4", title:"Phase 2: Formate testen", endDay:28, items:["Hybrid: Guide + Challenge + erste Reaction","Stream-Ideen rotieren (Forza, Customs)","Twitch Channel Points einrichten"], goal:"Ziel: Daten welcher Typ zieht" },
+  { when:"Tag 30 · Mitte Juli", title:"Meilenstein 1", endDay:30, items:["4 Longform-Videos online?","1 Video mit CTR >3% UND Retention >35%?","Wenn ja → weiter · wenn nein → Titel/Thumbs überarbeiten"], goal:"Entscheidung: was funktioniert" },
+  { when:"Tag 30–60", title:"Phase 3: Verdoppeln was zieht", endDay:60, items:["Besten Videotyp voll ausbauen","Kanaltrailer + Playlists auf YouTube","Community-Abende (Discord aktiver)","Hardware: RAM-Fix + Webcam"], goal:"Ziel: klares Kanal-Profil" },
+  { when:"Tag 60–90", title:"Phase 4: Wachstum festigen", endDay:90, items:["Upload-Rhythmus halten","Mit Webcam: Reactions als Segment","Stats-Trends monatlich reviewen","Serie etablieren (Forza/Minecraft)"], goal:"Ziel Tag 90: 100+ organische Abos" },
+  { when:"Tag 90+", title:"Phase 5: Nächste Stufe", endDay:9999, items:["TikTok voll ausbauen","Twitch Affiliate (50 Follower, 3 Ø-Zuschauer)","Sponsoring-Anfragen an kleine Brands","Brainrot-Werkstatt als USP"], goal:"Vom Projekt zum Nebeneinkommen" }
+];
+function renderRoadmap() {
+  const container = document.getElementById("roadmapContainer"); container.innerHTML = "";
+  const dayNow = Math.floor((new Date() - START)/86400000); let nowMarked = false;
+  ROADMAP.forEach(ph => {
+    const div = document.createElement("div"); let cls = "rm-phase";
+    if (dayNow > ph.endDay) cls += " done"; else if (!nowMarked) { cls += " now"; nowMarked = true; }
+    div.className = cls;
+    div.innerHTML = '<div class="rm-dot"></div><div class="rm-when">'+ph.when+'</div><div class="rm-title">'+ph.title+'</div>'+
+      '<div class="rm-items">'+ph.items.map(i=>'<div class="rm-item">'+i+'</div>').join("")+'</div><div class="rm-goal">'+ph.goal+'</div>';
+    container.appendChild(div);
+  });
+}
+
+// ---------- Hilfe ----------
+function renderHelpLog() {
+  const c = document.getElementById("helpLog"); c.innerHTML = "";
+  if (!state.helpLog || !state.helpLog.length) { c.innerHTML = '<p class="counter">Noch keine Probleme geloggt.</p>'; return; }
+  [...state.helpLog].reverse().forEach((entry,i) => {
+    const card = document.createElement("div"); card.style.cssText="background:var(--panel-2);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:10px";
+    const head = document.createElement("div"); head.style.cssText="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;flex-wrap:wrap;gap:6px";
+    head.innerHTML = '<span style="font-weight:700;font-size:13.5px;color:var(--pink)">⚠️ '+escapeHtml(entry.problem.slice(0,80))+(entry.problem.length>80?"...":"")+'</span><span style="font-size:11px;color:var(--muted)">'+fmtDate(entry.ts)+'</span>';
+    const ans = document.createElement("div"); ans.style.cssText="font-size:13px;line-height:1.55;white-space:pre-wrap"; ans.textContent = entry.answer;
+    const del = document.createElement("button"); del.className="del-btn"; del.textContent="Löschen";
+    del.addEventListener("click", () => { const idx = state.helpLog.length-1-i; state.helpLog.splice(idx,1); save(); renderHelpLog(); });
+    card.append(head, ans, del); c.appendChild(card);
+  });
+}
+document.getElementById("helpBtn").addEventListener("click", async () => {
+  const problem = document.getElementById("helpInput").value.trim();
+  if (!problem) { alert("Bitte Problem beschreiben."); return; }
+  const btn = document.getElementById("helpBtn"), status = document.getElementById("helpStatus"), answerEl = document.getElementById("helpAnswer");
+  btn.disabled = true; btn.textContent = "⏳ Analysiere..."; status.style.display="block"; status.textContent="KI analysiert..."; answerEl.style.display="none";
+  try {
+    const prompt = "Du bist Tech-Support für ELI_WENDI, Twitch/YouTube-Streamer. Setup: Ryzen 5 3600, RTX 4060, 16GB DDR4 single-channel (DIMMA1 defekt = Performance limitiert), OBS Studio NVENC H.264, obs-multi-rtmp dual (Twitch 6000 + YouTube 9000kbps), MAONO DGM20 USB Mikro, AOC 280Hz + Koorui 144Hz, Streamlabs Alerts DAWN Theme, Overlays als lokale HTML Browser-Quellen, Stinger WebM, Nightbot, Discord mit Carl-bot/Streamcord/MEE6.\n\nProblem: "+problem+"\n\nGib eine konkrete schrittweise Lösung auf Deutsch, max 8 nummerierte Schritte, jeder als neue Zeile. Berücksichtige sein Setup (v.a. single-channel RAM kann Lag verursachen). Fang direkt mit Schritt 1 an, keine Einleitung.";
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({ model:"claude-sonnet-4-6", max_tokens:1000, messages:[{role:"user",content:prompt}] })
+    });
+    const data = await response.json();
+    if (data.error) throw new Error(data.error.message);
+    const answer = (data.content||[]).filter(b=>b.type==="text").map(b=>b.text).join("\n").trim();
+    answerEl.textContent = answer; answerEl.style.display="block"; status.style.display="none";
+    if (!state.helpLog) state.helpLog = [];
+    state.helpLog.push({ts:Date.now(),problem,answer}); save(); renderHelpLog();
+  } catch (err) { status.textContent = "❌ Klappt nur in der Claude-Version: "+err.message; }
+  btn.disabled = false; btn.textContent = "🆘 Hilfe holen"; document.getElementById("helpInput").value="";
+});
+document.getElementById("clearLog").addEventListener("click", () => { if(confirm("Log leeren?")){ state.helpLog=[]; save(); renderHelpLog(); } });
+
+// ---------- Countdown ----------
+const SCHEDULE = [ {day:2,start:18,end:21,label:"Dienstag"}, {day:4,start:18,end:21,label:"Donnerstag"}, {day:6,start:14,end:18,label:"Samstag"} ];
+function renderCountdown() {
+  const el = document.getElementById("nextStream"); const now = new Date();
+  const live = SCHEDULE.find(s => now.getDay()===s.day && now.getHours()>=s.start && now.getHours()<s.end);
+  if (live) { el.className="next-stream live"; el.innerHTML='<span class="ns-dot"></span>JETZT Stream-Zeit! <small>bis '+live.end+':00</small>'; return; }
+  let best = null;
+  SCHEDULE.forEach(s => { const d=new Date(now); let diff=(s.day-now.getDay()+7)%7; if(diff===0&&now.getHours()>=s.start)diff=7; d.setDate(d.getDate()+diff); d.setHours(s.start,0,0,0); if(!best||d<best.date)best={date:d,s}; });
+  const days = Math.round((new Date(best.date).setHours(0,0,0,0)-new Date(now).setHours(0,0,0,0))/86400000);
+  const when = days===0?"heute":days===1?"morgen":"in "+days+" Tagen";
+  el.className="next-stream"; el.innerHTML='<span class="ns-dot"></span>Nächster Stream: '+best.s.label+' '+best.s.start+':00 <small>· '+when+'</small>';
+}
+setInterval(renderCountdown, 60000);
+
+
+// ---------- Notifications (mit Service Worker für echte Handy-Notifs) ----------
+const DAILY_NOTIFS = {
+  1:[{h:15,m:0,title:"🤖 ELI_WENDI – Short!",body:"Heute: 1 Short bauen + auf YT/TikTok posten"},{h:18,m:0,title:"📋 Hub-Check",body:"Montag: Häkchen setzen im Hub!"}],
+  2:[{h:16,m:45,title:"🔴 Stream in 15 Min!",body:"OBS starten, Stream-Check im Hub durchgehen!"},{h:17,m:0,title:"🔴 Stream in 1 Stunde!",body:"Fortnite starten, FPS-Cap setzen, Mikro testen."},{h:18,m:0,title:"🎮 GO LIVE! ELI_WENDI",body:"Titel auf Twitch + YouTube setzen – dann los! 💜"}],
+  3:[{h:17,m:30,title:"✂️ Schnitt-Abend",body:"Di-Material schneiden (8–12 Min) + Short exportieren"}],
+  4:[{h:16,m:45,title:"🔴 Stream in 15 Min!",body:"OBS starten, Stream-Check im Hub durchgehen!"},{h:17,m:0,title:"🔴 Stream in 1 Stunde!",body:"Fortnite starten, FPS-Cap setzen, Mikro testen."},{h:18,m:0,title:"🎮 GO LIVE! ELI_WENDI",body:"Titel auf Twitch + YouTube setzen – dann los! 💜"}],
+  5:[{h:17,m:0,title:"😴 Freitag – Energie?",body:"Chill-Stream oder einfach entspannen – beides okay!"}],
+  6:[{h:13,m:0,title:"🔴 Hauptstream in 1 Std!",body:"Heute beste Reichweite – Stream-Check jetzt!"},{h:13,m:45,title:"⚡ 15 Min bis Hauptstream!",body:"Alles bereit? OBS läuft?"},{h:14,m:0,title:"🎮 HAUPTSTREAM LIVE!",body:"Samstag = beste Zeit. Viel Spaß! 🔴"},{h:19,m:0,title:"✂️ Clip-Zeit!",body:"Beste Momente raussuchen + Short schneiden"}],
+  0:[{h:15,m:0,title:"📺 Upload heute!",body:"Video fertigstellen – Upload um 17 Uhr!"},{h:16,m:30,title:"⏰ Upload in 30 Min!",body:"Thumbnail fertig? Beschreibung + Tags?"},{h:17,m:0,title:"🚀 JETZT uploaden!",body:"Sonntag 17 Uhr = optimale Upload-Zeit 💜"},{h:19,m:0,title:"📊 Stats eintragen",body:"CTR + Retention aus YouTube Studio in den Hub!"}]
+};
+
+const SW_CODE = `
+self.addEventListener('install', e => self.skipWaiting());
+self.addEventListener('activate', e => e.waitUntil(clients.claim()));
+self.addEventListener('message', e => {
+  if (e.data && e.data.type === 'NOTIFY') {
+    self.registration.showNotification(e.data.title, {
+      body: e.data.body,
+      icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="%23a35bff"/><text y=".9em" font-size="70" x="10">🎮</text></svg>',
+      badge: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="%23a35bff"/></svg>',
+      tag: e.data.tag || 'eliwendi',
+      requireInteraction: false,
+      vibrate: [200, 100, 200]
+    });
+  }
+});
+self.addEventListener('notificationclick', e => {
+  e.notification.close();
+  e.waitUntil(clients.openWindow(e.currentTarget.location.href));
+});
+`;
+
+let swRegistration = null;
+let notifPermission = false;
+const firedNotifs = new Set();
+
+async function registerServiceWorker() {
+  if (!('serviceWorker' in navigator)) return null;
+  try {
+    const blob = new Blob([SW_CODE], {type: 'application/javascript'});
+    const swUrl = URL.createObjectURL(blob);
+    const reg = await navigator.serviceWorker.register(swUrl, {scope: '/'});
+    await navigator.serviceWorker.ready;
+    return reg;
+  } catch(e) { return null; }
+}
+
+async function requestNotifPermission() {
+  if (!("Notification" in window)) return false;
+  if (Notification.permission==="granted") return true;
+  if (Notification.permission==="denied") return false;
+  const result = await Notification.requestPermission();
+  return result === "granted";
+}
+
+function sendNotification(title, body, tag) {
+  const payload = {type:'NOTIFY', title, body, tag};
+  // Versuche über Service Worker (funktioniert auch wenn Tab im Hintergrund)
+  if (swRegistration && swRegistration.active) {
+    swRegistration.active.postMessage(payload);
+  } else {
+    // Fallback: direkte Notification
+    try { new Notification(title, {body, icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="%23a35bff"/><text y=".9em" font-size="70" x="10">🎮</text></svg>'}); } catch(e){}
+  }
+}
+
+function checkNotifications() {
+  if (!notifPermission) return;
+  const now=new Date(), day=now.getDay(), h=now.getHours(), m=now.getMinutes();
+  (DAILY_NOTIFS[day]||[]).forEach(n => {
+    const key=day+"-"+n.h+"-"+n.m+"-"+now.toDateString();
+    if (n.h===h && n.m===m && !firedNotifs.has(key)) {
+      firedNotifs.add(key);
+      sendNotification(n.title, n.body, key);
+    }
+  });
+}
+
+function renderNotifBtn() {
+  const btn = document.getElementById("notifBtn"); if(!btn) return;
+  if (!("Notification" in window)) { btn.style.display="none"; return; }
+  if (Notification.permission==="granted") {
+    btn.textContent="🔔 Erinnerungen aktiv";
+    btn.style.cssText += ";border-color:var(--good);color:var(--good)";
+    btn.disabled = true;
+    // Nächste Notif anzeigen
+    const now = new Date(), day = now.getDay();
+    const todayNotifs = DAILY_NOTIFS[day] || [];
+    const next = todayNotifs.find(n => n.h > now.getHours() || (n.h === now.getHours() && n.m > now.getMinutes()));
+    if (next) btn.title = "Nächste Erinnerung heute: " + String(next.h).padStart(2,'0') + ":" + String(next.m).padStart(2,'0');
+  } else if (Notification.permission==="denied") {
+    btn.textContent="🔕 Blockiert – in Browser-Einstellungen erlauben";
+    btn.style.color="var(--muted)"; btn.disabled=true;
+  } else {
+    btn.textContent="🔔 Erinnerungen aktivieren";
+  }
+}
+
+document.getElementById("notifBtn").addEventListener("click", async () => {
+  notifPermission = await requestNotifPermission();
+  if (notifPermission) {
+    swRegistration = await registerServiceWorker();
+    setInterval(checkNotifications, 30000);
+    checkNotifications();
+    // Test-Notif sofort senden
+    setTimeout(() => sendNotification("🎮 ELI_WENDI Hub", "Erinnerungen aktiv! Du bekommst jetzt Stream-Notifications.", "test"), 1000);
+  }
+  renderNotifBtn();
+});
+
+
+// ---------- Init ----------
+function renderAll() {
+  renderToday(); renderLinks(); renderPlan(); renderIdeas(); renderChecks();
+  renderStats(); renderRoadmap(); renderCountdown(); renderHelpLog(); renderPrestream();
+  notesEl.value = state.quickNotes || "";
+}
+(async function init() {
+  await load();
+  notifPermission = ("Notification" in window) && Notification.permission==="granted";
+  if (notifPermission) {
+    swRegistration = await registerServiceWorker();
+    setInterval(checkNotifications, 30000);
+    checkNotifications();
+  }
+  renderNotifBtn();
+})();
+
+</script>
+</body>
+</html>
