@@ -1,0 +1,2624 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ELI_WENDI · Creator Hub</title>
+<meta name="theme-color" content="#08071a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22ELI_WENDI%20Creator%20Hub%22%2C%22short_name%22%3A%22Hub%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%2308071a%22%2C%22theme_color%22%3A%22%2308071a%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%2520xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%2520viewBox%3D%270%25200%2520512%2520512%27%253E%253Crect%2520width%3D%27512%27%2520height%3D%27512%27%2520rx%3D%2796%27%2520fill%3D%27%2308071a%27%2F%253E%253Ctext%2520x%3D%27256%27%2520y%3D%27340%27%2520font-size%3D%27220%27%2520font-weight%3D%27900%27%2520text-anchor%3D%27middle%27%2520fill%3D%27url%2528%2523g%2529%27%253EE%253C%2Ftext%253E%253Cdefs%253E%253ClinearGradient%2520id%3D%27g%27%2520x1%3D%270%27%2520y1%3D%270%27%2520x2%3D%271%27%2520y2%3D%271%27%253E%253Cstop%2520offset%3D%270%27%2520stop-color%3D%27%234f7cff%27%2F%253E%253Cstop%2520offset%3D%27.5%27%2520stop-color%3D%27%23a855f7%27%2F%253E%253Cstop%2520offset%3D%271%27%2520stop-color%3D%27%23ec4899%27%2F%253E%253C%2FlinearGradient%253E%253C%2Fdefs%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='96' fill='%2308071a'/%3E%3Ctext x='256' y='340' font-size='220' font-weight='900' text-anchor='middle' fill='url(%23g)'%3EE%3C/text%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%234f7cff'/%3E%3Cstop offset='.5' stop-color='%23a855f7'/%3E%3Cstop offset='1' stop-color='%23ec4899'/%3E%3C/linearGradient%3E%3C/defs%3E%3C/svg%3E">
+<style>
+:root {
+  --bg: #08071a; --surface: #110f26; --surface-2: #1a1738; --border: #2a2650;
+  --blue: #4f7cff; --purple: #a855f7; --pink: #ec4899;
+  --text: #f0eef8; --muted: #8b85a8; --dim: #5c5680;
+  --ok: #34d399; --warn: #fbbf24; --bad: #f87171;
+  --grad: linear-gradient(135deg, var(--blue), var(--purple), var(--pink));
+  --radius: 14px; --radius-sm: 8px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:"Segoe UI",system-ui,-apple-system,sans-serif;min-height:100vh;padding:16px 12px 90px}
+.wrap{max-width:800px;margin:0 auto}
+.header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.logo{font-size:11px;letter-spacing:4px;text-transform:uppercase;font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.header h1{font-size:22px;font-weight:800;flex:1}
+.live-dot{width:8px;height:8px;border-radius:50%;background:var(--dim);transition:background .3s}
+.live-dot.live{background:var(--bad);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(248,113,113,.6)}50%{opacity:.7;box-shadow:0 0 0 6px rgba(248,113,113,0)}}
+.tabs{display:flex;gap:4px;background:var(--surface);border-radius:var(--radius);padding:4px;margin-bottom:20px;border:1px solid var(--border)}
+.tab{flex:1;padding:12px 8px;border-radius:10px;border:none;background:transparent;color:var(--muted);font-size:13px;font-weight:700;cursor:pointer;transition:.15s}
+.tab.active{background:var(--surface-2);color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.tab span{display:block;font-size:10px;font-weight:400;opacity:.7;margin-top:2px}
+.page{display:none}.page.active{display:block;animation:fadeIn .25s ease}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:14px;transition:border-color .2s}
+.card:hover{border-color:var(--purple)}
+.card-title{font-size:14px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.badge{font-size:10px;padding:3px 8px;border-radius:99px;font-weight:700;letter-spacing:.5px}
+.badge-ok{background:rgba(52,211,153,.15);color:var(--ok)}
+.badge-warn{background:rgba(251,191,36,.15);color:var(--warn)}
+.countdown-card{background:linear-gradient(135deg,rgba(79,124,255,.08),rgba(168,85,247,.08),rgba(236,72,153,.08));border-color:var(--purple)}
+.countdown-label{font-size:12px;color:var(--muted);margin-bottom:6px}
+.countdown-time{font-size:32px;font-weight:800;letter-spacing:-1px;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.countdown-detail{font-size:13px;color:var(--muted);margin-top:4px}
+.schedule-mini{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
+.sch-day{font-size:11px;padding:5px 10px;border-radius:99px;background:var(--surface-2);color:var(--muted);border:1px solid var(--border)}
+.sch-day.today{border-color:var(--purple);color:var(--text);background:rgba(168,85,247,.12)}
+.btn{padding:9px 16px;border-radius:var(--radius-sm);border:none;font-size:12.5px;font-weight:700;cursor:pointer;transition:.15s}
+.btn:active{transform:scale(.96)}
+.btn-primary{background:var(--purple);color:#fff}.btn-primary:hover{background:#9333ea}
+.btn-ghost{background:transparent;border:1px solid var(--border);color:var(--muted)}.btn-ghost:hover{border-color:var(--purple);color:var(--text)}
+.btn-danger{background:rgba(248,113,113,.12);color:var(--bad);border:1px solid rgba(248,113,113,.2)}
+.btn-sm{padding:6px 12px;font-size:11.5px}
+.field{width:100%;padding:10px 12px;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-size:13px;font-family:inherit;resize:vertical}
+.field:focus{outline:none;border-color:var(--purple)}
+.field::placeholder{color:var(--dim)}
+select.field{cursor:pointer}
+.row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1;min-width:0}
+.mt{margin-top:10px}.mb{margin-bottom:10px}
+.links-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.link-card{display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);text-decoration:none;color:var(--text);font-size:12.5px;font-weight:600;transition:.15s}
+.link-card:hover{border-color:var(--purple);transform:translateY(-1px)}
+.check-item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px;transition:opacity .25s ease}
+.check-item:last-child{border:none}
+.check-item input[type=checkbox]{accent-color:var(--purple);width:18px;height:18px;cursor:pointer}
+.check-item.done{opacity:.5;text-decoration:line-through}
+.check-item span{transition:text-decoration-color .25s ease}
+/* Calendar */
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cal-header{font-size:11px;color:var(--muted);text-align:center;padding:6px 2px;font-weight:700}
+.cal-day{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:6px;min-height:60px;font-size:11px;cursor:pointer;transition:.15s}
+.cal-day:hover{border-color:var(--purple)}
+.cal-day .num{font-weight:700;color:var(--muted);margin-bottom:4px}
+.cal-day.today .num{color:var(--purple)}
+.cal-day.has-content{border-color:rgba(168,85,247,.4);background:rgba(168,85,247,.06)}
+.cal-tag{font-size:9px;padding:2px 5px;border-radius:4px;margin-top:2px;display:inline-block}
+.cal-tag.stream{background:rgba(79,124,255,.2);color:var(--blue)}
+.cal-tag.video{background:rgba(236,72,153,.2);color:var(--pink)}
+.cal-tag.short{background:rgba(52,211,153,.2);color:var(--ok)}
+.cal-tag.aufnahme{background:rgba(251,191,36,.2);color:var(--warn)}
+.cal-tag.edit{background:rgba(168,85,247,.2);color:var(--purple)}
+.cal-empty{background:transparent;border-color:transparent;cursor:default}
+.cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.cal-nav button{background:var(--surface-2);border:1px solid var(--border);color:var(--text);padding:6px 12px;border-radius:var(--radius-sm);cursor:pointer;font-size:13px}
+.cal-nav span{font-weight:700;font-size:14px}
+/* Equipment */
+.equip-item{display:flex;align-items:center;gap:10px;padding:12px;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:8px}
+.equip-item .name{font-weight:700;font-size:13px;flex:1}
+.equip-item .status{font-size:11px;padding:3px 8px;border-radius:99px}
+.equip-item .link-btn{font-size:11px;color:var(--purple);text-decoration:underline;cursor:pointer;background:none;border:none;font-family:inherit}
+.equip-item .del-btn{font-size:16px;color:var(--bad);cursor:pointer;background:none;border:none;padding:0 4px;opacity:.6}
+.equip-item .del-btn:hover{opacity:1}
+/* Stats */
+.stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.stat-box{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;text-align:center;transition:transform .15s ease,border-color .15s ease}
+.stat-box:hover{transform:translateY(-2px);border-color:var(--purple)}
+.stat-box.stat-pulse{animation:statPulse .5s ease}
+@keyframes statPulse{0%{border-color:var(--purple);box-shadow:0 0 0 0 rgba(168,85,247,.4)}100%{border-color:var(--border);box-shadow:0 0 0 8px rgba(168,85,247,0)}}
+.stat-val{font-size:24px;font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat-label{font-size:11px;color:var(--muted);margin-top:4px}
+.vid-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.vid-table th{text-align:left;padding:8px 6px;color:var(--muted);font-size:11px;border-bottom:1px solid var(--border);font-weight:600}
+.vid-table td{padding:8px 6px;border-bottom:1px solid var(--border)}
+.rating{font-weight:700;font-size:12px}
+.rating.good{color:var(--ok)}.rating.mid{color:var(--warn)}.rating.bad{color:var(--bad)}
+/* Ideas */
+.idea-item{padding:14px;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:8px;position:relative}
+.idea-item .idea-title{font-weight:700;font-size:13px}
+.idea-item .idea-cat{font-size:10px;padding:2px 6px;border-radius:4px;margin-left:6px;display:inline-block}
+.idea-cat.stream{background:rgba(79,124,255,.15);color:var(--blue)}
+.idea-cat.guide{background:rgba(52,211,153,.15);color:var(--ok)}
+.idea-cat.challenge{background:rgba(236,72,153,.15);color:var(--pink)}
+.idea-cat.short{background:rgba(251,191,36,.15);color:var(--warn)}
+.idea-cat.reaction{background:rgba(168,85,247,.15);color:var(--purple)}
+.idea-item .idea-hint{font-size:12px;color:var(--muted);margin-top:6px}
+.idea-item .del-btn{position:absolute;top:10px;right:10px;font-size:14px;color:var(--bad);cursor:pointer;background:none;border:none;opacity:.5}
+.idea-item .del-btn:hover{opacity:1}
+.status-row{display:flex;gap:4px;margin-top:8px}
+.status-btn{font-size:10px;padding:4px 10px;border-radius:99px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer}
+.status-btn.active{background:var(--purple);color:#fff;border-color:var(--purple)}
+.filters{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.chip{font-size:11px;padding:5px 12px;border-radius:99px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer}
+.chip.active{border-color:var(--purple);color:var(--text);background:rgba(168,85,247,.1)}
+.gen-status{font-size:12px;color:var(--muted);margin-top:8px;display:none}
+/* Stream History */
+.stream-item{padding:12px;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:8px}
+.stream-item .sh-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.stream-item .sh-date{font-size:12px;color:var(--muted);min-width:70px}
+.stream-item .sh-game{font-weight:700;font-size:13px;flex:1}
+.stream-item .sh-stars{font-size:12px;color:var(--warn)}
+.stream-item .sh-meta{display:flex;gap:14px;margin-top:6px;font-size:11px;color:var(--muted);flex-wrap:wrap}
+.stream-item .sh-notes{font-size:12px;color:var(--muted);margin-top:6px;font-style:italic}
+.stream-item .del-btn{background:none;border:none;color:var(--bad);cursor:pointer;opacity:.5;font-size:14px}
+.stream-item .del-btn:hover{opacity:1}
+/* Affiliate Progress */
+.aff-row{margin-bottom:12px}
+.aff-row:last-child{margin-bottom:0}
+.aff-label{display:flex;justify-content:space-between;font-size:12px;margin-bottom:5px}
+.aff-label .name{color:var(--muted)}
+.aff-label .val{font-weight:700}
+.aff-track{height:8px;background:var(--surface-2);border-radius:99px;overflow:hidden;border:1px solid var(--border)}
+.aff-fill{height:100%;background:var(--grad);border-radius:99px;transition:width .5s ease}
+.aff-fill.done{background:var(--ok)}
+/* Next Milestone */
+.milestone-title{font-size:16px;font-weight:800;margin-bottom:6px}
+.milestone-sub{font-size:12px;color:var(--muted);margin-bottom:10px}
+.milestone-track{height:10px;background:var(--surface-2);border-radius:99px;overflow:hidden;border:1px solid var(--border)}
+.milestone-fill{height:100%;background:var(--grad);border-radius:99px;transition:width .5s ease}
+.milestone-pct{font-size:11px;color:var(--muted);margin-top:6px;text-align:right}
+.milestone-done{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ok);font-weight:700}
+/* Achievements */
+.ach-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.ach-card{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 10px;text-align:center;transition:.2s}
+.ach-card.locked{opacity:.4}
+.ach-card.unlocked{border-color:var(--purple);background:rgba(168,85,247,.08)}
+.ach-icon{font-size:28px;margin-bottom:6px}
+.ach-card.locked .ach-icon{filter:grayscale(1)}
+.ach-name{font-size:11.5px;font-weight:700;line-height:1.3}
+.ach-date{font-size:9.5px;color:var(--muted);margin-top:4px}
+@keyframes achPop{0%{transform:scale(.7);opacity:0}60%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+.ach-card.just-unlocked{animation:achPop .5s ease}
+/* YouTube Pipeline */
+.pl-item{padding:12px;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:10px}
+.pl-top{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.pl-title{font-weight:700;font-size:13px;flex:1}
+.pl-game{font-size:10px;color:var(--muted);padding:2px 8px;border-radius:99px;background:var(--surface);border:1px solid var(--border)}
+.pl-del{background:none;border:none;color:var(--bad);cursor:pointer;opacity:.5;font-size:14px}
+.pl-del:hover{opacity:1}
+.pl-steps{display:flex;gap:4px}
+.pl-step{flex:1;text-align:center;padding:6px 2px;border-radius:6px;font-size:9.5px;font-weight:700;cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--dim);transition:.15s}
+.pl-step.done{background:rgba(168,85,247,.15);color:var(--purple);border-color:var(--purple)}
+.pl-step.current{background:var(--grad);color:#fff;border-color:transparent}
+.pl-track{height:5px;background:var(--surface);border-radius:99px;overflow:hidden;margin-top:8px;border:1px solid var(--border)}
+.pl-fill{height:100%;background:var(--grad);border-radius:99px;transition:width .3s ease}
+/* Thumbnail Library */
+.th-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+.th-card{position:relative;border-radius:var(--radius-sm);overflow:hidden;border:1px solid var(--border);cursor:pointer;transition:.15s;background:var(--surface-2)}
+.th-card:hover{border-color:var(--purple);transform:translateY(-2px)}
+.th-thumb{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:var(--bg)}
+.th-info{padding:8px}
+.th-info .th-title{font-size:11px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.th-info .th-game{font-size:9.5px;color:var(--muted);margin-top:2px}
+.th-del{position:absolute;top:6px;right:6px;background:rgba(8,7,26,.7);border:none;color:var(--bad);width:22px;height:22px;border-radius:50%;cursor:pointer;font-size:13px;opacity:0;transition:.15s}
+.th-card:hover .th-del{opacity:1}
+.th-preview-modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.85);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s ease,visibility 0s linear .2s}
+.th-preview-modal.open{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .2s ease,visibility 0s linear 0s}
+.th-preview-modal img{max-width:100%;max-height:80vh;border-radius:var(--radius);border:1px solid var(--border);transform:scale(.96);transition:transform .2s ease}
+.th-preview-modal.open img{transform:scale(1)}
+.th-preview-close{position:absolute;top:20px;right:20px;background:var(--surface);border:1px solid var(--border);color:var(--text);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:18px}
+/* Clip Manager */
+.clip-item{padding:12px;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:8px}
+.clip-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.clip-title{font-weight:700;font-size:13px;flex:1}
+.clip-stars{font-size:11px;color:var(--warn)}
+.clip-meta{display:flex;gap:12px;margin-top:6px;font-size:11px;color:var(--muted);flex-wrap:wrap}
+.clip-desc{font-size:12px;color:var(--muted);margin-top:6px}
+.clip-tags{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.clip-tag{font-size:10px;padding:2px 8px;border-radius:99px;background:rgba(168,85,247,.12);color:var(--purple)}
+.clip-actions{display:flex;gap:6px;margin-top:10px}
+.clip-actions .btn-sm{flex:1}
+/* Charts */
+.chart-wrap{width:100%}
+.chart-wrap svg{width:100%;height:auto;display:block;overflow:visible}
+.chart-legend{display:flex;gap:14px;margin-top:10px;flex-wrap:wrap}
+.chart-legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}
+.chart-legend-dot{width:8px;height:8px;border-radius:50%}
+.chart-empty{font-size:13px;color:var(--muted);padding:20px 0;text-align:center}
+.chart-point{cursor:pointer}
+.chart-point:hover{r:5}
+.chart-axis-label{font-size:9px;fill:var(--dim)}
+/* Shorts Manager */
+.short-item{padding:12px;background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:8px}
+.short-top{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.short-title{font-weight:700;font-size:13px;flex:1}
+.short-game{font-size:10px;color:var(--muted);padding:2px 8px;border-radius:99px;background:var(--surface);border:1px solid var(--border)}
+.short-platforms{display:flex;gap:6px}
+.short-platform{flex:1;text-align:center;padding:7px 4px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--dim);transition:.15s}
+.short-platform.active{background:rgba(168,85,247,.15);color:var(--purple);border-color:var(--purple)}
+.short-platform.all-done{background:var(--ok);color:#08071a;border-color:var(--ok)}
+/* Modal */
+.modal-bg{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.7);z-index:100;display:flex;align-items:center;justify-content:center;padding:16px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s ease,visibility 0s linear .2s}
+.modal-bg.open{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .2s ease,visibility 0s linear 0s}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px;width:100%;max-width:450px;max-height:80vh;overflow-y:auto;transform:scale(.95) translateY(8px);transition:transform .2s ease}
+.modal-bg.open .modal{transform:scale(1) translateY(0)}
+.modal h3{font-size:16px;margin-bottom:14px}
+.modal .close{float:right;background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer}
+.subtabs{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.stab{padding:7px 14px;border-radius:99px;border:1px solid var(--border);background:var(--surface-2);color:var(--muted);font-size:12px;font-weight:600;cursor:pointer}
+.stab.active{border-color:var(--purple);color:var(--text);background:rgba(168,85,247,.1)}
+.sub-page{display:none}.sub-page.active{display:block;animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:500px){
+  .countdown-time{font-size:24px}
+  .stat-grid{grid-template-columns:1fr 1fr}
+  .cal-day{min-height:46px;padding:4px}
+  .links-grid{grid-template-columns:repeat(2,1fr)}
+}
+/* Toasts */
+.toast-wrap{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:300;display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none;width:calc(100% - 32px);max-width:420px}
+.toast{background:var(--surface-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:11px 16px;font-size:13px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.5);animation:toastIn .25s ease;max-width:100%;text-align:center}
+.toast.ok{border-color:var(--ok)}.toast.error{border-color:var(--bad)}.toast.info{border-color:var(--purple)}
+.toast.hide{animation:toastOut .25s ease forwards}
+@keyframes toastIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes toastOut{from{opacity:1}to{opacity:0;transform:translateY(10px)}}
+/* Autosave + Backup Hinweise */
+.saved-hint{font-size:11px;color:var(--ok);opacity:0;transition:opacity .3s;margin-right:8px;font-weight:600}
+.saved-hint.show{opacity:1}
+.backup-hint{font-size:11px;color:var(--dim);text-align:center;padding:4px 0 10px}
+.backup-hint.warn{color:var(--warn)}
+/* Greeting + Badges */
+.greeting{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.greeting .hi{font-size:16px;font-weight:800}
+.greeting .sub{font-size:11px;color:var(--muted);margin-top:2px}
+.badge-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.streak-badge,.level-badge{font-size:11px;font-weight:700;padding:5px 11px;border-radius:99px;border:1px solid var(--border);background:var(--surface-2);white-space:nowrap}
+.streak-badge.hot{border-color:var(--warn);color:var(--warn);box-shadow:0 0 12px rgba(251,191,36,.15)}
+.level-badge{border-color:var(--purple);color:var(--purple)}
+/* Summary Card */
+.summary-card{position:relative}
+.summary-card::before{content:'';position:absolute;inset:-1px;border-radius:var(--radius);padding:1px;background:var(--grad);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;opacity:.45}
+.summary-line{font-size:13px;padding:7px 0;border-bottom:1px solid var(--border);display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.summary-line:last-of-type{border-bottom:none}
+.trend-up{color:var(--ok);font-size:11px;font-weight:700}
+.trend-down{color:var(--bad);font-size:11px;font-weight:700}
+.trend-flat{color:var(--dim);font-size:11px}
+.summary-insight{margin-top:10px;padding:10px 12px;background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.25);border-radius:var(--radius-sm);font-size:12.5px;line-height:1.5}
+.summary-toggle{display:flex;gap:4px;margin-left:auto}
+.summary-toggle .chip{padding:4px 11px}
+/* XP */
+.xp-track{height:6px;background:var(--surface-2);border-radius:99px;overflow:hidden;border:1px solid var(--border);margin-top:12px}
+.xp-fill{height:100%;background:var(--grad);border-radius:99px;transition:width .6s ease}
+.xp-label{font-size:10px;color:var(--dim);margin-top:4px;display:flex;justify-content:space-between;gap:8px}
+/* Reminder */
+.reminder-card{border-color:rgba(251,191,36,.5);background:rgba(251,191,36,.05)}
+/* FAB Quick-Add */
+.fab{position:fixed;right:18px;bottom:18px;z-index:90;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.fab-actions{display:flex;flex-direction:column;gap:8px;align-items:flex-end;opacity:0;pointer-events:none;transform:translateY(8px);transition:.2s ease}
+.fab.open .fab-actions{opacity:1;pointer-events:auto;transform:translateY(0)}
+.fab-act{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);color:var(--text);padding:10px 15px;border-radius:99px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 6px 18px rgba(0,0,0,.45)}
+.fab-act:hover{border-color:var(--purple)}
+.fab-main{width:54px;height:54px;border-radius:50%;background:var(--grad);color:#fff;font-size:27px;line-height:1;border:none;cursor:pointer;box-shadow:0 8px 24px rgba(168,85,247,.45);transition:transform .2s ease}
+.fab.open .fab-main{transform:rotate(45deg)}
+/* Design Polish */
+body{background:radial-gradient(1000px 480px at 50% -8%,rgba(168,85,247,.13),transparent 65%),var(--bg)}
+.logo{background-size:200% auto;animation:logoShift 7s ease infinite}
+@keyframes logoShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.tab.active{position:relative}
+.tab.active::after{content:'';position:absolute;bottom:3px;left:26%;right:26%;height:2px;background:var(--grad);border-radius:2px}
+.card{transition:border-color .2s,transform .15s ease,box-shadow .2s}
+.card:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,0,0,.25)}
+/* Storage bar */
+.storage-bar{margin-top:4px}
+.storage-track{height:6px;background:var(--surface-2);border-radius:99px;overflow:hidden;border:1px solid var(--border)}
+.storage-fill{height:100%;border-radius:99px;transition:width .5s ease;background:var(--grad)}
+.storage-fill.warn{background:var(--warn)}.storage-fill.danger{background:var(--bad)}
+.storage-label{font-size:10px;color:var(--dim);margin-top:3px;text-align:right}
+/* Global search */
+.global-search{position:relative;flex:1;max-width:240px}
+.global-search input{width:100%;padding:7px 12px 7px 30px;background:var(--surface-2);border:1px solid var(--border);border-radius:99px;color:var(--text);font-size:12px;font-family:inherit;outline:none;transition:border-color .2s}
+.global-search input:focus{border-color:var(--purple)}
+.global-search .gs-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--dim);pointer-events:none}
+.gs-results{position:absolute;top:100%;left:0;right:0;margin-top:6px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);max-height:320px;overflow-y:auto;z-index:50;display:none;box-shadow:0 12px 32px rgba(0,0,0,.6)}
+.gs-results.open{display:block}
+.gs-item{padding:10px 14px;cursor:pointer;font-size:12px;border-bottom:1px solid var(--border);transition:background .15s}
+.gs-item:last-child{border:none}
+.gs-item:hover{background:var(--surface-2)}
+.gs-item .gs-type{font-size:9px;padding:2px 6px;border-radius:4px;background:rgba(168,85,247,.12);color:var(--purple);margin-right:6px;font-weight:700}
+.gs-item .gs-title{font-weight:600}
+.gs-item .gs-hint{color:var(--muted);font-size:11px;margin-top:2px}
+/* Drag & Drop Pipeline */
+.pl-item.dragging{opacity:.4;border-style:dashed}
+.pl-item.drag-over{border-color:var(--purple);background:rgba(168,85,247,.06)}
+.pl-item{cursor:grab}
+.pl-item:active{cursor:grabbing}
+/* Undo toast */
+.toast .undo-btn{background:var(--purple);color:#fff;border:none;padding:3px 10px;border-radius:99px;font-size:11px;font-weight:700;cursor:pointer;margin-left:10px;font-family:inherit}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+
+/* ═══════════════ REDESIGN v2 — "Neon Deck" ═══════════════ */
+body{font-family:'Space Grotesk','Segoe UI',system-ui,sans-serif;padding:0 12px 110px;background:
+  radial-gradient(900px 460px at 12% -6%,rgba(79,124,255,.11),transparent 60%),
+  radial-gradient(900px 460px at 88% -2%,rgba(236,72,153,.09),transparent 60%),
+  radial-gradient(1100px 620px at 50% 112%,rgba(168,85,247,.12),transparent 62%),
+  var(--bg);background-attachment:fixed}
+.wrap{padding-top:8px}
+
+/* Sticky Glass Header */
+.header{position:sticky;top:0;z-index:60;margin:0 -12px 14px;padding:12px 16px;background:rgba(8,7,26,.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(42,38,80,.7)}
+.header h1{font-size:19px;letter-spacing:-.3px}
+.logo{letter-spacing:5px}
+
+/* Bottom Navigation (App-Style) */
+.tabs{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);width:min(540px,calc(100% - 24px));z-index:80;margin:0;padding:5px;border-radius:20px;background:rgba(17,15,38,.85);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(168,85,247,.25);box-shadow:0 14px 44px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.02) inset}
+.tab{border-radius:15px;padding:11px 8px}
+.tab.active{background:linear-gradient(135deg,rgba(79,124,255,.20),rgba(168,85,247,.22),rgba(236,72,153,.18));box-shadow:0 2px 12px rgba(168,85,247,.25) inset}
+.tab.active::after{bottom:5px;left:32%;right:32%}
+
+/* Glass Cards */
+.card{background:linear-gradient(180deg,rgba(26,23,56,.55),rgba(17,15,38,.72));backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:18px;padding:20px;border:1px solid rgba(42,38,80,.85)}
+.card-title::before{content:'';width:3px;height:15px;border-radius:3px;background:var(--grad);flex:none}
+.summary-card .card-title::before,.countdown-card .card-title::before{display:none}
+.countdown-card{border-color:rgba(168,85,247,.45)}
+.countdown-time{font-size:34px;text-shadow:0 0 34px rgba(168,85,247,.35);font-variant-numeric:tabular-nums}
+
+/* Buttons & Felder */
+.btn{border-radius:12px}
+.btn-primary{background:var(--grad);background-size:150% auto;box-shadow:0 4px 16px rgba(168,85,247,.32)}
+.btn-primary:hover{background-position:right center;background-color:transparent}
+.field{border-radius:12px;background:rgba(8,7,26,.55);transition:border-color .2s,box-shadow .2s}
+.field:focus{outline:none;border-color:var(--purple);box-shadow:0 0 0 3px rgba(168,85,247,.15)}
+
+/* Chips & Subtabs */
+.chip{border-radius:10px}
+.chip.active{background:linear-gradient(135deg,rgba(79,124,255,.22),rgba(236,72,153,.22));border-color:rgba(168,85,247,.6);color:#fff}
+.stab{border-radius:11px;background:rgba(26,23,56,.5)}
+.stab.active{background:linear-gradient(135deg,rgba(79,124,255,.18),rgba(168,85,247,.2));border-color:var(--purple)}
+
+/* Stat-Boxen */
+.stat-box{border-radius:15px;background:linear-gradient(180deg,rgba(26,23,56,.6),rgba(17,15,38,.4))}
+.stat-val{font-size:27px;font-variant-numeric:tabular-nums}
+
+/* Modals + Listen */
+.modal{background:rgba(17,15,38,.94);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-radius:20px;border-color:rgba(168,85,247,.3)}
+.equip-item,.idea-item,.stream-item,.clip-item,.pl-item,.short-item{border-radius:13px;background:rgba(26,23,56,.42)}
+.link-card{border-radius:12px;background:rgba(26,23,56,.5)}
+
+/* FAB + Toasts über der Bottom-Nav */
+.fab{bottom:92px}
+.toast-wrap{bottom:100px}
+
+/* Card-Entrance Stagger */
+.page.active .card{animation:cardIn .35s ease backwards}
+.page.active .card:nth-child(2){animation-delay:.05s}
+.page.active .card:nth-child(3){animation-delay:.09s}
+.page.active .card:nth-child(4){animation-delay:.13s}
+.page.active .card:nth-child(5){animation-delay:.17s}
+.page.active .card:nth-child(6){animation-delay:.21s}
+@keyframes cardIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:500px){
+  .countdown-time{font-size:26px}
+  .header h1{font-size:16px}
+  .global-search{max-width:150px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header"><div><div class="logo">ELI_WENDI</div><h1>Creator Hub</h1></div>
+    <div class="global-search">
+      <span class="gs-icon">🔍</span>
+      <input type="text" id="globalSearchInput" placeholder="Suche überall..." oninput="globalSearch(this.value)" onfocus="globalSearch(this.value)">
+      <div class="gs-results" id="gsResults"></div>
+    </div>
+    <button class="btn btn-ghost btn-sm" onclick="exportData()" title="Daten sichern">💾</button>
+    <button class="btn btn-ghost btn-sm" onclick="document.getElementById('importFile').click()" title="Daten laden">📂</button>
+    <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
+    <div class="live-dot" id="liveDot"></div></div>
+  <div class="greeting">
+    <div><div class="hi" id="greetHi">Servus! 👋</div><div class="sub" id="greetSub"></div></div>
+    <div class="badge-row"><span class="streak-badge" id="streakBadge" title="Eintrags-Streak — trag jeden Tag was ein!"></span><span class="level-badge" id="levelBadge" title="Dein Creator-Level — XP für jeden Eintrag"></span></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="dashboard">🏠 Dashboard<span>Übersicht</span></button>
+    <button class="tab" data-tab="content">🎬 Content<span>Kalender · Ideen</span></button>
+    <button class="tab" data-tab="setup">⚙️ Setup<span>Gear · Stats</span></button>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="page active" id="page-dashboard">
+    <div id="logReminder"></div>
+    <div class="card summary-card">
+      <div class="card-title">📊 Dein Rückblick
+        <span class="summary-toggle">
+          <button class="chip" id="sumWeekBtn" onclick="setSummaryMode('week')">Woche</button>
+          <button class="chip" id="sumMonthBtn" onclick="setSummaryMode('month')">Monat</button>
+        </span>
+      </div>
+      <div id="summaryBody"></div>
+      <div class="xp-track"><div class="xp-fill" id="xpFill"></div></div>
+      <div class="xp-label"><span id="xpLevelName"></span><span id="xpNext"></span></div>
+    </div>
+    <div class="card countdown-card">
+      <div class="card-title">📡 Nächster Stream</div>
+      <div class="countdown-label" id="streamLabel">Lädt...</div>
+      <div class="countdown-time" id="streamCountdown">--:--:--</div>
+      <div class="countdown-detail" id="streamDetail"></div>
+      <div class="schedule-mini" id="scheduleMini"></div>
+    </div>
+
+    <!-- Affiliate Progress -->
+    <div class="card">
+      <div class="card-title">🏆 Affiliate-Fortschritt <span class="badge" id="affBadge"></span></div>
+      <div id="affBars"></div>
+      <details class="mt"><summary style="font-size:12px;color:var(--muted);cursor:pointer">✏️ Follower-Anzahl aktualisieren</summary>
+        <div class="row mt">
+          <input type="number" class="field" id="affFollowerInput" placeholder="Aktuelle Twitch-Follower" min="0">
+          <button class="btn btn-primary btn-sm" onclick="saveAffFollowers()">Speichern</button>
+        </div>
+      </details>
+    </div>
+    <div class="card">
+      <div class="card-title">📋 Heute <span class="badge badge-ok" id="todayBadge"></span></div>
+      <div id="todayTasks"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">🎯 Nächster Meilenstein</div>
+      <div id="nextMilestone"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">📝 Quick Notes</div>
+      <textarea class="field" id="quickNotes" rows="4" placeholder="Clip-Timestamps, Ideen, To-Dos..."></textarea>
+      <div class="mt" style="text-align:right"><span class="saved-hint" id="notesSaved">✓ Gespeichert</span><button class="btn btn-primary btn-sm" onclick="saveNotes()">Speichern</button></div>
+    </div>
+    <div class="card">
+      <div class="card-title">🔗 Meine Accounts</div>
+      <div class="links-grid" id="linksGrid"></div>
+      <details class="mt"><summary style="font-size:12px;color:var(--muted);cursor:pointer">✏️ Links bearbeiten</summary>
+        <div id="linkEditor" class="mt"></div>
+        <div class="row mt">
+          <button class="btn btn-ghost btn-sm" onclick="addAccountLink()">+ Link</button>
+          <button class="btn btn-primary btn-sm" onclick="saveLinks()">Speichern</button>
+        </div>
+      </details>
+    </div>
+    <div class="card">
+      <div class="card-title">✅ Stream-Checklist</div>
+      <div id="checklist"></div>
+      <div class="mt" style="text-align:right"><button class="btn btn-ghost btn-sm" onclick="resetChecklist()">Zurücksetzen</button></div>
+      <details class="mt"><summary style="font-size:12px;color:var(--muted);cursor:pointer">✏️ Punkte bearbeiten</summary>
+        <div id="checklistEditor" class="mt"></div>
+        <div class="row mt">
+          <input type="text" class="field" id="newCheckItem" placeholder="Neuer Punkt...">
+          <button class="btn btn-ghost btn-sm" onclick="addCheckItem()">+ Punkt</button>
+          <button class="btn btn-primary btn-sm" onclick="saveChecklistItems()">Speichern</button>
+        </div>
+      </details>
+    </div>
+    <div class="backup-hint" id="backupHint"></div>
+    <div class="storage-bar"><div class="storage-track"><div class="storage-fill" id="storageFill"></div></div><div class="storage-label" id="storageLabel"></div></div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="page" id="page-content">
+    <div class="subtabs">
+      <button class="stab active" data-sub="calendar">📅 Kalender</button>
+      <button class="stab" data-sub="ideas">💡 Ideen</button>
+      <button class="stab" data-sub="videos">📊 Video Stats</button>
+      <button class="stab" data-sub="shorts">📱 Shorts</button>
+      <button class="stab" data-sub="streams">🎥 Stream-Verlauf</button>
+      <button class="stab" data-sub="clips">✂️ Clips</button>
+    </div>
+
+    <!-- Calendar -->
+    <div class="sub-page active" id="sub-calendar">
+      <div class="card">
+        <div class="cal-nav"><button onclick="calNav(-1)">◀</button><span id="calMonth"></span><button onclick="calNav(1)">▶</button></div>
+        <div class="cal-grid" id="calGrid"></div>
+      </div>
+      <button class="btn btn-primary mt" onclick="openContentModal()">+ Content eintragen</button>
+      <div class="card mt" id="calEntriesCard" style="display:none">
+        <div class="card-title">📌 Geplante Einträge</div>
+        <div id="calEntriesList"></div>
+      </div>
+      <div class="modal-bg" id="contentModal">
+        <div class="modal">
+          <button class="close" onclick="closeContentModal()">✕</button>
+          <h3>Content eintragen</h3>
+          <label style="font-size:12px;color:var(--muted)">Datum</label>
+          <input type="date" class="field mb" id="cmDate">
+          <label style="font-size:12px;color:var(--muted)">Typ</label>
+          <select class="field mb" id="cmType">
+            <option value="stream">🎮 Stream</option>
+            <option value="video">🎬 Video Upload</option>
+            <option value="short">📱 Short Upload</option>
+            <option value="aufnahme">🎥 Video aufnehmen</option>
+            <option value="edit">✂️ Schnitt / Editing</option>
+          </select>
+          <label style="font-size:12px;color:var(--muted)">Titel / Beschreibung</label>
+          <input type="text" class="field mb" id="cmTitle" placeholder="z.B. Fortnite Ranked Grind">
+          <div class="row">
+            <button class="btn btn-primary" onclick="saveContent()">Eintragen</button>
+            <button class="btn btn-ghost" onclick="closeContentModal()">Abbrechen</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ideas -->
+    <div class="sub-page" id="sub-ideas">
+      <div class="card">
+        <div class="card-title">✨ Ideen generieren</div>
+        <div class="row mb">
+          <select class="field" id="genType">
+            <option value="alle">Alle Typen</option>
+            <option value="stream">Streams</option>
+            <option value="guide">Guides</option>
+            <option value="challenge">Challenges</option>
+            <option value="reaction">Reactions</option>
+            <option value="short">Shorts</option>
+          </select>
+          <select class="field" id="genGame" data-games="nur">
+            <option value="alle">Alle Games</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" id="genBtn" onclick="generateIdeas()" style="width:100%">🎲 Ideen würfeln</button>
+        <div class="gen-status" id="genStatus"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">💡 Ideen-Bank <span style="font-size:12px;color:var(--muted);font-weight:400" id="ideaCounter"></span></div>
+        <div class="filters" id="filters">
+          <button class="chip active" data-f="alle">Alle</button>
+          <button class="chip" data-f="offen">Offen</button>
+          <button class="chip" data-f="stream">Streams</button>
+          <button class="chip" data-f="guide">Guides</button>
+          <button class="chip" data-f="challenge">Challenges</button>
+          <button class="chip" data-f="reaction">Reactions</button>
+          <button class="chip" data-f="short">Shorts</button>
+          <button class="chip" data-f="eigene">Eigene</button>
+        </div>
+        <div id="ideasList"></div>
+        <details class="mt"><summary style="font-size:12px;color:var(--muted);cursor:pointer">+ Eigene Idee hinzufügen</summary>
+          <div class="mt">
+            <input type="text" class="field mb" id="newIdeaTitle" placeholder="Videotitel / Stream-Idee">
+            <div class="row mb">
+              <select class="field" id="newIdeaType">
+                <option value="stream">Stream</option>
+                <option value="guide">Guide</option>
+                <option value="challenge">Challenge</option>
+                <option value="reaction">Reaction</option>
+                <option value="short">Short</option>
+              </select>
+              <input type="text" class="field" id="newIdeaHint" placeholder="Warum gut? (optional)">
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="addIdea()">+ Idee speichern</button>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- Video Stats -->
+    <div class="sub-page" id="sub-videos">
+      <div class="card">
+        <div class="card-title">🎬 Video-Pipeline <span style="font-size:12px;color:var(--muted);font-weight:400" id="plCounter"></span></div>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:12px">Verfolge jedes Video von der Idee bis zum Upload.</p>
+        <div id="pipelineList"></div>
+        <details class="mt"><summary style="font-size:12px;color:var(--muted);cursor:pointer">+ Neues Video in die Pipeline</summary>
+          <div class="mt">
+            <input type="text" class="field mb" id="plTitle" placeholder="Arbeitstitel">
+            <select class="field mb" id="plGame" data-games></select>
+            <button class="btn btn-primary btn-sm" onclick="addPipelineItem()">Hinzufügen</button>
+          </div>
+        </details>
+      </div>
+      <div class="card">
+        <div class="card-title">🖼️ Thumbnail-Bibliothek <span style="font-size:12px;color:var(--muted);font-weight:400" id="thCounter"></span></div>
+        <input type="text" class="field mb" id="thSearch" placeholder="🔍 Nach Titel oder Game suchen..." oninput="renderThumbnails()">
+        <div class="filters mb" id="thFilters">
+          <button class="chip active" data-tg="alle">Alle</button>
+        </div>
+        <div class="th-grid" id="thumbGrid"></div>
+        <details class="mt"><summary style="font-size:12px;color:var(--muted);cursor:pointer">+ Thumbnail hinzufügen</summary>
+          <div class="mt">
+            <input type="text" class="field mb" id="thTitle" placeholder="Video-Titel">
+            <select class="field mb" id="thGame" data-games></select>
+            <input type="file" class="field mb" id="thFile" accept="image/*">
+            <button class="btn btn-primary btn-sm" onclick="addThumbnail()">Speichern</button>
+            <div class="gen-status" id="thStatus" style="display:none"></div>
+          </div>
+        </details>
+      </div>
+      <div class="card">
+        <div class="card-title">📈 Diesen Monat</div>
+        <div class="stat-grid">
+          <div class="stat-box"><div class="stat-val" id="vsStreams">0</div><div class="stat-label">Streams</div></div>
+          <div class="stat-box"><div class="stat-val" id="vsVideos">0</div><div class="stat-label">Videos</div></div>
+          <div class="stat-box"><div class="stat-val" id="vsAvgCtr">-</div><div class="stat-label">Ø CTR %</div></div>
+          <div class="stat-box"><div class="stat-val" id="vsAvgRet">-</div><div class="stat-label">Ø Retention %</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">📊 YouTube Video Stats</div>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:12px">Zahlen aus YouTube Studio eintragen (48h nach Upload). Der Hub bewertet automatisch.</p>
+        <table class="vid-table"><thead><tr><th>Video</th><th>CTR</th><th>Ret.</th><th>Impr.</th><th>Abos</th><th>Score</th><th></th></tr></thead>
+          <tbody id="videosBody"></tbody></table>
+      </div>
+      <div class="card">
+        <div class="card-title">➕ Neues Video eintragen</div>
+        <input type="text" class="field mb" id="nvTitle" placeholder="Video-Titel">
+        <div class="row mb">
+          <input type="number" class="field" id="nvCtr" placeholder="CTR %" step="0.1">
+          <input type="number" class="field" id="nvRet" placeholder="Retention %" step="0.1">
+        </div>
+        <div class="row mb">
+          <input type="number" class="field" id="nvImpr" placeholder="Impressionen">
+          <input type="number" class="field" id="nvAbos" placeholder="Neue Abos">
+        </div>
+        <button class="btn btn-primary" onclick="addVideo()">Speichern</button>
+      </div>
+    </div>
+
+    <!-- Shorts Manager -->
+    <div class="sub-page" id="sub-shorts">
+      <div class="card">
+        <div class="card-title">📈 Diesen Monat</div>
+        <div class="stat-grid">
+          <div class="stat-box"><div class="stat-val" id="srTotal">0</div><div class="stat-label">Shorts gesamt</div></div>
+          <div class="stat-box"><div class="stat-val" id="srOnline">0</div><div class="stat-label">Überall online</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📱 Neuer Short</div>
+        <input type="text" class="field mb" id="srTitle" placeholder="Titel / Arbeitstitel">
+        <select class="field mb" id="srGame" data-games></select>
+        <button class="btn btn-primary" onclick="addShort()">Hinzufügen</button>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🎞️ Shorts-Liste <span style="font-size:12px;color:var(--muted);font-weight:400" id="srCounter"></span></div>
+        <div id="shortsList"></div>
+      </div>
+    </div>
+
+    <!-- Stream History -->
+    <div class="sub-page" id="sub-streams">
+      <div class="card">
+        <div class="card-title">📈 Stream-Übersicht</div>
+        <div class="stat-grid">
+          <div class="stat-box"><div class="stat-val" id="shCount">0</div><div class="stat-label">Streams gesamt</div></div>
+          <div class="stat-box"><div class="stat-val" id="shHours">0</div><div class="stat-label">Stunden gestreamt</div></div>
+          <div class="stat-box"><div class="stat-val" id="shAvgViewer">-</div><div class="stat-label">Ø Viewer</div></div>
+          <div class="stat-box"><div class="stat-val" id="shPeakViewer">-</div><div class="stat-label">Bester Peak</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🎬 Stream eintragen</div>
+        <div class="row mb">
+          <input type="date" class="field" id="shDate">
+          <select class="field" id="shGame" data-games></select>
+        </div>
+        <div class="row mb">
+          <input type="number" class="field" id="shDuration" placeholder="Dauer (Min)" min="0">
+          <input type="number" class="field" id="shAvg" placeholder="Ø Viewer" min="0">
+          <input type="number" class="field" id="shPeak" placeholder="Peak Viewer" min="0">
+        </div>
+        <div class="row mb">
+          <input type="number" class="field" id="shFollowers" placeholder="Neue Follower" min="0">
+          <input type="number" class="field" id="shSubs" placeholder="Neue Subs" min="0">
+        </div>
+        <div class="row mb">
+          <select class="field" id="shRating">
+            <option value="5">⭐⭐⭐⭐⭐ Top Stream</option>
+            <option value="4">⭐⭐⭐⭐ Gut</option>
+            <option value="3" selected>⭐⭐⭐ Okay</option>
+            <option value="2">⭐⭐ Eher schwach</option>
+            <option value="1">⭐ Lief nicht</option>
+          </select>
+        </div>
+        <textarea class="field mb" id="shNotes" rows="2" placeholder="Notizen — was lief gut, was beim nächsten Mal anders?"></textarea>
+        <button class="btn btn-primary" onclick="addStream()">Stream speichern</button>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📋 Verlauf <span style="font-size:12px;color:var(--muted);font-weight:400" id="shCounter"></span></div>
+        <div class="filters" id="shFilters">
+          <button class="chip active" data-sg="alle">Alle</button>
+        </div>
+        <input type="text" class="field mb" id="shSearch" placeholder="🔍 Notizen durchsuchen..." oninput="renderStreams()">
+        <div id="streamsList"></div>
+      </div>
+    </div>
+
+    <!-- Clip Manager -->
+    <div class="sub-page" id="sub-clips">
+      <div class="card">
+        <div class="card-title">✂️ Neuer Clip</div>
+        <div class="row mb">
+          <select class="field" id="clStream">
+            <option value="">Stream zuordnen (optional)</option>
+          </select>
+          <input type="text" class="field" id="clTime" placeholder="Zeitpunkt (z.B. 1:23:10)" style="max-width:160px">
+        </div>
+        <input type="text" class="field mb" id="clTitle" placeholder="Clip-Titel">
+        <textarea class="field mb" id="clDesc" rows="2" placeholder="Kurze Beschreibung — was passiert im Clip?"></textarea>
+        <div class="row mb">
+          <select class="field" id="clGame" data-games></select>
+          <select class="field" id="clRating">
+            <option value="3" selected>⭐⭐⭐ Solide</option>
+            <option value="5">⭐⭐⭐⭐⭐ Bester Clip</option>
+            <option value="4">⭐⭐⭐⭐ Stark</option>
+            <option value="2">⭐⭐ Okay</option>
+            <option value="1">⭐ Schwach</option>
+          </select>
+        </div>
+        <input type="text" class="field mb" id="clTags" placeholder="Tags, kommagetrennt (z.B. clutch, funny, fail)">
+        <button class="btn btn-primary" onclick="addClip()">Clip speichern</button>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🎞️ Clip-Bibliothek <span style="font-size:12px;color:var(--muted);font-weight:400" id="clCounter"></span></div>
+        <div class="filters mb" id="clFilters">
+          <button class="chip active" data-cg="alle">Alle</button>
+        </div>
+        <input type="text" class="field mb" id="clSearch" placeholder="🔍 Titel, Beschreibung oder Tag durchsuchen..." oninput="renderClips()">
+        <div id="clipsList"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SETUP -->
+  <div class="page" id="page-setup">
+    <div class="subtabs">
+      <button class="stab active" data-sub="equipment">🎧 Equipment</button>
+      <button class="stab" data-sub="overview">📈 Übersicht</button>
+      <button class="stab" data-sub="goals">🎯 Ziele</button>
+      <button class="stab" data-sub="achievements">🏅 Achievements</button>
+      <button class="stab" data-sub="settings">🔧 Einstellungen</button>
+    </div>
+    <div class="sub-page active" id="sub-equipment">
+      <div class="card">
+        <div class="card-title">🖥️ Mein Equipment</div>
+        <div id="equipList"></div>
+        <details class="mt"><summary style="font-size:12px;color:var(--muted);cursor:pointer">+ Neues Equipment</summary>
+          <div class="mt">
+            <input type="text" class="field mb" id="eqName" placeholder="Name (z.B. RTX 4060)">
+            <input type="text" class="field mb" id="eqLink" placeholder="Link (optional)">
+            <select class="field mb" id="eqStatus">
+              <option value="owned">✅ Vorhanden</option>
+              <option value="planned">🎯 Geplant</option>
+              <option value="warranty">🔧 Garantie</option>
+            </select>
+            <button class="btn btn-primary btn-sm" onclick="addEquipment()">Hinzufügen</button>
+          </div>
+        </details>
+      </div>
+    </div>
+    <div class="sub-page" id="sub-overview">
+      <div class="card">
+        <div class="card-title">📈 Monats-Stats</div>
+        <div class="stat-grid">
+          <div class="stat-box"><div class="stat-val" id="statStreams">0</div><div class="stat-label">Streams</div></div>
+          <div class="stat-box"><div class="stat-val" id="statVideos">0</div><div class="stat-label">Videos</div></div>
+          <div class="stat-box"><div class="stat-val" id="statAvgCtr">-</div><div class="stat-label">Ø CTR %</div></div>
+          <div class="stat-box"><div class="stat-val" id="statAvgRet">-</div><div class="stat-label">Ø Retention %</div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">📊 Viewer-Verlauf <span style="font-size:11px;color:var(--muted);font-weight:400">letzte 10 Streams</span></div>
+        <div id="chartViewers"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">📈 Follower-Wachstum <span style="font-size:11px;color:var(--muted);font-weight:400">kumulativ aus Stream-Verlauf</span></div>
+        <div id="chartFollowers"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">⚙️ Stream Settings</div>
+        <div id="streamSettingsList" style="font-size:13px;line-height:2"></div>
+        <details class="mt"><summary style="font-size:12px;color:var(--muted);cursor:pointer">✏️ Bearbeiten</summary>
+          <div id="streamSettingsEditor" class="mt"></div>
+          <div class="row mt">
+            <button class="btn btn-ghost btn-sm" onclick="addStreamSetting()">+ Zeile</button>
+            <button class="btn btn-primary btn-sm" onclick="saveStreamSettings()">Speichern</button>
+          </div>
+        </details>
+      </div>
+    </div>
+    <div class="sub-page" id="sub-goals">
+      <div class="card">
+        <div class="card-title">🎯 Ziele</div>
+        <div id="goalsList"></div>
+        <div class="mt row"><input type="text" class="field" id="newGoal" placeholder="Neues Ziel..."><button class="btn btn-primary btn-sm" onclick="addGoal()">+</button></div>
+      </div>
+      <div class="card">
+        <div class="card-title">🛒 Hardware-Upgrades</div>
+        <div id="upgradesList"></div>
+        <div class="mt row"><input type="text" class="field" id="newUpgrade" placeholder="Neues Upgrade..."><button class="btn btn-primary btn-sm" onclick="addUpgrade()">+</button></div>
+      </div>
+    </div>
+
+    <!-- Achievements -->
+    <div class="sub-page" id="sub-achievements">
+      <div class="card">
+        <div class="card-title">🏅 Achievements <span style="font-size:12px;color:var(--muted);font-weight:400" id="achCounter"></span></div>
+        <div id="achList"></div>
+      </div>
+    </div>
+
+    <!-- Einstellungen -->
+    <div class="sub-page" id="sub-settings">
+      <div class="card">
+        <div class="card-title">🔊 Sounds</div>
+        <label class="check-item" style="border:none;padding:4px 0"><input type="checkbox" id="sfxToggle" onchange="toggleSfx()"><span>UI-Sounds (Klicks, Erfolge, Achievements)</span></label>
+      </div>
+      <div class="card">
+        <div class="card-title">📡 Stream-Zeitplan</div>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:12px">Steuert Countdown, "Heute", Kalender &amp; Monats-Stats. Dauer in Stunden.</p>
+        <div id="scheduleEditor"></div>
+        <div class="row mt">
+          <button class="btn btn-ghost btn-sm" onclick="addScheduleRow()">+ Slot</button>
+          <button class="btn btn-primary btn-sm" onclick="saveSchedule()">Speichern</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Thumbnail Preview Modal -->
+<div class="th-preview-modal" id="thPreviewModal" onclick="closeThumbPreview(event)">
+  <button class="th-preview-close" onclick="closeThumbPreview(event)">✕</button>
+  <img id="thPreviewImg" src="" alt="Thumbnail Vorschau">
+</div>
+
+<!-- Quick-Add FAB -->
+<div class="fab" id="fab">
+  <div class="fab-actions">
+    <button class="fab-act" onclick="quickAdd('stream')">🎥 Stream eintragen</button>
+    <button class="fab-act" onclick="quickAdd('clip')">✂️ Clip speichern</button>
+    <button class="fab-act" onclick="quickAdd('short')">📱 Short anlegen</button>
+    <button class="fab-act" onclick="quickAdd('idea')">💡 Idee notieren</button>
+  </div>
+  <button class="fab-main" onclick="toggleFab()" title="Schnell eintragen">+</button>
+</div>
+
+<!-- Confirm Modal -->
+<div class="modal-bg" id="confirmModal">
+  <div class="modal" style="max-width:340px">
+    <h3 id="confirmMsg" style="font-size:14px;font-weight:600;line-height:1.5"></h3>
+    <div class="row mt">
+      <button class="btn btn-danger" onclick="confirmModalAnswer(true)">Ja</button>
+      <button class="btn btn-ghost" onclick="confirmModalAnswer(false)">Abbrechen</button>
+    </div>
+  </div>
+</div>
+
+<!-- Generic Edit Modal — reused across Videos, Streams, Clips, Pipeline, Shorts, Thumbnails -->
+<div class="modal-bg" id="editModal">
+  <div class="modal">
+    <button class="close" onclick="closeEditModal()">✕</button>
+    <h3 id="editModalTitle">Bearbeiten</h3>
+    <div id="editModalFields"></div>
+    <div class="row mt">
+      <button class="btn btn-primary" onclick="saveEditModal()">Speichern</button>
+      <button class="btn btn-ghost" onclick="closeEditModal()">Abbrechen</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== HELPERS =====
+function esc(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
+function localDateStr(d=new Date()){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+const GAMES=['Fortnite','Minecraft','Valorant','Forza Horizon 6'];
+function gameShort(g){return g.length>10?g.split(' ')[0]:g}
+// ===== SOUND FX (Web Audio, synthetisiert — keine Dateien) =====
+let _actx=null;
+function _ctx(){if(!_actx){try{_actx=new (window.AudioContext||window.webkitAudioContext)()}catch(e){return null}}if(_actx&&_actx.state==='suspended'){try{_actx.resume()}catch(e){}}return _actx}
+function _tone(f,t0,dur,type,vol,slideTo){
+  const c=_ctx();if(!c)return;
+  try{
+    const o=c.createOscillator(),g=c.createGain();
+    o.type=type;o.frequency.setValueAtTime(f,c.currentTime+t0);
+    if(slideTo)o.frequency.exponentialRampToValueAtTime(slideTo,c.currentTime+t0+dur);
+    g.gain.setValueAtTime(0.0001,c.currentTime+t0);
+    g.gain.exponentialRampToValueAtTime(vol,c.currentTime+t0+0.012);
+    g.gain.exponentialRampToValueAtTime(0.0001,c.currentTime+t0+dur);
+    o.connect(g);g.connect(c.destination);
+    o.start(c.currentTime+t0);o.stop(c.currentTime+t0+dur+0.05);
+  }catch(e){}
+}
+function sfxOn(){return S.get('sfx',true)!==false}
+function toggleSfx(){const cb=document.getElementById('sfxToggle');S.set('sfx',cb.checked);if(cb.checked)sfx('ok')}
+function sfx(name){
+  if(!sfxOn())return;
+  if(name==='click')_tone(520,0,0.06,'triangle',0.06,700);
+  if(name==='ok'){_tone(660,0,0.09,'sine',0.1);_tone(990,0.08,0.13,'sine',0.1)}
+  if(name==='error')_tone(220,0,0.16,'sawtooth',0.07,150);
+  if(name==='pop')_tone(880,0,0.05,'sine',0.06);
+  if(name==='del')_tone(420,0,0.09,'triangle',0.07,240);
+  if(name==='ach'){_tone(523,0,0.1,'sine',0.11);_tone(659,0.09,0.1,'sine',0.11);_tone(784,0.18,0.12,'sine',0.11);_tone(1047,0.28,0.22,'sine',0.11)}
+}
+// dezente Klick-Sounds auf interaktiven Elementen
+document.addEventListener('click',e=>{
+  if(e.target.closest('button,.tab,.stab,.chip,.pl-step,.short-platform,.status-btn,.fab-act,.gs-item'))sfx('click');
+},true);
+
+function toast(msg,type='info',ms=3200){
+  sfx(type==='ok'?'ok':type==='error'?'error':type==='ach'?'ach':'pop');
+  let wrap=document.getElementById('toastWrap');
+  if(!wrap){wrap=document.createElement('div');wrap.id='toastWrap';wrap.className='toast-wrap';document.body.appendChild(wrap)}
+  const t=document.createElement('div');t.className='toast '+(type==='ach'?'ok':type);t.textContent=msg;wrap.appendChild(t);
+  setTimeout(()=>{t.classList.add('hide');setTimeout(()=>t.remove(),300)},ms);
+}
+let _confirmYes=null;
+function confirmDialog(msg,onYes){
+  document.getElementById('confirmMsg').textContent=msg;
+  _confirmYes=onYes;
+  document.getElementById('confirmModal').classList.add('open');
+}
+function confirmModalAnswer(yes){
+  document.getElementById('confirmModal').classList.remove('open');
+  const fn=_confirmYes;_confirmYes=null;
+  if(yes&&typeof fn==='function')fn();
+}
+// Keyboard Shortcuts: Ctrl+S=Save Notes, Ctrl+E=Export, Ctrl+N=New Idea, Ctrl+K=Search
+document.addEventListener('keydown',e=>{
+  if((e.ctrlKey||e.metaKey)&&!e.shiftKey){
+    if(e.key==='s'){e.preventDefault();saveNotes?.()}
+    if(e.key==='e'){e.preventDefault();exportData?.()}
+  }
+});
+// ESC schliesst alle Modals
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    document.querySelectorAll('.modal-bg.open').forEach(m=>m.classList.remove('open'));
+    const tp=document.getElementById('thPreviewModal');if(tp)tp.classList.remove('open');
+    _confirmYes=null;
+  }
+});
+// Game-Selects & Filter-Chips zentral aus GAMES befuellen
+function fillGameSelects(){
+  document.querySelectorAll('select[data-games]').forEach(sel=>{
+    const withOther=sel.dataset.games!=='nur';
+    const keep=sel.querySelector('option[value="alle"]');
+    const current=sel.value;
+    sel.innerHTML=(keep?keep.outerHTML:'')+GAMES.map(g=>`<option value="${esc(g)}">${esc(g)}</option>`).join('')+(withOther?'<option value="Sonstiges">Sonstiges</option>':'');
+    if(current)sel.value=current;
+  });
+}
+function fillGameChips(){
+  [['thFilters','tg'],['shFilters','sg'],['clFilters','cg']].forEach(([id,attr])=>{
+    const wrap=document.getElementById(id);if(!wrap)return;
+    wrap.insertAdjacentHTML('beforeend',GAMES.map(g=>`<button class="chip" data-${attr}="${esc(g)}">${esc(gameShort(g))}</button>`).join(''));
+  });
+}
+fillGameSelects();fillGameChips();
+
+// ===== GLOBAL SEARCH =====
+function globalSearch(q){
+  const wrap=document.getElementById('gsResults');if(!wrap)return;
+  q=(q||'').toLowerCase().trim();
+  if(!q){wrap.classList.remove('open');return}
+  const results=[];
+  const add=(type,title,hint,action)=>results.push({type,title,hint,action});
+  // Ideas
+  (S.get('ideas',[])).forEach(i=>{if((i.title||'').toLowerCase().includes(q)||(i.hint||'').toLowerCase().includes(q))add('Idee',i.title,i.hint||i.type,"switchToTab('content');switchToSub('ideas')")});
+  // Videos
+  (S.get('videos',[])).forEach(v=>{if((v.title||'').toLowerCase().includes(q))add('Video',v.title,'CTR '+v.ctr+'% / Ret. '+v.ret+'%',"switchToTab('content');switchToSub('videos')")});
+  // Pipeline
+  (S.get('pipeline',[])).forEach(p=>{if((p.title||'').toLowerCase().includes(q)||(p.game||'').toLowerCase().includes(q))add('Pipeline',p.title,p.game,"switchToTab('content');switchToSub('videos')")});
+  // Streams
+  (S.get('streams',[])).forEach(s=>{if((s.game||'').toLowerCase().includes(q)||(s.notes||'').toLowerCase().includes(q))add('Stream',s.game+' '+new Date(s.date).toLocaleDateString('de-AT'),s.notes||'',"switchToTab('content');switchToSub('streams')")});
+  // Clips
+  (S.get('clips',[])).forEach(c=>{if((c.title||'').toLowerCase().includes(q)||(c.desc||'').toLowerCase().includes(q)||(c.tags||[]).some(t=>t.toLowerCase().includes(q)))add('Clip',c.title,c.desc||c.game,"switchToTab('content');switchToSub('clips')")});
+  // Shorts
+  (S.get('shorts',[])).forEach(s=>{if((s.title||'').toLowerCase().includes(q)||(s.game||'').toLowerCase().includes(q))add('Short',s.title,s.game,"switchToTab('content');switchToSub('shorts')")});
+  // Equipment
+  (S.get('equipment',[])).forEach(e=>{if((e.name||'').toLowerCase().includes(q))add('Gear',e.name,'',"switchToTab('setup');switchToSub('overview')")});
+  // Goals
+  (S.get('goals',[])).forEach(g=>{if((g.text||'').toLowerCase().includes(q))add('Ziel',g.text,g.done?'Erledigt':'',"switchToTab('setup');switchToSub('goals')")});
+  // Calendar
+  (S.get('calendar',[])).forEach(c=>{if((c.title||'').toLowerCase().includes(q))add('Kalender',c.title,c.date,"switchToTab('content');switchToSub('calendar')")});
+  if(!results.length){wrap.innerHTML='<div class="gs-item"><span style="color:var(--muted)">Keine Ergebnisse für „'+esc(q)+'“</span></div>';wrap.classList.add('open');return}
+  wrap.innerHTML=results.slice(0,12).map(r=>`<div class="gs-item" onclick="${r.action};document.getElementById('gsResults').classList.remove('open');document.getElementById('globalSearchInput').value='';"><span class="gs-type">${esc(r.type)}</span><span class="gs-title">${esc(r.title)}</span>${r.hint?'<div class="gs-hint">'+esc(r.hint)+'</div>':''}</div>`).join('');
+  wrap.classList.add('open');
+}
+// helper: switch main tab
+function switchToTab(tab){
+  document.querySelectorAll('.tab').forEach(t=>{t.classList.toggle('active',t.dataset.tab===tab)});
+  document.querySelectorAll('.page').forEach(p=>{p.classList.toggle('active',p.id==='page-'+tab)});
+}
+function switchToSub(sub){
+  const page=document.querySelector('.page.active');if(!page)return;
+  page.querySelectorAll('.stab').forEach(s=>{s.classList.toggle('active',s.dataset.sub===sub)});
+  page.querySelectorAll('.sub-page').forEach(p=>{p.classList.toggle('active',p.id==='sub-'+sub)});
+}
+document.addEventListener('click',e=>{if(!e.target.closest('.global-search'))document.getElementById('gsResults')?.classList.remove('open')});
+document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();document.getElementById('globalSearchInput')?.focus()}});
+
+// ===== STORAGE BAR =====
+function renderStorageBar(){
+  const fill=document.getElementById('storageFill'),label=document.getElementById('storageLabel');
+  if(!fill||!label)return;
+  let total=0;for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k.startsWith('ewh_'))total+=localStorage.getItem(k).length*2}
+  const mb=total/1024/1024;const max=5;const pct=Math.min(100,mb/max*100);
+  fill.style.width=pct+'%';
+  fill.className='storage-fill'+(pct>90?' danger':pct>70?' warn':'');
+  label.textContent=(mb<1?(mb*1024).toFixed(0)+' KB':mb.toFixed(1)+' MB')+' / '+max+' MB';
+}
+renderStorageBar();
+
+// ===== UNDO SYSTEM =====
+let _undoData=null,_undoTimer=null;
+function undoableDelete(storageKey, id, label, rerenderFn){
+  const items=S.get(storageKey,[]);
+  const idx=items.findIndex(x=>x.id===id);if(idx<0)return;
+  const removed=items.splice(idx,1)[0];S.set(storageKey,items);rerenderFn();renderStorageBar();
+  clearTimeout(_undoTimer);
+  if(_undoData)_undoData=null; // discard previous undo
+  _undoData={storageKey,removed,idx,rerenderFn};
+  // show undo toast
+  let wrap=document.getElementById('toastWrap');
+  if(!wrap){wrap=document.createElement('div');wrap.id='toastWrap';wrap.className='toast-wrap';document.body.appendChild(wrap)}
+  sfx('del');
+  const t=document.createElement('div');t.className='toast info';t.id='undoToast';
+  t.innerHTML=esc(label)+' gelöscht <button class="undo-btn" onclick="performUndo()">Rückgängig</button>';
+  const old=document.getElementById('undoToast');if(old)old.remove();
+  wrap.appendChild(t);
+  _undoTimer=setTimeout(()=>{_undoData=null;t.classList.add('hide');setTimeout(()=>t.remove(),300)},5500);
+}
+function performUndo(){
+  if(!_undoData)return;clearTimeout(_undoTimer);
+  const{storageKey,removed,idx,rerenderFn}=_undoData;_undoData=null;
+  const items=S.get(storageKey,[]);items.splice(Math.min(idx,items.length),0,removed);S.set(storageKey,items);
+  rerenderFn();renderStorageBar();
+  const ut=document.getElementById('undoToast');if(ut){ut.classList.add('hide');setTimeout(()=>ut.remove(),300)}
+  toast('↩ Wiederhergestellt!','ok');
+}
+
+// ===== STORAGE =====
+const S = {
+  get(k, d=null){ try{const v=localStorage.getItem('ewh_'+k);if(v===null||v===undefined)return d;const p=JSON.parse(v);return p===null?d:p}catch{return d}},
+  set(k, v){ try{ localStorage.setItem('ewh_'+k, JSON.stringify(v)); if(typeof renderStorageBar==='function')renderStorageBar(); return true }catch(e){ toast('⚠️ Speicher voll! Nicht gespeichert — Backup exportieren & alte Thumbnails löschen.','error',5000); return false } }
+};
+
+// ===== COUNT-UP ANIMATION HELPER =====
+// Smoothly animates a stat element from its current displayed value to a new numeric value.
+// Falls back to a plain text set for non-numeric values (e.g. "-", percentages) so existing
+// callers that pass strings keep working exactly as before.
+function countUp(id, target, opts={}){
+  const el = document.getElementById(id);
+  if(!el) return;
+  const duration = opts.duration || 600;
+  const decimals = opts.decimals || 0;
+  const suffix = opts.suffix || '';
+
+  // Non-numeric target (e.g. "-", "4.5%") -> just set directly, no animation
+  if(typeof target !== 'number' || isNaN(target)){
+    el.textContent = target;
+    return;
+  }
+
+  const startText = (el.textContent || '0').replace(/[^0-9.\-]/g,'');
+  const start = parseFloat(startText) || 0;
+  const startTime = performance.now();
+
+  // Trigger a brief pulse highlight on the value's stat-box when it actually changes,
+  // giving visual confirmation that something updated (purely cosmetic, no logic impact).
+  if(Math.abs(target - start) > 0.001){
+    const box = el.closest('.stat-box');
+    if(box){
+      box.classList.remove('stat-pulse');
+      void box.offsetWidth; // restart animation if triggered again quickly
+      box.classList.add('stat-pulse');
+    }
+  }
+
+  function tick(now){
+    const t = Math.min(1, (now - startTime) / duration);
+    const eased = 1 - Math.pow(1 - t, 3); // ease-out cubic
+    const current = start + (target - start) * eased;
+    el.textContent = current.toFixed(decimals) + suffix;
+    if(t < 1) requestAnimationFrame(tick);
+    else el.textContent = target.toFixed(decimals) + suffix;
+  }
+  requestAnimationFrame(tick);
+}
+
+// ===== GENERIC EDIT MODAL =====
+// Reusable edit system: each "entity type" (videos, streams, clips, pipeline, shorts, thumbnails)
+// registers a small config describing its storage key, its fields, and how to re-render after
+// a save. This avoids duplicating modal markup/logic seven times across the file.
+const EDIT_CONFIGS = {};
+let _editState = { type:null, id:null };
+
+function registerEditType(type, config){ EDIT_CONFIGS[type] = config; }
+
+function openEditModal(type, id){
+  const config = EDIT_CONFIGS[type];
+  if(!config) return;
+  const items = S.get(config.storageKey, []);
+  const item = items.find(i => i.id === id);
+  if(!item) return;
+
+  _editState = { type, id };
+  document.getElementById('editModalTitle').textContent = config.title || 'Bearbeiten';
+
+  const fieldsHtml = config.fields.map(f=>{
+    let val = item[f.key] !== undefined && item[f.key] !== null ? item[f.key] : '';
+    if(f.type === 'tags' && Array.isArray(val)) val = val.join(', ');
+    const fieldId = 'editField_' + f.key;
+    if(f.type === 'select'){
+      const opts = f.options.map(o => `<option value="${esc(o)}" ${String(item[f.key])===String(o)?'selected':''}>${esc(o)}</option>`).join('');
+      return `<label style="font-size:12px;color:var(--muted)">${f.label}</label><select class="field mb" id="${fieldId}">${opts}</select>`;
+    }
+    if(f.type === 'textarea'){
+      return `<label style="font-size:12px;color:var(--muted)">${f.label}</label><textarea class="field mb" id="${fieldId}" rows="2">${esc(val)}</textarea>`;
+    }
+    const inputType = f.type === 'tags' ? 'text' : (f.type || 'text');
+    return `<label style="font-size:12px;color:var(--muted)">${f.label}</label><input type="${inputType}" class="field mb" id="${fieldId}" value="${esc(val)}" ${f.step?`step="${f.step}"`:''}>`;
+  }).join('');
+
+  document.getElementById('editModalFields').innerHTML = fieldsHtml;
+  document.getElementById('editModal').classList.add('open');
+}
+
+function closeEditModal(){
+  document.getElementById('editModal').classList.remove('open');
+  _editState = { type:null, id:null };
+}
+
+function saveEditModal(){
+  const { type, id } = _editState;
+  const config = EDIT_CONFIGS[type];
+  if(!config || !id) return;
+
+  const items = S.get(config.storageKey, []);
+  const item = items.find(i => i.id === id);
+  if(!item) return;
+
+  config.fields.forEach(f=>{
+    const el = document.getElementById('editField_' + f.key);
+    if(!el) return;
+    let val = el.value;
+    if(f.type === 'number'){ val = parseFloat(val); if(isNaN(val)) val = 0; }
+    if(f.type === 'tags'){ val = val.split(',').map(t=>t.trim()).filter(Boolean); }
+    item[f.key] = val;
+  });
+
+  S.set(config.storageKey, items);
+  closeEditModal();
+  if(typeof config.onSave === 'function') config.onSave();
+}
+
+
+function exportData(){
+  S.set('lastBackup', new Date().toISOString());
+  const data={};
+  for(let i=0;i<localStorage.length;i++){const key=localStorage.key(i);if(key.startsWith('ewh_'))data[key]=localStorage.getItem(key)}
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);const a=document.createElement('a');
+  a.href=url;a.download='eli_wendi_hub_backup_'+localDateStr()+'.json';a.click();
+  URL.revokeObjectURL(url);
+  renderBackupHint();toast('💾 Backup exportiert','ok');
+}
+function importData(event){
+  const file=event.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    let data;
+    try{data=JSON.parse(e.target.result)}catch(err){toast('❌ Ungültige Datei: '+err.message,'error');event.target.value='';return}
+    const keys=Object.keys(data||{}).filter(k=>k.startsWith('ewh_'));
+    if(!keys.length){toast('❌ Kein gültiges Hub-Backup (keine Hub-Daten gefunden).','error');event.target.value='';return}
+    confirmDialog('Backup mit '+keys.length+' Datensätzen importieren? Aktuelle Daten werden überschrieben.',()=>{
+      keys.forEach(key=>localStorage.setItem(key,data[key]));
+      toast('✅ Daten geladen! Seite wird neu geladen.','ok');
+      setTimeout(()=>location.reload(),800);
+    });
+    event.target.value='';
+  };
+  reader.readAsText(file);
+}
+function renderBackupHint(){
+  const el=document.getElementById('backupHint');if(!el)return;
+  const last=S.get('lastBackup',null);
+  if(!last){el.textContent='💾 Noch kein Backup — oben rechts mit 💾 sichern!';el.classList.add('warn');return}
+  const days=Math.floor((Date.now()-new Date(last).getTime())/864e5);
+  el.textContent='💾 Letztes Backup: '+(days<=0?'heute':days===1?'gestern':'vor '+days+' Tagen');
+  el.classList.toggle('warn',days>=14);
+}
+renderBackupHint();
+
+// ===== MIGRATE OLD DATA =====
+(function migrate(){
+  try {
+    const old = localStorage.getItem('eliwendi-hub-v1');
+    if(old && !S.get('_migrated')){
+      const d = JSON.parse(old);
+      if(d.ideas && d.ideas.length) S.set('ideas', d.ideas);
+      if(d.ideaStatuses) S.set('ideaStatuses', d.ideaStatuses);
+      if(d.statsVideos && d.statsVideos.length) S.set('videos', d.statsVideos);
+      if(d.quickNotes) S.set('notes', d.quickNotes);
+      if(d.deletedDefaults) S.set('deletedDefaults', d.deletedDefaults);
+      S.set('_migrated', true);
+    }
+  }catch(e){}
+})();
+
+// ===== TABS =====
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+  t.classList.add('active'); document.getElementById('page-'+t.dataset.tab).classList.add('active');
+}));
+document.querySelectorAll('.stab').forEach(t=>t.addEventListener('click',()=>{
+  const p=t.closest('.page');
+  p.querySelectorAll('.stab').forEach(x=>x.classList.remove('active'));
+  p.querySelectorAll('.sub-page').forEach(x=>x.classList.remove('active'));
+  t.classList.add('active'); p.querySelector('#sub-'+t.dataset.sub).classList.add('active');
+}));
+
+// ===== STREAM COUNTDOWN =====
+const DAY_SHORT=['So','Mo','Di','Mi','Do','Fr','Sa'];
+const DEF_SCHEDULE=[{day:2,h:18,min:0,dur:3},{day:4,h:18,min:0,dur:3},{day:6,h:14,min:0,dur:4}];
+function getSchedule(){const s=S.get('schedule',DEF_SCHEDULE);return (Array.isArray(s)?s:DEF_SCHEDULE).map(x=>({day:x.day,h:x.h,min:x.min||0,dur:x.dur}))}
+function schedLabel(s){const t=(h,m)=>String(h).padStart(2,'0')+':'+String(m).padStart(2,'0');const endMin=s.h*60+s.min+Math.round(s.dur*60);return DAY_SHORT[s.day]+' '+t(s.h,s.min)+'–'+t(Math.floor(endMin/60)%24,endMin%60)}
+function getNextStream(){
+  const now=new Date();
+  for(let i=0;i<8;i++){const d=new Date(now);d.setDate(d.getDate()+i);
+    for(const s of getSchedule()){if(d.getDay()===s.day){const start=new Date(d);start.setHours(s.h,s.min,0,0);const end=new Date(start);end.setMinutes(end.getMinutes()+Math.round(s.dur*60));
+      if(now<end)return{start,end,label:schedLabel(s),isLive:now>=start&&now<end}}}}return null;
+}
+function updateCountdown(){
+  const ns=getNextStream(),el=document.getElementById('streamCountdown'),lbl=document.getElementById('streamLabel'),det=document.getElementById('streamDetail');
+  const dot=document.getElementById('liveDot');if(dot)dot.classList.toggle('live',!!(ns&&ns.isLive));
+  if(!ns){lbl.textContent='Kein Stream geplant';el.textContent='—';det.textContent='';return}
+  if(ns.isLive){lbl.textContent='🔴 JETZT LIVE';const l=ns.end-new Date(),h=Math.floor(l/36e5),m=Math.floor(l%36e5/6e4),s=Math.floor(l%6e4/1e3);
+    el.textContent=`${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;det.textContent='noch übrig — '+ns.label;
+  }else{const diff=ns.start-new Date(),days=Math.floor(diff/864e5),h=Math.floor(diff%864e5/36e5),m=Math.floor(diff%36e5/6e4),s=Math.floor(diff%6e4/1e3);
+    lbl.textContent='Nächster Stream';el.textContent=days>0?`${days}d ${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`:`${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;det.textContent=ns.label;}
+}
+function renderScheduleMini(){const today=new Date().getDay();document.getElementById('scheduleMini').innerHTML=getSchedule().map(s=>`<span class="sch-day${s.day===today?' today':''}">${schedLabel(s)}</span>`).join('')||'<span class="sch-day">Kein Zeitplan — Setup → 🔧</span>'}
+renderScheduleMini();
+setInterval(updateCountdown,1000);updateCountdown();
+
+// ===== SCHEDULE EDITOR =====
+function renderScheduleEditor(){
+  const ed=document.getElementById('scheduleEditor');if(!ed)return;
+  const sched=getSchedule();
+  ed.innerHTML=sched.map((s,i)=>`<div class="row mb" style="align-items:center">
+    <select class="field" data-se="${i}" data-f="day">${DAY_SHORT.map((d,di)=>`<option value="${di}" ${di===s.day?'selected':''}>${d}</option>`).join('')}</select>
+    <input type="time" class="field" value="${String(s.h).padStart(2,'0')}:${String(s.min).padStart(2,'0')}" data-se="${i}" data-f="time">
+    <input type="number" class="field" value="${s.dur}" min="0.5" step="0.5" data-se="${i}" data-f="dur" title="Dauer in Stunden">
+    <button class="btn btn-danger btn-sm" onclick="removeScheduleRow(${i})">✕</button>
+  </div>`).join('')||'<p style="font-size:13px;color:var(--muted)">Keine Slots — füg einen hinzu.</p>';
+}
+function addScheduleRow(){const s=getSchedule();s.push({day:2,h:18,min:0,dur:3});S.set('schedule',s);renderScheduleEditor()}
+function removeScheduleRow(i){const s=getSchedule();s.splice(i,1);S.set('schedule',s);applyScheduleChange()}
+function saveSchedule(){
+  const s=getSchedule();
+  document.querySelectorAll('[data-se]').forEach(el=>{
+    const i=parseInt(el.dataset.se);if(!s[i])return;
+    if(el.dataset.f==='day')s[i].day=parseInt(el.value);
+    if(el.dataset.f==='time'){const p=(el.value||'18:00').split(':');s[i].h=parseInt(p[0])||0;s[i].min=parseInt(p[1])||0}
+    if(el.dataset.f==='dur')s[i].dur=Math.max(0.5,parseFloat(el.value)||1);
+  });
+  s.sort((a,b)=>((a.day===0?7:a.day)-(b.day===0?7:b.day))||(a.h*60+a.min)-(b.h*60+b.min));
+  S.set('schedule',s);applyScheduleChange();toast('✅ Zeitplan gespeichert','ok');
+}
+function applyScheduleChange(){
+  renderScheduleEditor();renderScheduleMini();updateCountdown();
+  if(typeof renderToday==='function')renderToday();
+  if(typeof renderCalendar==='function')renderCalendar();
+  if(typeof updateStats==='function')updateStats();
+}
+renderScheduleEditor();
+
+// ===== TODAY =====
+function renderToday(){
+  const now=new Date(),day=now.getDay(),names=['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
+  document.getElementById('todayBadge').textContent=names[day];
+  const tasks=[];const stream=getSchedule().find(s=>s.day===day);
+  if(stream)tasks.push('🎮 Stream: '+schedLabel(stream));
+  const dateStr=localDateStr(now);const cal=S.get('calendar',[]);
+  cal.filter(c=>c.date===dateStr).forEach(c=>{const icons={stream:'🎮',video:'🎬',short:'📱',aufnahme:'🎥',edit:'✂️'};tasks.push((icons[c.type]||'📌')+' '+c.title)});
+  if(day===0)tasks.push('🎬 Longform Video Upload (17–18 Uhr)');
+  if([1,4,6].includes(day))tasks.push('📱 Short Upload');
+  document.getElementById('todayTasks').innerHTML=tasks.length?tasks.map(t=>`<div class="check-item"><span>${esc(t)}</span></div>`).join(''):'<p style="font-size:13px;color:var(--muted)">Heute nichts geplant — gönn dir! 🎉</p>';
+}
+renderToday();
+
+// ===== NOTES =====
+document.getElementById('quickNotes').value=S.get('notes','')||'';
+function saveNotes(){
+  S.set('notes',document.getElementById('quickNotes').value);
+  const h=document.getElementById('notesSaved');
+  if(h){h.classList.add('show');clearTimeout(saveNotes._t);saveNotes._t=setTimeout(()=>h.classList.remove('show'),1800)}
+}
+let _notesTimer=null;
+document.getElementById('quickNotes').addEventListener('input',()=>{clearTimeout(_notesTimer);_notesTimer=setTimeout(saveNotes,500)});
+
+// ===== LINKS =====
+const DEF_LINKS=[{name:'Twitch',emoji:'🟣',url:'https://twitch.tv/eli_wendi'},{name:'YouTube',emoji:'🔴',url:'https://youtube.com/@ELI_WENDI'},{name:'TikTok',emoji:'🎵',url:'https://tiktok.com/@eli_wendi'},{name:'Discord',emoji:'💬',url:''},{name:'YouTube Studio',emoji:'📊',url:'https://studio.youtube.com'},{name:'Twitch Dashboard',emoji:'📡',url:'https://dashboard.twitch.tv'},{name:'Beacons',emoji:'🔗',url:'https://beacons.ai/eli_wendi'}];
+function getLinks(){let l=S.get('links',null);if(!l){l=DEF_LINKS;S.set('links',l)}return l}
+function renderLinks(){
+  const links=getLinks();
+  document.getElementById('linksGrid').innerHTML=links.filter(l=>l.url).map(l=>`<a href="${esc(l.url)}" target="_blank" class="link-card">${esc(l.emoji)} ${esc(l.name)}</a>`).join('');
+  document.getElementById('linkEditor').innerHTML=links.map((l,i)=>`<div class="row mb" style="align-items:center"><input class="field" value="${esc(l.emoji)}" style="max-width:50px" data-le="${i}" data-f="emoji"><input class="field" value="${esc(l.name)}" data-le="${i}" data-f="name"><input class="field" value="${esc(l.url)}" placeholder="URL" data-le="${i}" data-f="url"><button class="btn btn-danger btn-sm" onclick="removeLink(${i})">✕</button></div>`).join('');
+}
+function saveLinks(){const links=getLinks();document.querySelectorAll('[data-le]').forEach(el=>{const i=parseInt(el.dataset.le);if(links[i])links[i][el.dataset.f]=el.value});S.set('links',links);renderLinks()}
+function addAccountLink(){const links=getLinks();links.push({name:'Neu',emoji:'🔗',url:''});S.set('links',links);renderLinks()}
+function removeLink(i){const links=getLinks();links.splice(i,1);S.set('links',links);renderLinks()}
+renderLinks();
+
+// ===== CHECKLIST =====
+const DEF_CL_ITEMS=['OBS geöffnet & Szenen gecheckt','Mikro-Test: Lautstärke & Qualität','Stream-Titel & Kategorie gesetzt','Twitch + YouTube verbunden & Bitrate (7.999 kbps)','Overlays & Alerts testen','Chat-Bot aktiv (Nightbot)','Discord Go-Live (Streamcord)','Getränk bereit, Handy lautlos','Go Live! 🚀'];
+function getChecklistItems(){let it=S.get('checklistItems',null);if(!it){it=DEF_CL_ITEMS.slice();S.set('checklistItems',it)}return it}
+function renderChecklist(){const items=getChecklistItems();const ck=S.get('checklist',[]);document.getElementById('checklist').innerHTML=items.map((item,i)=>{const done=ck.includes(i);return`<label class="check-item${done?' done':''}"><input type="checkbox" ${done?'checked':''} onchange="toggleCheck(${i})"><span>${esc(item)}</span></label>`}).join('')}
+function toggleCheck(i){let ck=S.get('checklist',[]);if(ck.includes(i))ck=ck.filter(x=>x!==i);else ck.push(i);S.set('checklist',ck);renderChecklist()}
+function resetChecklist(){S.set('checklist',[]);renderChecklist()}
+function renderChecklistEditor(){const items=getChecklistItems();const ed=document.getElementById('checklistEditor');if(!ed)return;ed.innerHTML=items.map((item,i)=>`<div class="row mb" style="align-items:center"><input class="field" value="${esc(item)}" data-cli="${i}"><button class="btn btn-danger btn-sm" onclick="delCheckItem(${i})">✕</button></div>`).join('')}
+function saveChecklistItems(){const items=getChecklistItems();document.querySelectorAll('[data-cli]').forEach(el=>{const i=parseInt(el.dataset.cli);if(items[i]!==undefined)items[i]=el.value});S.set('checklistItems',items);renderChecklist();renderChecklistEditor();toast('✅ Checkliste gespeichert','ok')}
+function addCheckItem(){const inp=document.getElementById('newCheckItem');const t=inp.value.trim();if(!t)return;const items=getChecklistItems();items.push(t);S.set('checklistItems',items);inp.value='';renderChecklist();renderChecklistEditor()}
+function delCheckItem(i){const items=getChecklistItems();items.splice(i,1);S.set('checklistItems',items);let ck=S.get('checklist',[]);ck=ck.filter(x=>x!==i).map(x=>x>i?x-1:x);S.set('checklist',ck);renderChecklist();renderChecklistEditor()}
+renderChecklist();renderChecklistEditor();
+
+// ===== CALENDAR =====
+let calDate=new Date();
+function renderCalendar(){
+  const y=calDate.getFullYear(),m=calDate.getMonth();
+  const months=['Jänner','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+  document.getElementById('calMonth').textContent=months[m]+' '+y;
+  const first=new Date(y,m,1);let startDay=first.getDay();if(startDay===0)startDay=7;
+  const daysInMonth=new Date(y,m+1,0).getDate();const today=new Date();const cal=S.get('calendar',[]);
+  let html=['Mo','Di','Mi','Do','Fr','Sa','So'].map(d=>`<div class="cal-header">${d}</div>`).join('');
+  for(let i=1;i<startDay;i++)html+=`<div class="cal-day cal-empty"></div>`;
+  for(let d=1;d<=daysInMonth;d++){
+    const ds=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const isToday=today.getFullYear()===y&&today.getMonth()===m&&today.getDate()===d;
+    const entries=cal.filter(c=>c.date===ds);const dow=new Date(y,m,d).getDay();
+    const hasStream=getSchedule().some(s=>s.day===dow);const hasContent=entries.length>0||hasStream;
+    const typeLabels={stream:'Stream',video:'Video',short:'Short',aufnahme:'Aufnahme',edit:'Schnitt'};
+    html+=`<div class="cal-day${isToday?' today':''}${hasContent?' has-content':''}" onclick="calDayClick('${ds}')"><div class="num">${d}</div>${hasStream?'<div class="cal-tag stream">Stream</div>':''}${entries.map(e=>`<div class="cal-tag ${e.type}">${typeLabels[e.type]||e.type}</div>`).join('')}</div>`;
+  }
+  document.getElementById('calGrid').innerHTML=html;
+}
+function calNav(dir){calDate.setMonth(calDate.getMonth()+dir);renderCalendar();renderCalEntries()}
+function calDayClick(ds){document.getElementById('cmDate').value=ds;openContentModal()}
+function openContentModal(){document.getElementById('contentModal').classList.add('open');if(!document.getElementById('cmDate').value)document.getElementById('cmDate').value=localDateStr()}
+function closeContentModal(){document.getElementById('contentModal').classList.remove('open')}
+function saveContent(){const date=document.getElementById('cmDate').value,type=document.getElementById('cmType').value,title=document.getElementById('cmTitle').value;if(!date||!title)return;const cal=S.get('calendar',[]);cal.push({id:'c'+Date.now(),date,type,title});S.set('calendar',cal);logActivity();closeContentModal();renderCalendar();renderCalEntries();renderToday();document.getElementById('cmTitle').value=''}
+function delContent(id){const cal=S.get('calendar',[]);const idx=cal.findIndex(c=>c.id===id);if(idx>-1){cal.splice(idx,1);S.set('calendar',cal);renderCalendar();renderCalEntries();renderToday()}}
+function renderCalEntries(){
+  const cal=S.get('calendar',[]);const y=calDate.getFullYear(),m=calDate.getMonth();
+  const entries=cal.filter(c=>{const d=new Date(c.date);return d.getMonth()===m&&d.getFullYear()===y}).sort((a,b)=>a.date.localeCompare(b.date));
+  const card=document.getElementById('calEntriesCard');
+  if(!entries.length){card.style.display='none';return}
+  card.style.display='block';
+  const icons={stream:'🎮',video:'🎬',short:'📱',aufnahme:'🎥',edit:'✂️'};
+  const typeLabels={stream:'Stream',video:'Video Upload',short:'Short Upload',aufnahme:'Video aufnehmen',edit:'Schnitt'};
+  document.getElementById('calEntriesList').innerHTML=entries.map(e=>{
+    const d=new Date(e.date);const ds=d.toLocaleDateString('de-AT',{day:'numeric',month:'short',weekday:'short'});
+    return`<div class="equip-item"><span style="font-size:11px;color:var(--muted);min-width:75px">${ds}</span><span class="name">${icons[e.type]||'📌'} ${esc(e.title)}</span><span style="font-size:10px;color:var(--dim)">${typeLabels[e.type]||e.type}</span><button class="del-btn" onclick="delContent('${e.id}')" title="Eintrag löschen">✕</button></div>`;
+  }).join('');
+}
+renderCalendar();renderCalEntries();
+
+// ===== IDEAS =====
+const DEFAULT_IDEAS=[
+  {id:"st1",type:"stream",title:"Forza Horizon 6 – Roadtrip-Serie",hint:"Kleine Twitch-Kategorie = du wirst gefunden."},
+  {id:"st2",type:"stream",title:"Fortnite Customs / Creative mit Zuschauern",hint:"Stärkster Community-Builder."},
+  {id:"st4",type:"stream",title:"Valorant: Road to nächster Rang mit Chat-Coaching",hint:"Klares Ziel = eingebaute Story."},
+  {id:"st5",type:"stream",title:"Minecraft Langzeit-Base über mehrere Streams",hint:"Gibt Grund wiederzukommen."},
+  {id:"st6",type:"stream",title:"Challenge-Abend: Chat würfelt meine Regeln",hint:"Viele Clip-Momente für Shorts."},
+  {id:"re1",type:"reaction",title:"Ich reagiere auf den neuen Fortnite Trailer",hint:"Suchvolumen-Peak direkt nach Release."},
+  {id:"re3",type:"reaction",title:"Fortnite Waffen-Tier-List Season 3",hint:"Tier-Lists werden gesucht UND laden zum Diskutieren ein."},
+  {id:"re5",type:"reaction",title:"Pro-Player Clips reagieren",hint:"Lerneffekt + Entertainment."},
+  {id:"g1",type:"guide",title:"ALLE MYTHICS in Season 3 – Fundorte + Test",hint:"Stärkster Guide-Kandidat."},
+  {id:"g4",type:"guide",title:"Die 5 BESTEN Landing Spots Shattered Coast",hint:"Evergreen für jede neue Map."},
+  {id:"c1",type:"challenge",title:"Ich gewinne NUR mit Boss-Waffen",hint:"Verbindet Guide-Wissen mit Entertainment."},
+  {id:"c2",type:"challenge",title:"Sieg NUR mit Pistole – John Wick Challenge",hint:"John-Wick-Bezug + Hund-Story = emotionaler Hook."},
+  {id:"s1",type:"short",title:"Der 2-Mythics-Trick in 30 Sekunden",hint:"Kurzversion – im Short aufs Hauptvideo verweisen."},
+  {id:"s2",type:"short",title:"POV: Du triffst den Boss zum ersten Mal",hint:"Reaction-Moment aus dem Stream schneiden."},
+  {id:"s3",type:"short",title:"Schnellster Weg über die Map (Movement-Guide)",hint:"Movement-Clips haben hohe Wiederschau-Rate."},
+];
+
+let ideaFilter='alle';
+function getIdeas(){
+  let ideas=S.get('ideas',null);
+  if(!ideas){
+    ideas=DEFAULT_IDEAS.slice();
+    S.set('ideas',ideas);
+  }
+  return ideas;
+}
+function getIdeaStatuses(){return S.get('ideaStatuses',{})}
+
+function renderIdeas(){
+  const ideas=getIdeas(),statuses=getIdeaStatuses(),STATUSES=['Idee','Geplant','Gedreht','Online'];
+  let shown=0,online=0;
+  const html=[];
+  ideas.forEach((idea,idx)=>{
+    const status=statuses[idea.id]||'Idee';
+    if(status==='Online')online++;
+    if(ideaFilter==='offen'&&status==='Online')return;
+    if(ideaFilter!=='alle'&&ideaFilter!=='offen'&&ideaFilter!=='eigene'){if(idea.type!==ideaFilter)return}
+    if(ideaFilter==='eigene'&&!idea.custom)return;
+    shown++;
+    const catCls=idea.type||'';
+    html.push(`<div class="idea-item" style="${status==='Online'?'opacity:.5':''}">
+      <button class="del-btn" onclick="delIdea(${idx})">✕</button>
+      <span class="idea-title">${idea.ai?'✨ ':''}${esc(idea.title)}</span>
+      <span class="idea-cat ${catCls}">${esc(idea.type||'')}</span>
+      ${idea.hint?`<div class="idea-hint">💡 ${esc(idea.hint)}</div>`:''}
+      <div class="status-row">${STATUSES.map(s=>`<button class="status-btn${s===status?' active':''}" onclick="setIdeaStatus('${idea.id}','${s}')">${s}</button>`).join('')}</div>
+    </div>`);
+  });
+  document.getElementById('ideasList').innerHTML=html.join('')||'<p style="font-size:13px;color:var(--muted)">Keine Ideen für diesen Filter.</p>';
+  document.getElementById('ideaCounter').textContent=`${shown} Ideen · ${online} online 🎉`;
+}
+function setIdeaStatus(id,status){const st=getIdeaStatuses();st[id]=status;S.set('ideaStatuses',st);renderIdeas()}
+function addIdea(){
+  const title=document.getElementById('newIdeaTitle').value.trim();if(!title)return;
+  const ideas=getIdeas();ideas.unshift({id:'u'+Date.now(),type:document.getElementById('newIdeaType').value,title,hint:document.getElementById('newIdeaHint').value.trim(),custom:true});
+  S.set('ideas',ideas);logActivity();document.getElementById('newIdeaTitle').value='';document.getElementById('newIdeaHint').value='';renderIdeas();
+}
+function delIdea(idx){const ideas=getIdeas();const idea=ideas[idx];if(!idea)return;
+  confirmDialog('Idee löschen?',()=>{
+    const del=S.get('deletedDefaults',[]);if(!idea.custom)del.push(idea.id);S.set('deletedDefaults',del);
+    const cur=getIdeas();const i2=cur.findIndex(x=>x.id===idea.id);if(i2>-1)cur.splice(i2,1);S.set('ideas',cur);
+    const st=getIdeaStatuses();delete st[idea.id];S.set('ideaStatuses',st);renderIdeas();
+  });
+}
+document.getElementById('filters').addEventListener('click',e=>{const btn=e.target.closest('.chip');if(!btn)return;document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));btn.classList.add('active');ideaFilter=btn.dataset.f;renderIdeas()});
+renderIdeas();
+
+// ===== IDEEN-GENERATOR (lokal, gratis, instant) =====
+const IDEA_TEMPLATES={
+stream:{
+  hooks:['$GAME $TWIST mit Chat','$GAME $MODE Road to $RANK','$GAME aber Chat würfelt die Regeln','$GAME Late-Night Chill-Stream','$GAME $MODE Subscriber-Battles','$GAME Viewer entscheiden ALLES','$GAME New Season Erster Blick','$GAME mit Zuschauern spielen','$GAME $TWIST Marathon-Stream','$GAME Ranked: Live-Reaktion auf jeden Kill','$GAME $TWIST Duo mit Zuschauer','$GAME nur $WEAPON Challenge live','$GAME Coaching: Chat sagt was ich machen soll','$GAME $TWIST Turnier-Abend','$GAME First Try $CONTENT Reaktion live'],
+  hints:['Community-Builder — Zuschauer werden Teil des Contents.','Klares Ziel = eingebaute Story.','Clips für Shorts fast garantiert.','Chill-Faktor bindet Stammzuschauer.','Suchvolumen steigt bei neuen Updates.','Interaktion = bessere Retention.','Subscriber-Battles bringen neue Subs.']
+},
+guide:{
+  hooks:['Die $NUM BESTEN $THING in $GAME','$GAME $THING komplett erklärt in $MINS Minuten','$GAME Anfänger-Guide: $TOPIC','Geheimer $THING Trick in $GAME','$GAME $THING Tier-List $SEASON','So gewinnst du JEDES $THING in $GAME','$GAME Settings Guide für mehr FPS','$GAME alles über $THING — Fundorte + Test','$GAME $TOPIC — der EINZIGE Guide den du brauchst','$GAME $NUM $THING die KEINER benutzt','$GAME $TOPIC in unter $MINS Minuten lernen','$GAME PRO $TOPIC Tricks für Anfänger'],
+  hints:['Evergreen-Content — wird über Monate gesucht.','Anfänger-Content hat das größte Suchvolumen.','Tier-Lists laden zum Kommentieren ein.','Guide + Entertainment verbinden.','Nummer im Titel = höhere CTR.','Guides laufen als Shorts UND Longform.']
+},
+challenge:{
+  hooks:['$GAME NUR mit $WEAPON gewinnen','$GAME 0 bis $RANK ohne zu sterben','$GAME ich darf NUR $RESTRICTION','$GAME Challenge: Chat bestraft meine Fehler','$GAME $NUM Wins in Folge oder Bestrafung','$GAME mit den SCHLECHTESTEN Settings','$GAME Win NUR mit Boden-Loot','$GAME $CELEB Challenge','$GAME jeder Tod = neues $THING','$GAME ich spiele mit UMGEKEHRTEN Controls','$GAME $WEAPON only bis $RANK','$GAME Zuschauer-Challenge: $RESTRICTION'],
+  hints:['Spannung = Watchtime.','Fail-Momente liefern gratis Shorts.','Guter Hook für Thumbnail und Titel.','Zuschauer kommen für das Ergebnis.','Challenges haben die höchste Share-Rate.','Bestrafungs-Konzept = Wiederkehr-Garantie.']
+},
+reaction:{
+  hooks:['Ich reagiere auf $GAME $CONTENT','$GAME $CONTENT — meine ehrliche Meinung','$GAME Pro-Player $CONTENT reagieren','$GAME Zuschauer-Clips bewerten','$GAME $CONTENT Ranking: Overrated oder Underrated?','$GAME $CONTENT Review — lohnt sich das?','$GAME Community Highlights reagieren','$GAME $CELEB Gameplay reagieren','$GAME TikTok-Clips reagieren','$GAME die BESTEN und SCHLECHTESTEN $THING'],
+  hints:['Suchvolumen-Peak direkt nach Release.','Niedrige Produktionskosten, schnell gemacht.','Lerneffekt + Entertainment.','Community fühlt sich eingebunden.','Reactions funktionieren auch als Shorts.','Polarisierende Meinungen = Kommentare.']
+},
+short:{
+  hooks:['$GAME $THING in 30 Sekunden erklärt','POV: Du $MOMENT in $GAME','$GAME schnellster $THING aller Zeiten','$GAME Anfänger vs Pro $THING','$GAME $NUM Tricks die KEINER kennt','$GAME dieser $THING ist BROKEN','$GAME bester $MOMENT des Streams','$GAME Tipp: $THING den jeder braucht','$GAME $WEAPON Trick den du SOFORT lernen musst','$GAME so reagiert Chat wenn du $MOMENT','$GAME 1 Tipp = sofort besser','$GAME wie du $TOPIC in 30 Sek lernst'],
+  hints:['Shorts haben hohe Wiederschau-Rate.','Kurz + knackig = Algorithmus-Liebling.','Verweise im Short aufs Hauptvideo.','POV-Format hat die höchste Engagement-Rate.','Shorts bringen neue Subscriber.','Tipps-Format hat die beste Watch-Through-Rate.']
+}
+};
+const IDEA_VARS={
+  Fortnite:{TWIST:['Solo','Duo','Squad','Arena','Creative','Customs','Zero Build','Ranked'],MODE:['Ranked','Arena','Zero Build','Creative','Battle Royale'],RANK:['Champion','Unreal','Diamond'],WEAPON:['Pistole','Shotgun','Sniper','Boss-Waffe','graue Waffe','Nahkampf'],THING:['Landing Spots','Waffen','Mythics','Skins','Movement-Tricks','Map-Locations','Boss-Waffen','Loot-Routen','Update','Loadout'],CONTENT:['neuen Trailer','Battle Pass','Update','Patch Notes','neue Map','Event','Waffen-Meta'],TOPIC:['Aim verbessern','Bauen lernen','Movement-Basics','Editieren','Loot-Routen'],RESTRICTION:['crouchen','ohne Bauen','mit 1 HP','rückwärts laufen','Pistolen benutzen'],MOMENT:['den Boss zum ersten Mal triffst','einen 200m Snipe landest','1v4 clutchst','einen Victory Royale holst'],SEASON:['neue Season','aktuelles Update'],CELEB:['John Wick','Goku','Darth Vader']},
+  Minecraft:{TWIST:['Survival','Hardcore','Creative','Skyblock','Modded'],MODE:['Survival','Hardcore','Skyblock','Modded'],RANK:['Ender Dragon','Wither','100 Tage'],WEAPON:['Holzschwert','Faust','Angel','Trident'],THING:['Farms','Bauten','Redstone-Tricks','Enchantments','Biomes','Mobs','Updates','Mega-Base','Villager-Trading'],CONTENT:['neues Update','neuen Mob','Snapshot','Trail Tales'],TOPIC:['Redstone für Anfänger','First Night Guide','Iron Farm bauen'],RESTRICTION:['Holz abbauen','bauen','sprinten','craften'],MOMENT:['den Wither besiegst','Diamonds findest','einen Creeper-Jumpscare bekommst'],SEASON:['1.21','neues Update'],CELEB:['Dream','Steve']},
+  Valorant:{TWIST:['Solo Queue','Duo','5-Stack','Ranked','Unrated'],MODE:['Ranked','Competitive','Unrated'],RANK:['Ascendant','Immortal','Radiant','Diamond'],WEAPON:['Sheriff','Operator','Vandal','Phantom','Knife'],THING:['Agents','Maps','Lineups','Crosshair','Settings','Abilities','Plays','Eco-Runden'],CONTENT:['neuen Agent','neue Map','Patch Notes','Balance-Update','Meta-Shift'],TOPIC:['Aim-Training','Crosshair-Placement','Map-Control','Economy-Guide'],RESTRICTION:['Sheriff only','ohne Abilities','Jump-Peeks'],MOMENT:['ein Ace holst','einen 1v5 Clutch machst','einen Collateral Kill landest'],SEASON:['neue Episode','neuer Act'],CELEB:['TenZ','Asuna']},
+  'Forza Horizon 6':{TWIST:['Roadtrip','Drag Race','Drift','Tuning','Online'],MODE:['Online','Eliminator','Horizon Open','Street Racing'],RANK:['Hall of Fame','Level 200','Prestige'],WEAPON:['Startauto','billigstes Auto','schnellstes Auto','Elektroauto'],THING:['Autos','Tuning-Setups','Straßen','Barn Finds','Prüfungen','Season-Events'],CONTENT:['neues Auto','DLC','Season-Update','Festival Playlist'],TOPIC:['Tuning für Anfänger','beste Drift-Autos','schnellste Drag-Autos'],RESTRICTION:['unter 100 PS','ohne Tuning','nur Elektro','rückwärts fahren'],MOMENT:['einen perfekten Drift landest','mit 400km/h crashst','ein Barn Find entdeckst'],SEASON:['neue Season','Festival Playlist'],CELEB:['Stig','Jeremy Clarkson']}
+};
+function pick(arr){return arr[Math.floor(Math.random()*arr.length)]}
+function fillTemplate(tpl,game){
+  const vars=IDEA_VARS[game]||IDEA_VARS.Fortnite;
+  return tpl.replace(/\$GAME/g,game).replace(/\$NUM/g,pick(['3','5','7','10'])).replace(/\$MINS/g,pick(['5','8','10'])).replace(/\$(TWIST|MODE|RANK|WEAPON|THING|CONTENT|TOPIC|RESTRICTION|MOMENT|SEASON|CELEB)/g,(_,k)=>pick(vars[k]||['???']));
+}
+function generateIdeas(){
+  const btn=document.getElementById('genBtn'),status=document.getElementById('genStatus');
+  const genType=document.getElementById('genType').value;
+  const genGame=document.getElementById('genGame').value;
+  const currentIdeas=getIdeas();
+  const existingTitles=new Set(currentIdeas.map(i=>i.title.toLowerCase()));
+  const types=genType==='alle'?['stream','guide','challenge','reaction','short']:[genType];
+  const games=genGame==='alle'?[...GAMES]:[genGame];
+  let added=0;const maxAttempts=120;let attempts=0;
+  while(added<6&&attempts<maxAttempts){
+    attempts++;
+    const type=pick(types);
+    const game=pick(games);
+    const tpl=IDEA_TEMPLATES[type];if(!tpl)continue;
+    const title=fillTemplate(pick(tpl.hooks),game);
+    if(existingTitles.has(title.toLowerCase()))continue;
+    existingTitles.add(title.toLowerCase());
+    currentIdeas.unshift({id:'gen'+Date.now()+'_'+added,type,title,hint:pick(tpl.hints),custom:true,ai:true});
+    added++;
+  }
+  S.set('ideas',currentIdeas);renderIdeas();
+  status.style.display='block';
+  status.textContent=added>0?'✅ '+added+' Ideen hinzugefügt!':'Alle Templates schon vorhanden — lösch ein paar alte.';
+  setTimeout(()=>{status.style.display='none'},4000);
+  toast('🎲 '+added+' neue Ideen gewürfelt!','ok');
+}
+
+// ===== THUMBNAIL LIBRARY =====
+let thumbFilter = 'alle';
+
+function getThumbnails(){ return S.get('thumbnails', []) }
+
+// Resizes/compresses an uploaded image client-side before storing as base64,
+// so the localStorage quota (~5MB total) isn't blown by full-resolution photos.
+function compressImage(file, maxWidth, quality){
+  return new Promise((resolve, reject)=>{
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = new Image();
+      img.onload = () => {
+        const scale = Math.min(1, maxWidth / img.width);
+        const w = Math.round(img.width * scale);
+        const h = Math.round(img.height * scale);
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, w, h);
+        resolve(canvas.toDataURL('image/jpeg', quality));
+      };
+      img.onerror = reject;
+      img.src = e.target.result;
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+async function addThumbnail(){
+  const title = document.getElementById('thTitle').value.trim();
+  const game = document.getElementById('thGame').value;
+  const fileInput = document.getElementById('thFile');
+  const file = fileInput.files[0];
+  const status = document.getElementById('thStatus');
+
+  if(!title){ toast('Bitte einen Titel eingeben.','error'); return }
+  if(!file){ toast('Bitte ein Bild auswählen.','error'); return }
+
+  status.style.display = 'block';
+  status.textContent = 'Lade Bild...';
+
+  try{
+    const dataUrl = await compressImage(file, 640, 0.8);
+    const thumbnails = getThumbnails();
+    thumbnails.unshift({ id:'th'+Date.now(), title, game, image:dataUrl, date:localDateStr() });
+
+    if(S.set('thumbnails', thumbnails)===false){
+      status.textContent = '❌ Speicher voll — lösche alte Thumbnails oder nutze ein kleineres Bild.';
+      return;
+    }
+
+    logActivity();
+    document.getElementById('thTitle').value = '';
+    fileInput.value = '';
+    status.style.display = 'none';
+    renderThumbnails();
+  }catch(err){
+    status.textContent = '❌ Fehler beim Verarbeiten des Bildes.';
+  }
+}
+
+function delThumbnail(id){
+  confirmDialog('Thumbnail löschen?',()=>{
+    const thumbnails = getThumbnails();
+    const idx = thumbnails.findIndex(t=>t.id===id);
+    if(idx>-1){ thumbnails.splice(idx,1); S.set('thumbnails', thumbnails); renderThumbnails() }
+  });
+}
+
+function openThumbPreview(imgSrc){
+  document.getElementById('thPreviewImg').src = imgSrc;
+  document.getElementById('thPreviewModal').classList.add('open');
+}
+
+function closeThumbPreview(e){
+  if(e) e.stopPropagation();
+  document.getElementById('thPreviewModal').classList.remove('open');
+}
+
+function renderThumbnails(){
+  const grid = document.getElementById('thumbGrid');
+  if(!grid) return;
+  const thumbnails = getThumbnails();
+  const search = (document.getElementById('thSearch')?.value || '').toLowerCase();
+
+  let list = thumbnails;
+  if(thumbFilter !== 'alle') list = list.filter(t=>t.game === thumbFilter);
+  if(search) list = list.filter(t=>(t.title||'').toLowerCase().includes(search) || (t.game||'').toLowerCase().includes(search));
+
+  document.getElementById('thCounter').textContent = list.length + ' Thumbnails';
+
+  if(!list.length){
+    grid.innerHTML = '<p style="font-size:13px;color:var(--muted);grid-column:1/-1">Noch keine Thumbnails gespeichert.</p>';
+    return;
+  }
+
+  grid.innerHTML = list.map(t=>`
+    <div class="th-card" onclick="openThumbPreview('${t.image}')">
+      <button class="th-del" style="right:32px;color:var(--purple)" onclick="event.stopPropagation();openEditModal('thumbnail','${t.id}')" title="Bearbeiten">✎</button>
+      <button class="th-del" onclick="event.stopPropagation();delThumbnail('${t.id}')">✕</button>
+      <img class="th-thumb" src="${t.image}" alt="${esc(t.title)}" loading="lazy">
+      <div class="th-info">
+        <div class="th-title">${esc(t.title)}</div>
+        <div class="th-game">${esc(t.game)}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+document.getElementById('thFilters').addEventListener('click', e=>{
+  const btn = e.target.closest('.chip');
+  if(!btn) return;
+  document.querySelectorAll('#thFilters .chip').forEach(c=>c.classList.remove('active'));
+  btn.classList.add('active');
+  thumbFilter = btn.dataset.tg;
+  renderThumbnails();
+});
+
+renderThumbnails();
+
+registerEditType('thumbnail', {
+  storageKey: 'thumbnails',
+  title: '🖼️ Thumbnail bearbeiten',
+  fields: [
+    { key:'title', label:'Titel', type:'text' },
+    { key:'game', label:'Spiel', type:'select', options:[...GAMES,'Sonstiges'] },
+  ],
+  onSave: () => renderThumbnails()
+});
+
+// ===== YOUTUBE PIPELINE =====
+const PIPELINE_STEPS = [
+  { key:'idee', label:'Idee' },
+  { key:'script', label:'Script' },
+  { key:'thumbnail', label:'Thumb' },
+  { key:'aufnahme', label:'Aufnahme' },
+  { key:'schnitt', label:'Schnitt' },
+  { key:'upload', label:'Upload' },
+  { key:'online', label:'Online' },
+];
+
+function getPipeline(){ return S.get('pipeline', []) }
+
+function addPipelineItem(){
+  const title = document.getElementById('plTitle').value.trim();
+  if(!title) return;
+  const game = document.getElementById('plGame').value;
+  const pipeline = getPipeline();
+  pipeline.unshift({ id:'pl'+Date.now(), title, game, stepIndex:0, created:localDateStr() });
+  S.set('pipeline', pipeline);
+  logActivity();
+  document.getElementById('plTitle').value='';
+  renderPipeline();
+}
+
+function delPipelineItem(id){ undoableDelete('pipeline', id, 'Pipeline-Eintrag', renderPipeline) }
+
+function setPipelineStep(id, stepIndex){
+  const pipeline = getPipeline();
+  const item = pipeline.find(p=>p.id===id);
+  if(item){ item.stepIndex = stepIndex; S.set('pipeline', pipeline); renderPipeline() }
+}
+
+function renderPipeline(){
+  const list = document.getElementById('pipelineList');
+  if(!list) return;
+  const pipeline = getPipeline();
+  document.getElementById('plCounter').textContent = pipeline.length + ' aktiv';
+
+  if(!pipeline.length){
+    list.innerHTML = '<p style="font-size:13px;color:var(--muted)">Noch nichts in der Pipeline — leg dein erstes Video an.</p>';
+    return;
+  }
+
+  list.innerHTML = pipeline.map(item=>{
+    const pct = (item.stepIndex / (PIPELINE_STEPS.length-1)) * 100;
+    const steps = PIPELINE_STEPS.map((s,i)=>{
+      let cls = '';
+      if(i < item.stepIndex) cls = 'done';
+      else if(i === item.stepIndex) cls = 'current';
+      return `<div class="pl-step ${cls}" onclick="setPipelineStep('${item.id}', ${i})" title="${s.label}">${s.label}</div>`;
+    }).join('');
+    return `<div class="pl-item" draggable="true" data-plid="${item.id}" ondragstart="plDragStart(event)" ondragover="plDragOver(event)" ondragenter="plDragEnter(event)" ondragleave="plDragLeave(event)" ondrop="plDrop(event)" ondragend="plDragEnd(event)">
+      <div class="pl-top">
+        <span class="pl-title">${esc(item.title)}</span>
+        <span class="pl-game">${esc(item.game)}</span>
+        <button class="pl-del" style="color:var(--purple);opacity:.6" onclick="openEditModal('pipeline','${item.id}')" title="Bearbeiten">✎</button>
+        <button class="pl-del" onclick="delPipelineItem('${item.id}')">✕</button>
+      </div>
+      <div class="pl-steps">${steps}</div>
+      <div class="pl-track"><div class="pl-fill" style="width:${pct}%"></div></div>
+    </div>`;
+  }).join('');
+}
+renderPipeline();
+
+// Drag & drop reordering
+let _plDragId=null;
+function plDragStart(e){_plDragId=e.currentTarget.dataset.plid;e.currentTarget.classList.add('dragging');e.dataTransfer.effectAllowed='move'}
+function plDragOver(e){e.preventDefault();e.dataTransfer.dropEffect='move'}
+function plDragEnter(e){e.preventDefault();const t=e.currentTarget;if(t.dataset.plid!==_plDragId)t.classList.add('drag-over')}
+function plDragLeave(e){e.currentTarget.classList.remove('drag-over')}
+function plDrop(e){e.preventDefault();const target=e.currentTarget;target.classList.remove('drag-over');if(!_plDragId||target.dataset.plid===_plDragId)return;
+  const pipeline=getPipeline();const fromIdx=pipeline.findIndex(p=>p.id===_plDragId);const toIdx=pipeline.findIndex(p=>p.id===target.dataset.plid);
+  if(fromIdx<0||toIdx<0)return;const [item]=pipeline.splice(fromIdx,1);pipeline.splice(toIdx,0,item);S.set('pipeline',pipeline);renderPipeline()}
+function plDragEnd(e){e.currentTarget.classList.remove('dragging');_plDragId=null;document.querySelectorAll('.pl-item.drag-over').forEach(x=>x.classList.remove('drag-over'))}
+
+registerEditType('pipeline', {
+  storageKey: 'pipeline',
+  title: '🎬 Video bearbeiten',
+  fields: [
+    { key:'title', label:'Titel', type:'text' },
+    { key:'game', label:'Spiel', type:'select', options:[...GAMES,'Sonstiges'] },
+  ],
+  onSave: () => renderPipeline()
+});
+
+// ===== VIDEO STATS =====
+function rateVideo(v){let s=0;if(v.ctr>=5)s+=3;else if(v.ctr>=3)s+=2;else s+=1;if(v.ret>=50)s+=3;else if(v.ret>=35)s+=2;else s+=1;if(v.impr>=1000)s+=2;else if(v.impr>=300)s+=1;if(v.abos>=5)s+=2;else if(v.abos>=1)s+=1;return s}
+function scoreLabel(s){if(s>=8)return{text:'🔥 Top',cls:'good'};if(s>=5)return{text:'👍 OK',cls:'mid'};return{text:'📉 Meh',cls:'bad'}}
+function renderVideos(){
+  let videos=S.get('videos',[]);
+  // Migrate legacy entries that predate the id field, so edit/delete stay reliable
+  // even when the table is filtered or re-sorted later.
+  let migrated=false;
+  videos = videos.map(v=>{ if(!v.id){ migrated=true; return {...v, id:'vid'+Date.now()+Math.random().toString(36).slice(2,7)}; } return v; });
+  if(migrated) S.set('videos', videos);
+
+  const tbody=document.getElementById('videosBody');
+  if(!videos.length){tbody.innerHTML='<tr><td colspan="7" style="color:var(--muted);font-size:13px;padding:16px">Noch keine Videos eingetragen.</td></tr>';updateStats();return}
+  tbody.innerHTML=videos.map((v)=>{const s=rateVideo(v);const l=scoreLabel(s);
+    return`<tr><td style="font-weight:600;max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer" onclick="openEditVideo('${v.id}')">${esc(v.title)}</td><td>${v.ctr}%</td><td>${v.ret}%</td><td>${v.impr}</td><td>${v.abos}</td><td><span class="rating ${l.cls}">${l.text}</span></td><td><button style="background:none;border:none;color:var(--purple);cursor:pointer;opacity:.6;font-size:13px;margin-right:4px" onclick="openEditVideo('${v.id}')" title="Bearbeiten">✎</button><button style="background:none;border:none;color:var(--bad);cursor:pointer;opacity:.5;font-size:14px" onclick="delVideo('${v.id}')">✕</button></td></tr>`}).join('');
+  updateStats();
+}
+function addVideo(){const title=document.getElementById('nvTitle').value.trim(),ctr=parseFloat(document.getElementById('nvCtr').value),ret=parseFloat(document.getElementById('nvRet').value),impr=parseInt(document.getElementById('nvImpr').value)||0,abos=parseInt(document.getElementById('nvAbos').value)||0;
+  if(!title||isNaN(ctr)||isNaN(ret))return;const videos=S.get('videos',[]);videos.unshift({id:'vid'+Date.now(),title,ctr,ret,impr,abos,date:localDateStr()});S.set('videos',videos);logActivity();
+  ['nvTitle','nvCtr','nvRet','nvImpr','nvAbos'].forEach(id=>document.getElementById(id).value='');renderVideos();
+  syncVideoToPipeline(title);
+}
+// Keeps the Pipeline in sync whenever a video is logged in the stats table: if a matching
+// pipeline item exists (by title, case-insensitive), it's pushed to the final "Online" step.
+// If no match exists, a new pipeline entry is created already at "Online" — this is what
+// backfills already-posted videos that were never tracked through the pipeline.
+function syncVideoToPipeline(title){
+  if(typeof getPipeline !== 'function') return;
+  const pipeline = getPipeline();
+  const norm = s => (s||'').trim().toLowerCase();
+  const lastStep = PIPELINE_STEPS.length - 1;
+  const match = pipeline.find(p => norm(p.title) === norm(title));
+  if(match){
+    match.stepIndex = lastStep;
+  } else {
+    pipeline.unshift({ id:'pl'+Date.now(), title, game:'Sonstiges', stepIndex:lastStep, created:localDateStr() });
+  }
+  S.set('pipeline', pipeline);
+  if(typeof renderPipeline === 'function') renderPipeline();
+}
+function delVideo(id){ undoableDelete('videos', id, 'Video', renderVideos) }
+function updateStats(){
+  const videos=S.get('videos',[]);const now=new Date();
+  const thisMonth=videos.filter(v=>{const d=new Date(v.date);return d.getMonth()===now.getMonth()&&d.getFullYear()===now.getFullYear()});
+  let sc=0;
+  for(let d=1;d<=now.getDate();d++){const dow=new Date(now.getFullYear(),now.getMonth(),d).getDay();if(getSchedule().some(s=>s.day===dow))sc++}
+  const avgCtr=thisMonth.length?(thisMonth.reduce((a,v)=>a+v.ctr,0)/thisMonth.length).toFixed(1)+'%':'-';
+  const avgRet=thisMonth.length?(thisMonth.reduce((a,v)=>a+v.ret,0)/thisMonth.length).toFixed(1)+'%':'-';
+  const set=(id,val)=>{const el=document.getElementById(id);if(el)el.textContent=val};
+  // Setup-Übersicht — integer counts animate, percentage strings set directly
+  countUp('statStreams',sc); countUp('statVideos',thisMonth.length); set('statAvgCtr',avgCtr); set('statAvgRet',avgRet);
+  // Video-Stats-Seite Übersicht
+  countUp('vsStreams',sc); countUp('vsVideos',thisMonth.length); set('vsAvgCtr',avgCtr); set('vsAvgRet',avgRet);
+}
+renderVideos();
+
+function openEditVideo(id){ openEditModal('video', id); }
+
+registerEditType('video', {
+  storageKey: 'videos',
+  title: '📊 Video bearbeiten',
+  fields: [
+    { key:'title', label:'Titel', type:'text' },
+    { key:'ctr', label:'CTR %', type:'number', step:'0.1' },
+    { key:'ret', label:'Retention %', type:'number', step:'0.1' },
+    { key:'impr', label:'Impressionen', type:'number' },
+    { key:'abos', label:'Neue Abos', type:'number' },
+  ],
+  onSave: () => renderVideos()
+});
+
+// ===== EQUIPMENT =====
+const DEF_EQUIP=[{name:'Ryzen 5 3600',status:'owned',link:''},{name:'RTX 4060',status:'owned',link:''},{name:'2×16GB DDR4 3200MHz (Single-Channel — DIMMA1 defekt)',status:'warranty',link:''},{name:'MSI A520M-A PRO (MS-7C96)',status:'owned',link:''},{name:'FIFINE XLR/USB-C Mikrofon',status:'owned',link:''},{name:'ErGear Standing Desk',status:'owned',link:''},{name:'Dual Monitor Arms',status:'owned',link:''},{name:'280Hz Monitor',status:'owned',link:''},{name:'Logitech C920s Webcam',status:'planned',link:'https://www.amazon.de/dp/B07MM4V7NR'}];
+function getEquip(){let eq=S.get('equipment',null);if(!eq){eq=DEF_EQUIP;S.set('equipment',eq)}return eq}
+function renderEquipment(){
+  const equip=getEquip();const si={owned:'✅',planned:'🎯',warranty:'🔧'};const sc={owned:'var(--ok)',planned:'var(--warn)',warranty:'var(--bad)'};const sl={owned:'Vorhanden',planned:'Geplant',warranty:'Garantie'};
+  document.getElementById('equipList').innerHTML=equip.map((e,i)=>`<div class="equip-item"><span class="name">${esc(e.name)}</span><span class="status" style="color:${sc[e.status]}">${si[e.status]} ${sl[e.status]}</span>${e.link?`<a href="${esc(e.link)}" target="_blank" class="link-btn">Link →</a>`:''}<button class="del-btn" onclick="delEquip(${i})">✕</button></div>`).join('');
+}
+function addEquipment(){const name=document.getElementById('eqName').value.trim();if(!name)return;const equip=getEquip();equip.push({name,link:document.getElementById('eqLink').value.trim(),status:document.getElementById('eqStatus').value});S.set('equipment',equip);document.getElementById('eqName').value='';document.getElementById('eqLink').value='';renderEquipment()}
+function delEquip(i){const equip=getEquip();const item=equip[i];if(!item)return;item.id=item.id||'eq'+i;undoableDelete('equipment',item.id,'Gerät',renderEquipment)}
+renderEquipment();
+
+// ===== GOALS =====
+const DEF_GOALS=[{text:'Twitch Affiliate erreichen',done:false},{text:'100 YouTube Abonnenten',done:false},{text:'10 YouTube Videos hochladen',done:false},{text:'Erste 1.000 Aufrufe auf einem Video',done:false},{text:'RAM Dual-Channel Fix (Garantie Systemtreff)',done:false},{text:'Selbstständig nach Lehre',done:false}];
+function getGoals(){let g=S.get('goals',null);if(!g){g=DEF_GOALS;S.set('goals',g)}return g}
+function renderGoals(){const goals=getGoals();document.getElementById('goalsList').innerHTML=goals.map((g,i)=>`<label class="check-item${g.done?' done':''}"><input type="checkbox" ${g.done?'checked':''} onchange="toggleGoal(${i})"><span>${esc(g.text)}</span><button style="margin-left:auto;background:none;border:none;color:var(--bad);cursor:pointer;opacity:.5;font-size:14px" onclick="event.preventDefault();delGoal(${i})">✕</button></label>`).join('')}
+function toggleGoal(i){const goals=getGoals();if(goals[i])goals[i].done=!goals[i].done;S.set('goals',goals);renderGoals()}
+function addGoal(){const text=document.getElementById('newGoal').value.trim();if(!text)return;const goals=getGoals();goals.push({text,done:false});S.set('goals',goals);document.getElementById('newGoal').value='';renderGoals()}
+function delGoal(i){const goals=getGoals();goals.splice(i,1);S.set('goals',goals);renderGoals()}
+renderGoals();
+
+// ===== HARDWARE UPGRADES =====
+const DEF_UPGRADES=[{text:'RAM Slot Reparatur — Garantie Systemtreff (SH-67669)',done:false},{text:'Logitech C920s Webcam — ~60€',done:false},{text:'Neewer Ring Light — ~25€',done:false},{text:'Elgato Stream Deck Mini — ~70€',done:false}];
+function getUpgrades(){let u=S.get('upgrades',null);if(!u){u=DEF_UPGRADES.slice();S.set('upgrades',u)}return u}
+function renderUpgrades(){const el=document.getElementById('upgradesList');if(!el)return;el.innerHTML=getUpgrades().map((u,i)=>`<label class="check-item${u.done?' done':''}"><input type="checkbox" ${u.done?'checked':''} onchange="toggleUpgrade(${i})"><span>${esc(u.text)}</span><button style="margin-left:auto;background:none;border:none;color:var(--bad);cursor:pointer;opacity:.5;font-size:14px" onclick="event.preventDefault();delUpgrade(${i})">✕</button></label>`).join('')||'<p style="font-size:13px;color:var(--muted)">Keine Upgrades geplant.</p>'}
+function toggleUpgrade(i){const u=getUpgrades();if(u[i])u[i].done=!u[i].done;S.set('upgrades',u);renderUpgrades()}
+function addUpgrade(){const inp=document.getElementById('newUpgrade');const t=inp.value.trim();if(!t)return;const u=getUpgrades();u.push({text:t,done:false});S.set('upgrades',u);inp.value='';renderUpgrades()}
+function delUpgrade(i){const u=getUpgrades();u.splice(i,1);S.set('upgrades',u);renderUpgrades()}
+renderUpgrades();
+
+// ===== STREAM SETTINGS =====
+const DEF_STREAM_SETTINGS=[{k:'Plattform',v:'Twitch + YouTube (Dual-Stream)'},{k:'Encoder',v:'NVENC H.264 CBR'},{k:'Bitrate',v:'7.999 kbps'},{k:'Server',v:'Europe (Frankfurt)'},{k:'Recording',v:'HEVC CQP 20 / MKV'},{k:'YouTube',v:'Shorts + Videos Upload'}];
+function getStreamSettings(){let s=S.get('streamSettings',null);if(!s){s=DEF_STREAM_SETTINGS.slice();S.set('streamSettings',s)}return s}
+function renderStreamSettings(){
+  const el=document.getElementById('streamSettingsList');if(!el)return;
+  el.innerHTML=getStreamSettings().map(s=>`<div><span style="color:var(--muted);display:inline-block;width:110px;font-size:12px">${esc(s.k)}</span> ${esc(s.v)}</div>`).join('');
+  const ed=document.getElementById('streamSettingsEditor');
+  if(ed)ed.innerHTML=getStreamSettings().map((s,i)=>`<div class="row mb" style="align-items:center"><input class="field" value="${esc(s.k)}" data-ss="${i}" data-f="k" style="max-width:130px"><input class="field" value="${esc(s.v)}" data-ss="${i}" data-f="v"><button class="btn btn-danger btn-sm" onclick="delStreamSetting(${i})">✕</button></div>`).join('');
+}
+function saveStreamSettings(){const s=getStreamSettings();document.querySelectorAll('[data-ss]').forEach(el=>{const i=parseInt(el.dataset.ss);if(s[i])s[i][el.dataset.f]=el.value});S.set('streamSettings',s);renderStreamSettings();toast('✅ Settings gespeichert','ok')}
+function addStreamSetting(){const s=getStreamSettings();s.push({k:'Neu',v:''});S.set('streamSettings',s);renderStreamSettings()}
+function delStreamSetting(i){const s=getStreamSettings();s.splice(i,1);S.set('streamSettings',s);renderStreamSettings()}
+renderStreamSettings();
+
+// ===== STREAM HISTORY =====
+function getStreams(){ return S.get('streams', []) }
+
+let streamFilter = 'alle';
+
+function addStream(){
+  const date = document.getElementById('shDate').value;
+  const game = document.getElementById('shGame').value;
+  const duration = parseInt(document.getElementById('shDuration').value) || 0;
+  const avg = parseInt(document.getElementById('shAvg').value) || 0;
+  const peak = parseInt(document.getElementById('shPeak').value) || 0;
+  const followers = parseInt(document.getElementById('shFollowers').value) || 0;
+  const subs = parseInt(document.getElementById('shSubs').value) || 0;
+  const rating = parseInt(document.getElementById('shRating').value) || 3;
+  const notes = document.getElementById('shNotes').value.trim();
+  if(!date){ toast('Bitte ein Datum auswählen.','error'); return }
+
+  const streams = getStreams();
+  streams.unshift({id:'st'+Date.now(), date, game, duration, avg, peak, followers, subs, rating, notes});
+  S.set('streams', streams);
+  logActivity();
+
+  ['shDuration','shAvg','shPeak','shFollowers','shSubs','shNotes'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('shDate').value='';
+  renderStreams();
+  if(typeof renderAffiliate === 'function') renderAffiliate();
+  if(typeof renderAchievements === 'function') renderAchievements();
+  if(typeof renderCharts === 'function') renderCharts();
+}
+
+function delStream(id){
+  undoableDelete('streams', id, 'Stream', ()=>{renderStreams();if(typeof renderCharts==='function')renderCharts()});
+}
+
+function renderStreamStats(){
+  const streams = getStreams();
+  const set=(id,val)=>{const el=document.getElementById(id);if(el)el.textContent=val};
+  countUp('shCount', streams.length);
+  const totalMin = streams.reduce((a,s)=>a+(s.duration||0),0);
+  countUp('shHours', totalMin/60, {decimals:1});
+  if(streams.length){
+    const avgViewers = streams.reduce((a,s)=>a+(s.avg||0),0)/streams.length;
+    countUp('shAvgViewer', avgViewers, {decimals:1});
+    const bestPeak = Math.max(...streams.map(s=>s.peak||0));
+    countUp('shPeakViewer', bestPeak);
+  } else {
+    set('shAvgViewer','-'); set('shPeakViewer','-');
+  }
+}
+
+function renderStreams(){
+  const streams = getStreams();
+  const search = (document.getElementById('shSearch')?.value || '').toLowerCase();
+  let list = streams.slice().sort((a,b)=>b.date.localeCompare(a.date));
+  if(streamFilter !== 'alle') list = list.filter(s=>s.game === streamFilter);
+  if(search) list = list.filter(s=>(s.notes||'').toLowerCase().includes(search) || (s.game||'').toLowerCase().includes(search));
+
+  document.getElementById('shCounter').textContent = list.length + ' Einträge';
+
+  if(!list.length){
+    document.getElementById('streamsList').innerHTML = '<p style="font-size:13px;color:var(--muted)">Noch keine Streams eingetragen.</p>';
+    renderStreamStats();
+    return;
+  }
+
+  document.getElementById('streamsList').innerHTML = list.map(s=>{
+    const d = new Date(s.date);
+    const dateStr = isNaN(d) ? s.date : d.toLocaleDateString('de-AT',{day:'2-digit',month:'2-digit',year:'2-digit'});
+    const stars = '⭐'.repeat(s.rating||0);
+    const h = Math.floor((s.duration||0)/60), m = (s.duration||0)%60;
+    return `<div class="stream-item">
+      <div class="sh-top">
+        <span class="sh-date">${dateStr}</span>
+        <span class="sh-game">🎮 ${esc(s.game)}</span>
+        <span class="sh-stars">${stars}</span>
+        <button class="pl-del" style="color:var(--purple);opacity:.6" onclick="openEditModal('stream','${s.id}')" title="Bearbeiten">✎</button>
+        <button class="del-btn" onclick="delStream('${s.id}')">✕</button>
+      </div>
+      <div class="sh-meta">
+        <span>⏱️ ${h}h ${m}min</span>
+        <span>👀 Ø ${s.avg||0} / Peak ${s.peak||0}</span>
+        <span>➕ ${s.followers||0} Follower</span>
+        <span>💜 ${s.subs||0} Subs</span>
+      </div>
+      ${s.notes?`<div class="sh-notes">"${esc(s.notes)}"</div>`:''}
+    </div>`;
+  }).join('');
+
+  renderStreamStats();
+}
+
+document.getElementById('shFilters').addEventListener('click', e=>{
+  const btn = e.target.closest('.chip');
+  if(!btn) return;
+  document.querySelectorAll('#shFilters .chip').forEach(c=>c.classList.remove('active'));
+  btn.classList.add('active');
+  streamFilter = btn.dataset.sg;
+  renderStreams();
+});
+
+renderStreams();
+
+registerEditType('stream', {
+  storageKey: 'streams',
+  title: '🎥 Stream bearbeiten',
+  fields: [
+    { key:'date', label:'Datum', type:'date' },
+    { key:'game', label:'Spiel', type:'select', options:[...GAMES,'Sonstiges'] },
+    { key:'duration', label:'Dauer (Min)', type:'number' },
+    { key:'avg', label:'Ø Viewer', type:'number' },
+    { key:'peak', label:'Peak Viewer', type:'number' },
+    { key:'followers', label:'Neue Follower', type:'number' },
+    { key:'subs', label:'Neue Subs', type:'number' },
+    { key:'rating', label:'Bewertung (1-5)', type:'number' },
+    { key:'notes', label:'Notizen', type:'textarea' },
+  ],
+  onSave: () => { renderStreams(); if(typeof renderAffiliate==='function') renderAffiliate(); if(typeof renderAchievements==='function') renderAchievements(); if(typeof renderCharts==='function') renderCharts(); }
+});
+
+// ===== CLIP MANAGER =====
+let clipFilter = 'alle';
+
+function getClips(){ return S.get('clips', []) }
+
+function populateClipStreamSelect(){
+  const sel = document.getElementById('clStream');
+  if(!sel) return;
+  const streams = getStreams().slice().sort((a,b)=>b.date.localeCompare(a.date));
+  const current = sel.value;
+  sel.innerHTML = '<option value="">Stream zuordnen (optional)</option>' +
+    streams.map(s=>{
+      const d = new Date(s.date);
+      const dateStr = isNaN(d) ? s.date : d.toLocaleDateString('de-AT',{day:'2-digit',month:'2-digit',year:'2-digit'});
+      return `<option value="${s.id}">${dateStr} — ${esc(s.game)}</option>`;
+    }).join('');
+  sel.value = current;
+}
+
+function addClip(){
+  const title = document.getElementById('clTitle').value.trim();
+  if(!title){ toast('Bitte einen Titel eingeben.','error'); return }
+
+  const streamId = document.getElementById('clStream').value;
+  const time = document.getElementById('clTime').value.trim();
+  const desc = document.getElementById('clDesc').value.trim();
+  const game = document.getElementById('clGame').value;
+  const rating = parseInt(document.getElementById('clRating').value) || 3;
+  const tagsRaw = document.getElementById('clTags').value.trim();
+  const tags = tagsRaw ? tagsRaw.split(',').map(t=>t.trim()).filter(Boolean) : [];
+
+  const clips = getClips();
+  clips.unshift({
+    id:'cl'+Date.now(), title, streamId, time, desc, game, rating, tags,
+    usedForShort:false, date:localDateStr()
+  });
+  S.set('clips', clips);
+  logActivity();
+
+  document.getElementById('clTitle').value='';
+  document.getElementById('clTime').value='';
+  document.getElementById('clDesc').value='';
+  document.getElementById('clTags').value='';
+  renderClips();
+}
+
+function delClip(id){ undoableDelete('clips', id, 'Clip', renderClips) }
+
+function useClipForShort(id){
+  const clips = getClips();
+  const clip = clips.find(c=>c.id===id);
+  if(!clip) return;
+  clip.usedForShort = true;
+  S.set('clips', clips);
+
+  // Push directly into the existing pipeline as a fresh item starting at "Idee",
+  // pre-filled with the clip's title/game so it's ready to move through the workflow.
+  if(typeof getPipeline === 'function'){
+    const pipeline = getPipeline();
+    pipeline.unshift({ id:'pl'+Date.now(), title: clip.title + ' (Short)', game: clip.game, stepIndex:0, created:localDateStr() });
+    S.set('pipeline', pipeline);
+    if(typeof renderPipeline === 'function') renderPipeline();
+  }
+
+  // Also create a matching Shorts Manager entry so platform-upload status can be tracked
+  // once the short is cut and ready to post — keeps the Clip → Pipeline → Shorts flow intact.
+  if(typeof getShorts === 'function'){
+    const shorts = getShorts();
+    shorts.unshift({
+      id:'sr'+Date.now(), title: clip.title, game: clip.game,
+      platforms:{ youtube:false, tiktok:false, instagram:false },
+      created:localDateStr()
+    });
+    S.set('shorts', shorts);
+    if(typeof renderShorts === 'function') renderShorts();
+  }
+
+  renderClips();
+}
+
+function renderClips(){
+  const list = document.getElementById('clipsList');
+  if(!list) return;
+
+  populateClipStreamSelect();
+
+  const clips = getClips();
+  const search = (document.getElementById('clSearch')?.value || '').toLowerCase();
+  let filtered = clips.slice().sort((a,b)=>b.date.localeCompare(a.date));
+  if(clipFilter !== 'alle') filtered = filtered.filter(c=>c.game === clipFilter);
+  if(search){
+    filtered = filtered.filter(c =>
+      (c.title||'').toLowerCase().includes(search) ||
+      (c.desc||'').toLowerCase().includes(search) ||
+      (c.tags||[]).some(t=>t.toLowerCase().includes(search))
+    );
+  }
+
+  document.getElementById('clCounter').textContent = filtered.length + ' Clips';
+
+  if(!filtered.length){
+    list.innerHTML = '<p style="font-size:13px;color:var(--muted)">Noch keine Clips gespeichert.</p>';
+    return;
+  }
+
+  const streams = getStreams();
+
+  list.innerHTML = filtered.map(c=>{
+    const stars = '⭐'.repeat(c.rating||0);
+    let streamLabel = '';
+    if(c.streamId){
+      const s = streams.find(s=>s.id===c.streamId);
+      if(s){
+        const d = new Date(s.date);
+        streamLabel = isNaN(d) ? s.date : d.toLocaleDateString('de-AT',{day:'2-digit',month:'2-digit',year:'2-digit'});
+      }
+    }
+    return `<div class="clip-item">
+      <div class="clip-top">
+        <span class="clip-title">${esc(c.title)}</span>
+        <span class="clip-stars">${stars}</span>
+        <button class="pl-del" style="color:var(--purple);opacity:.6" onclick="openEditModal('clip','${c.id}')" title="Bearbeiten">✎</button>
+        <button class="pl-del" onclick="delClip('${c.id}')">✕</button>
+      </div>
+      <div class="clip-meta">
+        <span>🎮 ${esc(c.game)}</span>
+        ${c.time?`<span>⏱️ ${esc(c.time)}</span>`:''}
+        ${streamLabel?`<span>📅 ${streamLabel}</span>`:''}
+      </div>
+      ${c.desc?`<div class="clip-desc">${esc(c.desc)}</div>`:''}
+      ${c.tags && c.tags.length ? `<div class="clip-tags">${c.tags.map(t=>`<span class="clip-tag">#${esc(t)}</span>`).join('')}</div>` : ''}
+      <div class="clip-actions">
+        ${c.usedForShort
+          ? `<button class="btn btn-ghost btn-sm" disabled>✅ Für Short verwendet</button>`
+          : `<button class="btn btn-primary btn-sm" onclick="useClipForShort('${c.id}')">📱 Für Short verwenden</button>`}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+document.getElementById('clFilters').addEventListener('click', e=>{
+  const btn = e.target.closest('.chip');
+  if(!btn) return;
+  document.querySelectorAll('#clFilters .chip').forEach(c=>c.classList.remove('active'));
+  btn.classList.add('active');
+  clipFilter = btn.dataset.cg;
+  renderClips();
+});
+
+renderClips();
+
+registerEditType('clip', {
+  storageKey: 'clips',
+  title: '✂️ Clip bearbeiten',
+  fields: [
+    { key:'title', label:'Titel', type:'text' },
+    { key:'game', label:'Spiel', type:'select', options:[...GAMES,'Sonstiges'] },
+    { key:'time', label:'Zeitpunkt', type:'text' },
+    { key:'desc', label:'Beschreibung', type:'textarea' },
+    { key:'rating', label:'Bewertung (1-5)', type:'number' },
+    { key:'tags', label:'Tags (kommagetrennt)', type:'tags' },
+  ],
+  onSave: () => renderClips()
+});
+
+// ===== CHARTS (SVG-based, no external library) =====
+// Generic line-chart renderer: takes an array of {label, value} points and draws
+// a responsive SVG line chart with dots, gridlines and native <title> tooltips.
+function renderLineChart(containerId, points, opts={}){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  if(!points || points.length < 2){
+    el.innerHTML = `<div class="chart-empty">${opts.emptyText || 'Noch nicht genug Daten — trag mehr Streams ein.'}</div>`;
+    return;
+  }
+
+  const W = 600, H = 180, padL = 30, padR = 10, padT = 14, padB = 22;
+  const chartW = W - padL - padR, chartH = H - padT - padB;
+
+  const values = points.map(p=>p.value);
+  let maxV = Math.max(...values, opts.minMax || 0);
+  let minV = Math.min(0, ...values);
+  if(maxV === minV) maxV = minV + 1;
+
+  const xStep = chartW / (points.length - 1);
+  const yFor = v => padT + chartH - ((v - minV) / (maxV - minV)) * chartH;
+  const xFor = i => padL + i * xStep;
+
+  const linePoints = points.map((p,i) => `${xFor(i)},${yFor(p.value)}`).join(' ');
+  const areaPoints = `${xFor(0)},${padT+chartH} ${linePoints} ${xFor(points.length-1)},${padT+chartH}`;
+
+  const color = opts.color || 'var(--purple)';
+  const gridLines = [0,0.5,1].map(t=>{
+    const y = padT + chartH * t;
+    const val = (maxV - (maxV-minV)*t).toFixed(opts.decimals || 0);
+    return `<line x1="${padL}" y1="${y}" x2="${W-padR}" y2="${y}" stroke="var(--border)" stroke-width="1"/>
+            <text x="${padL-6}" y="${y+3}" text-anchor="end" class="chart-axis-label">${val}</text>`;
+  }).join('');
+
+  const dots = points.map((p,i)=>{
+    const x = xFor(i), y = yFor(p.value);
+    return `<circle class="chart-point" cx="${x}" cy="${y}" r="3.5" fill="${color}"><title>${p.label}: ${p.value}</title></circle>`;
+  }).join('');
+
+  // Show every label if few points, otherwise thin them out to avoid overlap
+  const labelStep = points.length > 8 ? Math.ceil(points.length/8) : 1;
+  const xLabels = points.map((p,i)=>{
+    if(i % labelStep !== 0 && i !== points.length-1) return '';
+    return `<text x="${xFor(i)}" y="${H-4}" text-anchor="middle" class="chart-axis-label">${p.label}</text>`;
+  }).join('');
+
+  el.innerHTML = `
+    <div class="chart-wrap">
+      <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
+        ${gridLines}
+        <polygon points="${areaPoints}" fill="${color}" opacity="0.08"/>
+        <polyline points="${linePoints}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+        ${dots}
+        ${xLabels}
+      </svg>
+    </div>
+  `;
+}
+
+function renderCharts(){
+  // Viewer-Verlauf: last 10 streams chronologically, showing avg viewers
+  const streams = getStreams().slice().sort((a,b)=>a.date.localeCompare(b.date));
+  const recentStreams = streams.slice(-10);
+  const viewerPoints = recentStreams.map(s=>{
+    const d = new Date(s.date);
+    const label = isNaN(d) ? s.date : d.toLocaleDateString('de-AT',{day:'2-digit',month:'2-digit'});
+    return { label, value: s.avg || 0 };
+  });
+  renderLineChart('chartViewers', viewerPoints, { color:'#4f7cff', emptyText:'Trag mindestens 2 Streams ein, um den Viewer-Verlauf zu sehen.' });
+
+  // Follower-Wachstum: cumulative sum of "neue Follower" per stream, ending at current total
+  // if the user has set one. This approximates growth over time from stream entries.
+  if(streams.length >= 2){
+    const followerGained = streams.reduce((a,s)=>a+(s.followers||0),0);
+    const currentTotal = getAffFollowers();
+    const startEstimate = Math.max(0, currentTotal - followerGained);
+    let running = startEstimate;
+    const followerPoints = streams.map(s=>{
+      running += (s.followers || 0);
+      const d = new Date(s.date);
+      const label = isNaN(d) ? s.date : d.toLocaleDateString('de-AT',{day:'2-digit',month:'2-digit'});
+      return { label, value: running };
+    });
+    renderLineChart('chartFollowers', followerPoints, { color:'#ec4899', emptyText:'Noch keine Daten.' });
+  } else {
+    renderLineChart('chartFollowers', [], { emptyText:'Trag mindestens 2 Streams mit Follower-Zuwachs ein.' });
+  }
+}
+renderCharts();
+
+// ===== SHORTS MANAGER =====
+const SHORT_PLATFORMS = [
+  { key:'youtube', label:'YT' },
+  { key:'tiktok', label:'TikTok' },
+  { key:'instagram', label:'IG' },
+];
+
+function getShorts(){ return S.get('shorts', []) }
+
+function addShort(){
+  const title = document.getElementById('srTitle').value.trim();
+  if(!title){ toast('Bitte einen Titel eingeben.','error'); return }
+  const game = document.getElementById('srGame').value;
+  const shorts = getShorts();
+  shorts.unshift({
+    id:'sr'+Date.now(), title, game,
+    platforms:{ youtube:false, tiktok:false, instagram:false },
+    created:localDateStr()
+  });
+  S.set('shorts', shorts);
+  logActivity();
+  document.getElementById('srTitle').value='';
+  renderShorts();
+}
+
+function delShort(id){
+  confirmDialog('Short löschen?',()=>{
+    const shorts = getShorts();
+    const idx = shorts.findIndex(s=>s.id===id);
+    if(idx>-1){ shorts.splice(idx,1); S.set('shorts', shorts); renderShorts() }
+  });
+}
+
+function toggleShortPlatform(id, platform){
+  const shorts = getShorts();
+  const short = shorts.find(s=>s.id===id);
+  if(short){
+    short.platforms[platform] = !short.platforms[platform];
+    S.set('shorts', shorts);
+    renderShorts();
+  }
+}
+
+function renderShorts(){
+  const list = document.getElementById('shortsList');
+  if(!list) return;
+  const shorts = getShorts();
+
+  document.getElementById('srCounter').textContent = shorts.length + ' Einträge';
+  countUp('srTotal', shorts.length);
+  const allOnline = shorts.filter(s => SHORT_PLATFORMS.every(p => s.platforms[p.key])).length;
+  countUp('srOnline', allOnline);
+
+  if(!shorts.length){
+    list.innerHTML = '<p style="font-size:13px;color:var(--muted)">Noch keine Shorts geplant.</p>';
+    return;
+  }
+
+  list.innerHTML = shorts.map(s=>{
+    const platformButtons = SHORT_PLATFORMS.map(p=>{
+      const isActive = !!s.platforms[p.key];
+      const allDone = SHORT_PLATFORMS.every(pp => s.platforms[pp.key]);
+      const cls = allDone ? 'all-done' : (isActive ? 'active' : '');
+      return `<div class="short-platform ${cls}" onclick="toggleShortPlatform('${s.id}','${p.key}')">${isActive?'✓ ':''}${p.label}</div>`;
+    }).join('');
+    return `<div class="short-item">
+      <div class="short-top">
+        <span class="short-title">${esc(s.title)}</span>
+        <span class="short-game">${esc(s.game)}</span>
+        <button class="pl-del" style="color:var(--purple);opacity:.6" onclick="openEditModal('short','${s.id}')" title="Bearbeiten">✎</button>
+        <button class="pl-del" onclick="delShort('${s.id}')">✕</button>
+      </div>
+      <div class="short-platforms">${platformButtons}</div>
+    </div>`;
+  }).join('');
+}
+renderShorts();
+
+registerEditType('short', {
+  storageKey: 'shorts',
+  title: '📱 Short bearbeiten',
+  fields: [
+    { key:'title', label:'Titel', type:'text' },
+    { key:'game', label:'Spiel', type:'select', options:[...GAMES,'Sonstiges'] },
+  ],
+  onSave: () => renderShorts()
+});
+
+// ===== AFFILIATE PROGRESS =====
+// Twitch Affiliate Kriterien: 50 Follower, Ø 3 Viewer, 7 Streams, 8 Stunden — alles innerhalb 30 Tagen für die Streaming-Kriterien
+const AFF_TARGETS = { followers: 50, avgViewers: 3, streamCount: 7, hours: 8 };
+
+function getAffFollowers(){ return S.get('affFollowers', 0) }
+
+function saveAffFollowers(){
+  const val = parseInt(document.getElementById('affFollowerInput').value);
+  if(isNaN(val) || val < 0) return;
+  S.set('affFollowers', val);
+  document.getElementById('affFollowerInput').value = '';
+  renderAffiliate();
+  if(typeof renderAchievements === 'function') renderAchievements();
+  if(typeof renderCharts === 'function') renderCharts();
+}
+
+function renderAffiliate(){
+  const streams = getStreams();
+  const cutoff = new Date();
+  cutoff.setDate(cutoff.getDate() - 30);
+  const recent = streams.filter(s => new Date(s.date) >= cutoff);
+
+  const followers = getAffFollowers();
+  const avgViewers = recent.length ? recent.reduce((a,s)=>a+(s.avg||0),0) / recent.length : 0;
+  const streamCount = recent.length;
+  const hours = recent.reduce((a,s)=>a+(s.duration||0),0) / 60;
+
+  const metrics = [
+    { name:'Follower', current: followers, target: AFF_TARGETS.followers, suffix:'' },
+    { name:'Ø Viewer (30 Tage)', current: avgViewers, target: AFF_TARGETS.avgViewers, suffix:'', decimals:1 },
+    { name:'Streams (30 Tage)', current: streamCount, target: AFF_TARGETS.streamCount, suffix:'' },
+    { name:'Stunden (30 Tage)', current: hours, target: AFF_TARGETS.hours, suffix:'h', decimals:1 },
+  ];
+
+  const allDone = metrics.every(m => m.current >= m.target);
+  document.getElementById('affBadge').className = 'badge ' + (allDone ? 'badge-ok' : 'badge-warn');
+  document.getElementById('affBadge').textContent = allDone ? '🎉 Bereit!' : 'In Arbeit';
+
+  document.getElementById('affBars').innerHTML = metrics.map(m=>{
+    const pct = Math.min(100, (m.current / m.target) * 100);
+    const done = m.current >= m.target;
+    const curDisplay = m.decimals ? m.current.toFixed(m.decimals) : Math.floor(m.current);
+    return `<div class="aff-row">
+      <div class="aff-label"><span class="name">${m.name}</span><span class="val">${curDisplay}${m.suffix} / ${m.target}${m.suffix}</span></div>
+      <div class="aff-track"><div class="aff-fill${done?' done':''}" style="width:${pct}%"></div></div>
+    </div>`;
+  }).join('');
+
+  renderNextMilestone(metrics, allDone);
+}
+
+function renderNextMilestone(metrics, allDone){
+  const el = document.getElementById('nextMilestone');
+  if(!el) return;
+
+  if(allDone){
+    el.innerHTML = `<div class="milestone-done">🎉 Alle Affiliate-Kriterien erfüllt! Beantrage Affiliate auf Twitch.</div>`;
+    return;
+  }
+
+  // Find the metric with lowest progress percentage = furthest from goal = next focus
+  let weakest = null, weakestPct = 101;
+  metrics.forEach(m=>{
+    const pct = Math.min(100, (m.current / m.target) * 100);
+    if(pct < weakestPct){ weakestPct = pct; weakest = m; }
+  });
+
+  if(!weakest){ el.innerHTML = '<p style="font-size:13px;color:var(--muted)">Noch keine Daten — trag deinen ersten Stream ein.</p>'; return; }
+
+  const remaining = weakest.target - weakest.current;
+  const remainingDisplay = weakest.decimals ? remaining.toFixed(weakest.decimals) : Math.ceil(remaining);
+
+  el.innerHTML = `
+    <div class="milestone-title">${weakest.name}</div>
+    <div class="milestone-sub">Noch ${remainingDisplay}${weakest.suffix} bis zum Ziel (${weakest.target}${weakest.suffix})</div>
+    <div class="milestone-track"><div class="milestone-fill" style="width:${weakestPct}%"></div></div>
+    <div class="milestone-pct">${weakestPct.toFixed(0)}% geschafft</div>
+  `;
+}
+
+// ===== ACHIEVEMENTS =====
+const ACHIEVEMENTS = [
+  { id:'first_stream', icon:'🎬', name:'Erster Stream', check: d => d.streamCount >= 1 },
+  { id:'streams_10', icon:'🔟', name:'10 Streams', check: d => d.streamCount >= 10 },
+  { id:'streams_50', icon:'💯', name:'50 Streams', check: d => d.streamCount >= 50 },
+  { id:'hours_10', icon:'⏱️', name:'10 Stunden gestreamt', check: d => d.totalHours >= 10 },
+  { id:'hours_50', icon:'⏰', name:'50 Stunden gestreamt', check: d => d.totalHours >= 50 },
+  { id:'hours_100', icon:'🕰️', name:'100 Stunden gestreamt', check: d => d.totalHours >= 100 },
+  { id:'first_follower10', icon:'👋', name:'Erste 10 Follower', check: d => d.followers >= 10 },
+  { id:'affiliate', icon:'🏆', name:'Affiliate erreicht', check: d => d.affiliateReady },
+  { id:'first_video', icon:'🎥', name:'Erstes Video', check: d => d.videoCount >= 1 },
+  { id:'videos_10', icon:'📹', name:'10 Videos', check: d => d.videoCount >= 10 },
+  { id:'top_stream', icon:'⭐', name:'5-Sterne-Stream', check: d => d.hasFiveStarStream },
+  { id:'peak_10', icon:'👀', name:'Peak von 10 Viewern', check: d => d.bestPeak >= 10 },
+  { id:'peak_50', icon:'🔥', name:'Peak von 50 Viewern', check: d => d.bestPeak >= 50 },
+  { id:'goal_done', icon:'✅', name:'Erstes Ziel erreicht', check: d => d.goalsDone >= 1 },
+  { id:'subs_first', icon:'💜', name:'Erster Sub', check: d => d.totalSubs >= 1 },
+];
+
+function getAchievementUnlocks(){ return S.get('achievements', {}) }
+
+function computeAchievementData(){
+  const streams = getStreams();
+  const videos = S.get('videos', []);
+  const goals = getGoals();
+  return {
+    streamCount: streams.length,
+    totalHours: streams.reduce((a,s)=>a+(s.duration||0),0) / 60,
+    followers: getAffFollowers(),
+    videoCount: videos.length,
+    hasFiveStarStream: streams.some(s => s.rating >= 5),
+    bestPeak: streams.length ? Math.max(...streams.map(s=>s.peak||0)) : 0,
+    goalsDone: goals.filter(g=>g.done).length,
+    totalSubs: streams.reduce((a,s)=>a+(s.subs||0),0),
+    affiliateReady: (function(){
+      const cutoff = new Date(); cutoff.setDate(cutoff.getDate()-30);
+      const recent = streams.filter(s => new Date(s.date) >= cutoff);
+      const avgViewers = recent.length ? recent.reduce((a,s)=>a+(s.avg||0),0)/recent.length : 0;
+      const hours = recent.reduce((a,s)=>a+(s.duration||0),0)/60;
+      return getAffFollowers() >= 50 && avgViewers >= 3 && recent.length >= 7 && hours >= 8;
+    })()
+  };
+}
+
+function checkAchievements(){
+  const data = computeAchievementData();
+  const unlocked = getAchievementUnlocks();
+  let newlyUnlocked = [];
+  ACHIEVEMENTS.forEach(a=>{
+    if(!unlocked[a.id] && a.check(data)){
+      unlocked[a.id] = new Date().toISOString();
+      newlyUnlocked.push(a.id);
+    }
+  });
+  if(newlyUnlocked.length) S.set('achievements', unlocked);
+  return { unlocked, newlyUnlocked };
+}
+
+function renderAchievements(){
+  const grid = document.getElementById('achList');
+  if(!grid) return;
+  const { unlocked, newlyUnlocked } = checkAchievements();
+  if(newlyUnlocked.length){
+    if(newlyUnlocked.length>3){ toast('🏅 '+newlyUnlocked.length+' Achievements freigeschaltet!','ach',4500) }
+    else newlyUnlocked.forEach(id=>{const a=ACHIEVEMENTS.find(x=>x.id===id);if(a)toast('🏅 Achievement freigeschaltet: '+a.name+'!','ach',4500)});
+  }
+  const unlockedCount = Object.keys(unlocked).length;
+  document.getElementById('achCounter').textContent = `${unlockedCount} / ${ACHIEVEMENTS.length} freigeschaltet`;
+
+  grid.innerHTML = `<div class="ach-grid">` + ACHIEVEMENTS.map(a=>{
+    const isUnlocked = !!unlocked[a.id];
+    const justNow = newlyUnlocked.includes(a.id);
+    let dateStr = '';
+    if(isUnlocked){
+      const d = new Date(unlocked[a.id]);
+      dateStr = isNaN(d) ? '' : d.toLocaleDateString('de-AT',{day:'2-digit',month:'2-digit',year:'2-digit'});
+    }
+    return `<div class="ach-card ${isUnlocked?'unlocked':'locked'}${justNow?' just-unlocked':''}">
+      <div class="ach-icon">${a.icon}</div>
+      <div class="ach-name">${a.name}</div>
+      ${isUnlocked ? `<div class="ach-date">${dateStr}</div>` : '<div class="ach-date">Gesperrt</div>'}
+    </div>`;
+  }).join('') + `</div>`;
+}
+
+renderAffiliate();
+renderAchievements();
+
+// ===== ACTIVITY / STREAK / LEVEL =====
+function logActivity(){const log=S.get('activityLog',{});const t=localDateStr();if(!log[t]){log[t]=true;S.set('activityLog',log)}renderGreeting();renderSummary();renderLogReminder()}
+function getStreak(){
+  const log=S.get('activityLog',{});let streak=0;const d=new Date();
+  if(!log[localDateStr(d)])d.setDate(d.getDate()-1);
+  while(log[localDateStr(d)]){streak++;d.setDate(d.getDate()-1)}
+  return streak;
+}
+function computeXP(){
+  const st=getStreams().length,vd=S.get('videos',[]).length,sh=getShorts().length,cl=getClips().length,
+        id=(S.get('ideas',[])).filter(i=>i.custom&&!i.ai).length,th=getThumbnails().length,gd=getGoals().filter(g=>g.done).length;
+  return st*20+vd*30+sh*10+cl*5+id*3+th*5+gd*15;
+}
+const LEVELS=[{xp:0,name:'🌱 Rookie'},{xp:50,name:'🎮 Grinder'},{xp:150,name:'🎬 Creator'},{xp:300,name:'🚀 Rising Star'},{xp:500,name:'💎 Pro'},{xp:800,name:'🔥 Elite'},{xp:1200,name:'👑 Legende'}];
+function getLevel(xp){let cur=LEVELS[0],next=null;for(let i=0;i<LEVELS.length;i++){if(xp>=LEVELS[i].xp)cur=LEVELS[i];else{next=LEVELS[i];break}}return{cur,next}}
+function renderGreeting(){
+  const hi=document.getElementById('greetHi');if(!hi)return;
+  const h=new Date().getHours();
+  hi.textContent=(h<11?'Guten Morgen':h<18?'Servus':'Guten Abend')+', Elias! 👋';
+  document.getElementById('greetSub').textContent=new Date().toLocaleDateString('de-AT',{weekday:'long',day:'numeric',month:'long'});
+  const streak=getStreak();
+  const sb=document.getElementById('streakBadge');
+  sb.textContent='🔥 '+streak+(streak===1?' Tag':' Tage');
+  sb.classList.toggle('hot',streak>=3);
+  const xp=computeXP();const lv=getLevel(xp);
+  document.getElementById('levelBadge').textContent=lv.cur.name;
+  const fill=document.getElementById('xpFill');
+  if(fill){
+    const base=lv.cur.xp,top=lv.next?lv.next.xp:xp||1;
+    const pct=lv.next?Math.min(100,(xp-base)/(top-base)*100):100;
+    fill.style.width=pct+'%';
+    document.getElementById('xpLevelName').textContent=lv.cur.name+' · '+xp+' XP';
+    document.getElementById('xpNext').textContent=lv.next?(lv.next.xp-xp)+' XP bis '+lv.next.name:'Max Level erreicht! 👑';
+  }
+}
+
+// ===== RÜCKBLICK (Wochen/Monats-Summary, lokal) =====
+let summaryMode=S.get('summaryMode','week');
+function setSummaryMode(m){summaryMode=m;S.set('summaryMode',m);renderSummary()}
+function _rangeStats(fromStr,toStr){
+  const inR=d=>(d||'')>=fromStr&&(d||'')<toStr;
+  const streams=getStreams().filter(s=>inR(s.date));
+  const videos=S.get('videos',[]).filter(v=>inR(v.date));
+  const shorts=getShorts().filter(s=>inR(s.created));
+  const clips=getClips().filter(c=>inR(c.date));
+  return{
+    streams:streams.length,
+    hours:streams.reduce((a,s)=>a+(s.duration||0),0)/60,
+    avgV:streams.length?streams.reduce((a,s)=>a+(s.avg||0),0)/streams.length:0,
+    peak:streams.length?Math.max(...streams.map(s=>s.peak||0)):0,
+    fol:streams.reduce((a,s)=>a+(s.followers||0),0),
+    subs:streams.reduce((a,s)=>a+(s.subs||0),0),
+    videos:videos.length,shorts:shorts.length,clips:clips.length,
+    best:streams.slice().sort((a,b)=>(b.rating||0)-(a.rating||0)||(b.peak||0)-(a.peak||0))[0]||null
+  };
+}
+function _trendHtml(c,p,prevLabel){
+  if(p===0&&c===0)return'';
+  const diff=Math.round((c-p)*10)/10;
+  if(diff===0)return`<span class="trend-flat">± wie ${prevLabel}</span>`;
+  const cls=diff>0?'trend-up':'trend-down';const arrow=diff>0?'↑':'↓';
+  return`<span class="${cls}">${arrow} ${Math.abs(diff)} vs. ${prevLabel}</span>`;
+}
+function _insightHtml(cur,prev){
+  const tips=[];
+  const followers=typeof getAffFollowers==='function'?getAffFollowers():0;
+  if(followers>0&&followers<50)tips.push(`Noch <b>${50-followers} Follower</b> bis Twitch Affiliate — dranbleiben! 💪`);
+  if(cur.streams>prev.streams&&prev.streams>0)tips.push('Mehr Streams als im Zeitraum davor — genau so wächst der Kanal! 🔥');
+  if(cur.streams===0)tips.push('Kein Stream im Zeitraum eingetragen — dein Zeitplan wartet 📡');
+  if(cur.shorts>=3)tips.push('Starker Shorts-Output! Der Algorithmus liebt Konstanz 📈');
+  if(cur.clips>0&&cur.shorts===0)tips.push(`${cur.clips} Clip${cur.clips>1?'s':''} gesichert, aber noch kein Short draus — easy Content! ✂️→📱`);
+  if(cur.best&&(cur.best.rating||0)>=4)tips.push(`Dein ${esc(cur.best.game)}-Stream lief top — mehr davon!`);
+  if(cur.videos>0&&cur.videos>prev.videos)tips.push('Video-Output steigt — Longform baut deinen Kanal langfristig auf 🎬');
+  if(!tips.length)tips.push('Trag regelmäßig ein, dann siehst du hier deine Trends 📊');
+  return `<div class="summary-insight">💡 ${tips[Math.floor(Math.random()*tips.length)]}</div>`;
+}
+function renderSummary(){
+  const body=document.getElementById('summaryBody');if(!body)return;
+  document.getElementById('sumWeekBtn').classList.toggle('active',summaryMode==='week');
+  document.getElementById('sumMonthBtn').classList.toggle('active',summaryMode==='month');
+  const days=summaryMode==='week'?7:30;
+  const now=new Date();
+  const toD=new Date(now);toD.setDate(toD.getDate()+1);const to=localDateStr(toD);
+  const fromD=new Date(now);fromD.setDate(fromD.getDate()-days+1);const from=localDateStr(fromD);
+  const prevFromD=new Date(fromD);prevFromD.setDate(prevFromD.getDate()-days);const prevFrom=localDateStr(prevFromD);
+  const cur=_rangeStats(from,to),prev=_rangeStats(prevFrom,from);
+  const label=summaryMode==='week'?'letzte 7 Tage':'letzte 30 Tage';
+  const prevLabel=summaryMode==='week'?'Vorwoche':'Vormonat';
+  const empty=!cur.streams&&!cur.videos&&!cur.shorts&&!cur.clips;
+  if(empty){
+    body.innerHTML=`<p style="font-size:13px;color:var(--muted);padding:6px 0">Noch nichts eingetragen (${label}). Zeit für Content — oder trag deine letzten Streams & Uploads nach! 🚀</p>`+_insightHtml(cur,prev);
+    return;
+  }
+  const lines=[];
+  if(cur.streams)lines.push(`<div class="summary-line">🎥 <b>${cur.streams} Stream${cur.streams>1?'s':''}</b> · ${cur.hours.toFixed(1)}h ${_trendHtml(cur.streams,prev.streams,prevLabel)}</div>`);
+  if(cur.avgV)lines.push(`<div class="summary-line">👀 Ø <b>${cur.avgV.toFixed(1)} Viewer</b> · Peak ${cur.peak} ${_trendHtml(+cur.avgV.toFixed(1),+prev.avgV.toFixed(1),prevLabel)}</div>`);
+  if(cur.fol||cur.subs)lines.push(`<div class="summary-line">➕ <b>${cur.fol} Follower</b> · 💜 ${cur.subs} Subs ${_trendHtml(cur.fol,prev.fol,prevLabel)}</div>`);
+  if(cur.videos||cur.shorts)lines.push(`<div class="summary-line">🎬 <b>${cur.videos} Video${cur.videos!==1?'s':''}</b> · 📱 <b>${cur.shorts} Short${cur.shorts!==1?'s':''}</b> ${_trendHtml(cur.videos+cur.shorts,prev.videos+prev.shorts,prevLabel)}</div>`);
+  if(cur.clips)lines.push(`<div class="summary-line">✂️ <b>${cur.clips} Clip${cur.clips>1?'s':''}</b> gesichert ${_trendHtml(cur.clips,prev.clips,prevLabel)}</div>`);
+  if(cur.best)lines.push(`<div class="summary-line">⭐ Bester Stream: <b>${esc(cur.best.game)}</b> ${'⭐'.repeat(cur.best.rating||0)} (Peak ${cur.best.peak||0})</div>`);
+  body.innerHTML=lines.join('')+_insightHtml(cur,prev);
+}
+
+// ===== EINTRAGS-ERINNERUNG =====
+function renderLogReminder(){
+  const el=document.getElementById('logReminder');if(!el)return;
+  const streams=getStreams();
+  const y=new Date();y.setDate(y.getDate()-1);const yStr=localDateStr(y);
+  const hadSlotY=getSchedule().some(s=>s.day===y.getDay());
+  const loggedY=streams.some(s=>s.date===yStr);
+  const now=new Date();const tStr=localDateStr(now);
+  const endedToday=getSchedule().some(s=>{if(s.day!==now.getDay())return false;const endMin=s.h*60+(s.min||0)+Math.round(s.dur*60);return now.getHours()*60+now.getMinutes()>endMin});
+  const loggedT=streams.some(s=>s.date===tStr);
+  let msg=null,date=null;
+  if(endedToday&&!loggedT){msg='Dein heutiger Stream ist vorbei — trag die Stats ein solange alles frisch ist! 🎥';date=tStr}
+  else if(hadSlotY&&!loggedY){msg='Gestern war Stream-Tag — Stats eintragen nicht vergessen! 🎥';date=yStr}
+  if(!msg){el.innerHTML='';return}
+  el.innerHTML=`<div class="card reminder-card"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="font-size:13px;flex:1">${msg}</span><button class="btn btn-primary btn-sm" onclick="goLogStream('${date}')">Jetzt eintragen</button></div></div>`;
+}
+function goLogStream(date){switchToTab('content');switchToSub('streams');const d=document.getElementById('shDate');if(d)d.value=date;window.scrollTo({top:0,behavior:'smooth'})}
+
+// ===== QUICK-ADD FAB =====
+function toggleFab(){document.getElementById('fab').classList.toggle('open')}
+function quickAdd(what){
+  document.getElementById('fab').classList.remove('open');
+  if(what==='stream'){switchToTab('content');switchToSub('streams');const d=document.getElementById('shDate');if(d)d.value=localDateStr()}
+  if(what==='clip'){switchToTab('content');switchToSub('clips');setTimeout(()=>document.getElementById('clTitle')?.focus(),50)}
+  if(what==='short'){switchToTab('content');switchToSub('shorts');setTimeout(()=>document.getElementById('srTitle')?.focus(),50)}
+  if(what==='idea'){switchToTab('content');switchToSub('ideas');const det=document.getElementById('newIdeaTitle')?.closest('details');if(det)det.open=true;setTimeout(()=>document.getElementById('newIdeaTitle')?.focus(),50)}
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.addEventListener('click',e=>{const f=document.getElementById('fab');if(f&&f.classList.contains('open')&&!e.target.closest('.fab'))f.classList.remove('open')});
+
+renderGreeting();renderSummary();renderLogReminder();
+const _sfxCb=document.getElementById('sfxToggle');if(_sfxCb)_sfxCb.checked=sfxOn();
+</script>
+</body>
+</html>
